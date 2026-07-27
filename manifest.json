@@ -10,7 +10,9 @@
     "vanillaJsPath": "vanilla/floating-image-gallery.js",
     "reactPath": "react/FloatingImageGallery.tsx",
     "reactStylePath": "react/FloatingImageGallery.module.css",
-    "note": "Built for a 5x4 (20-item) art/design display. Hover grows the card 25% and dims siblings (center stage); click opens full screen. Adjusted from a KP-supplied reference per instruction: more gap, higher hover lift, bigger grow."
+    "note": "Built for a 5x4 (20-item) art/design display. Hover grows the card 25% and dims siblings (center stage); click opens full screen. Adjusted from a KP-supplied reference per instruction: more gap, higher hover lift, bigger grow.",
+    "vanillaReadmePath": "vanilla/floating-image-gallery.README.md",
+    "reactReadmePath": "react/FloatingImageGallery.README.md"
   },
   {
     "name": "floating-card",
@@ -21,7 +23,9 @@
     "perfNotes": "cheap — CSS custom properties and one idle transform animation",
     "vanillaPath": "vanilla/floating-card.css",
     "reactPath": "react/FloatingCard.tsx",
-    "reactStylePath": "react/FloatingCard.module.css"
+    "reactStylePath": "react/FloatingCard.module.css",
+    "vanillaReadmePath": "vanilla/floating-card.README.md",
+    "reactReadmePath": "react/FloatingCard.README.md"
   },
   {
     "name": "aurora-glass",
@@ -32,7 +36,9 @@
     "perfNotes": "cheap — CSS gradients and backdrop-filter, no JS",
     "vanillaPath": "vanilla/aurora-glass.css",
     "reactPath": "react/AuroraGlass.tsx",
-    "reactStylePath": "react/AuroraGlass.module.css"
+    "reactStylePath": "react/AuroraGlass.module.css",
+    "vanillaReadmePath": "vanilla/aurora-glass.README.md",
+    "reactReadmePath": "react/AuroraGlass.README.md"
   },
   {
     "name": "twirling-icon",
@@ -43,7 +49,9 @@
     "perfNotes": "cheap — one CSS rotation animation, no JS",
     "vanillaPath": "vanilla/twirling-icon.css",
     "reactPath": "react/TwirlingIcon.tsx",
-    "reactStylePath": "react/TwirlingIcon.module.css"
+    "reactStylePath": "react/TwirlingIcon.module.css",
+    "vanillaReadmePath": "vanilla/twirling-icon.README.md",
+    "reactReadmePath": "react/TwirlingIcon.README.md"
   },
   {
     "name": "shimmer-text",
@@ -54,7 +62,9 @@
     "perfNotes": "cheap — background gradient animation, no JS",
     "vanillaPath": "vanilla/shimmer-text.css",
     "reactPath": "react/ShimmerText.tsx",
-    "reactStylePath": "react/ShimmerText.module.css"
+    "reactStylePath": "react/ShimmerText.module.css",
+    "vanillaReadmePath": "vanilla/shimmer-text.README.md",
+    "reactReadmePath": "react/ShimmerText.README.md"
   },
   {
     "name": "pulse-ring",
@@ -65,7 +75,9 @@
     "perfNotes": "cheap — pseudo-elements and CSS animation, no JS",
     "vanillaPath": "vanilla/pulse-ring.css",
     "reactPath": "react/PulseRing.tsx",
-    "reactStylePath": "react/PulseRing.module.css"
+    "reactStylePath": "react/PulseRing.module.css",
+    "vanillaReadmePath": "vanilla/pulse-ring.README.md",
+    "reactReadmePath": "react/PulseRing.README.md"
   },
   {
     "name": "cursor-spotlight-card",
@@ -77,7 +89,9 @@
     "vanillaPath": "vanilla/cursor-spotlight-card.css",
     "vanillaJsPath": "vanilla/cursor-spotlight-card.js",
     "reactPath": "react/CursorSpotlightCard.tsx",
-    "reactStylePath": "react/CursorSpotlightCard.module.css"
+    "reactStylePath": "react/CursorSpotlightCard.module.css",
+    "vanillaReadmePath": "vanilla/cursor-spotlight-card.README.md",
+    "reactReadmePath": "react/CursorSpotlightCard.README.md"
   },
   {
     "name": "magnetic-action-button",
@@ -89,7 +103,9 @@
     "vanillaPath": "vanilla/magnetic-action-button.css",
     "vanillaJsPath": "vanilla/magnetic-action-button.js",
     "reactPath": "react/MagneticActionButton.tsx",
-    "reactStylePath": "react/MagneticActionButton.module.css"
+    "reactStylePath": "react/MagneticActionButton.module.css",
+    "vanillaReadmePath": "vanilla/magnetic-action-button.README.md",
+    "reactReadmePath": "react/MagneticActionButton.README.md"
   },
   {
     "name": "dimensional-tilt-card",
@@ -101,7 +117,9 @@
     "vanillaPath": "vanilla/dimensional-tilt-card.css",
     "vanillaJsPath": "vanilla/dimensional-tilt-card.js",
     "reactPath": "react/DimensionalTiltCard.tsx",
-    "reactStylePath": "react/DimensionalTiltCard.module.css"
+    "reactStylePath": "react/DimensionalTiltCard.module.css",
+    "vanillaReadmePath": "vanilla/dimensional-tilt-card.README.md",
+    "reactReadmePath": "react/DimensionalTiltCard.README.md"
   },
   {
     "name": "morphing-mobile-nav",
@@ -113,7 +131,9 @@
     "vanillaPath": "vanilla/morphing-mobile-nav.css",
     "vanillaJsPath": "vanilla/morphing-mobile-nav.js",
     "reactPath": "react/MorphingMobileNav.tsx",
-    "reactStylePath": "react/MorphingMobileNav.module.css"
+    "reactStylePath": "react/MorphingMobileNav.module.css",
+    "vanillaReadmePath": "vanilla/morphing-mobile-nav.README.md",
+    "reactReadmePath": "react/MorphingMobileNav.README.md"
   },
   {
     "name": "liquid-mode-toggle",
@@ -125,7 +145,9 @@
     "vanillaPath": "vanilla/liquid-mode-toggle.css",
     "vanillaJsPath": "vanilla/liquid-mode-toggle.js",
     "reactPath": "react/LiquidModeToggle.tsx",
-    "reactStylePath": "react/LiquidModeToggle.module.css"
+    "reactStylePath": "react/LiquidModeToggle.module.css",
+    "vanillaReadmePath": "vanilla/liquid-mode-toggle.README.md",
+    "reactReadmePath": "react/LiquidModeToggle.README.md"
   },
   {
     "name": "command-palette-bloom",
@@ -137,7 +159,9 @@
     "vanillaPath": "vanilla/command-palette-bloom.css",
     "vanillaJsPath": "vanilla/command-palette-bloom.js",
     "reactPath": "react/CommandPaletteBloom.tsx",
-    "reactStylePath": "react/CommandPaletteBloom.module.css"
+    "reactStylePath": "react/CommandPaletteBloom.module.css",
+    "vanillaReadmePath": "vanilla/command-palette-bloom.README.md",
+    "reactReadmePath": "react/CommandPaletteBloom.README.md"
   },
   {
     "name": "cinematic-type-reveal",
@@ -149,7 +173,9 @@
     "vanillaPath": "vanilla/cinematic-type-reveal.css",
     "vanillaJsPath": "vanilla/cinematic-type-reveal.js",
     "reactPath": "react/CinematicTypeReveal.tsx",
-    "reactStylePath": "react/CinematicTypeReveal.module.css"
+    "reactStylePath": "react/CinematicTypeReveal.module.css",
+    "vanillaReadmePath": "vanilla/cinematic-type-reveal.README.md",
+    "reactReadmePath": "react/CinematicTypeReveal.README.md"
   },
   {
     "name": "particle-cursor-trail",
@@ -161,7 +187,9 @@
     "vanillaPath": "vanilla/particle-cursor-trail.css",
     "vanillaJsPath": "vanilla/particle-cursor-trail.js",
     "reactPath": "react/ParticleCursorTrail.tsx",
-    "reactStylePath": "react/ParticleCursorTrail.module.css"
+    "reactStylePath": "react/ParticleCursorTrail.module.css",
+    "vanillaReadmePath": "vanilla/particle-cursor-trail.README.md",
+    "reactReadmePath": "react/ParticleCursorTrail.README.md"
   },
   {
     "name": "living-analytics",
@@ -173,7 +201,9 @@
     "vanillaPath": "vanilla/living-analytics.css",
     "vanillaJsPath": "vanilla/living-analytics.js",
     "reactPath": "react/LivingAnalytics.tsx",
-    "reactStylePath": "react/LivingAnalytics.module.css"
+    "reactStylePath": "react/LivingAnalytics.module.css",
+    "vanillaReadmePath": "vanilla/living-analytics.README.md",
+    "reactReadmePath": "react/LivingAnalytics.README.md"
   },
   {
     "name": "marquee-logo-strip",
@@ -184,7 +214,9 @@
     "perfNotes": "cheap — duplicated content strip and one CSS animation, no JS",
     "vanillaPath": "vanilla/marquee-logo-strip.css",
     "reactPath": "react/MarqueeLogoStrip.tsx",
-    "reactStylePath": "react/MarqueeLogoStrip.module.css"
+    "reactStylePath": "react/MarqueeLogoStrip.module.css",
+    "vanillaReadmePath": "vanilla/marquee-logo-strip.README.md",
+    "reactReadmePath": "react/MarqueeLogoStrip.README.md"
   },
   {
     "name": "scroll-linked-hue",
@@ -196,7 +228,9 @@
     "vanillaPath": "vanilla/scroll-linked-hue.css",
     "vanillaJsPath": "vanilla/scroll-linked-hue.js",
     "reactPath": "react/ScrollLinkedHue.tsx",
-    "reactStylePath": "react/ScrollLinkedHue.module.css"
+    "reactStylePath": "react/ScrollLinkedHue.module.css",
+    "vanillaReadmePath": "vanilla/scroll-linked-hue.README.md",
+    "reactReadmePath": "react/ScrollLinkedHue.README.md"
   },
   {
     "name": "staggered-scroll-reveal",
@@ -208,7 +242,9 @@
     "vanillaPath": "vanilla/staggered-scroll-reveal.css",
     "vanillaJsPath": "vanilla/staggered-scroll-reveal.js",
     "reactPath": "react/StaggeredScrollReveal.tsx",
-    "reactStylePath": "react/StaggeredScrollReveal.module.css"
+    "reactStylePath": "react/StaggeredScrollReveal.module.css",
+    "vanillaReadmePath": "vanilla/staggered-scroll-reveal.README.md",
+    "reactReadmePath": "react/StaggeredScrollReveal.README.md"
   },
   {
     "name": "noise-grain-overlay",
@@ -219,6 +255,8 @@
     "perfNotes": "cheap — static inline SVG feTurbulence background, no JS",
     "vanillaPath": "vanilla/noise-grain-overlay.css",
     "reactPath": "react/NoiseGrainOverlay.tsx",
-    "reactStylePath": "react/NoiseGrainOverlay.module.css"
+    "reactStylePath": "react/NoiseGrainOverlay.module.css",
+    "vanillaReadmePath": "vanilla/noise-grain-overlay.README.md",
+    "reactReadmePath": "react/NoiseGrainOverlay.README.md"
   }
 ]
