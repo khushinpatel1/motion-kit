@@ -1,0 +1,1 @@
+.shb-background{--hue:220;--alpha:.18;min-height:260px;padding:28px;border-radius:24px;background:hsl(var(--hue) 70% 42% / var(--alpha));transition:background var(--motion-fast) var(--ease-out-soft)}

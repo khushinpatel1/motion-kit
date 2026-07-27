@@ -1,0 +1,368 @@
+/* Floating Image Gallery — React (CSS Modules) form.
+   Same component as vanilla/floating-image-gallery.css, scoped for CSS
+   Modules and paired with FloatingImageGallery.tsx. Adjustments made on
+   request: hover grows the card 25% and pulls it to center stage (siblings
+   dim), more breathing room between cards, and a higher hover lift so the
+   grid reads as levitating rather than just enlarging in place.
+
+   Class names are plain (not BEM-prefixed) because CSS Modules scopes them
+   per-file automatically — see FloatingImageGallery.tsx for how they're
+   referenced via the `styles` import.
+
+   Custom properties (--motion-*, --ease-*) come from tokens.css, which must
+   be imported globally somewhere in the app (module scoping doesn't affect
+   CSS custom property cascade). Nothing here hardcodes its own timing. */
+
+.fig-gallery {
+  --fig-columns: 5;
+  --fig-gap: 64px;
+  --fig-hover-scale: 1.25;
+  --fig-hover-lift: -56px;
+
+  display: grid;
+  grid-template-columns: repeat(var(--fig-columns), minmax(0, 1fr));
+  gap: var(--fig-gap);
+  padding: 40px;
+  perspective: 1600px;
+}
+
+.fig-shell {
+  position: relative;
+  height: 230px;
+  transform-style: preserve-3d;
+  animation: fig-idle-float var(--motion-ambient) var(--ease-out-soft) infinite;
+  animation-delay: calc(var(--fig-idle-delay, 0) * -1s);
+  z-index: 1;
+}
+
+/* Per-item variety so the field doesn't breathe in lockstep — JS sets
+   --fig-idle-delay and --fig-idle-amp per card; these are the fallbacks. */
+.fig-shell:nth-child(3n+1) { --fig-idle-amp: -16px; }
+.fig-shell:nth-child(3n+2) { --fig-idle-amp: 14px; }
+.fig-shell:nth-child(5n)   { --fig-idle-amp: -8px; }
+
+@keyframes fig-idle-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(var(--fig-idle-amp, -12px)); }
+}
+
+.fig-shell:hover,
+.fig-shell:focus-within {
+  z-index: 30;
+  animation-play-state: paused;
+}
+
+/* Center stage: dim and recede every sibling once one card is hovered.
+   Progressive enhancement — browsers without :has() just skip the dim and
+   still get the grow + lift below. */
+.fig-gallery:has(.fig-shell:hover) .fig-shell:not(:hover):not(:focus-within) .fig-lift {
+  opacity: .38;
+  filter: saturate(.65);
+  transform: scale(.94);
+}
+
+.fig-lift {
+  height: 100%;
+  transition:
+    transform var(--motion-slow) var(--ease-out-expressive),
+    opacity var(--motion-base) var(--ease-out-soft),
+    filter var(--motion-base) var(--ease-out-soft);
+}
+
+.fig-shell:hover .fig-lift,
+.fig-shell:focus-within .fig-lift {
+  transform: translateY(var(--fig-hover-lift)) scale(var(--fig-hover-scale));
+}
+
+.fig-card {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  padding: 0;
+  border-radius: 24px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform var(--motion-slow) var(--ease-out-expressive), box-shadow var(--motion-base) ease;
+  cursor: pointer;
+  background: transparent;
+  box-shadow:
+    0 22px 55px rgba(0, 0, 0, .5),
+    0 7px 20px rgba(0, 0, 0, .34),
+    inset 0 1px 0 rgba(255, 255, 255, .16);
+}
+
+.fig-shell:hover .fig-card,
+.fig-shell:focus-within .fig-card {
+  transform: rotateY(180deg);
+  /* bigger, softer shadow sells the extra height from --fig-hover-lift */
+  box-shadow:
+    0 64px 140px rgba(0, 0, 0, .62),
+    0 24px 56px rgba(0, 0, 0, .46);
+}
+
+.fig-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  overflow: hidden;
+  backface-visibility: hidden;
+  border: 1px solid rgba(255, 255, 255, .16);
+  background: #11141a;
+}
+
+.fig-face img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.fig-front::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, transparent 46%, rgba(0, 0, 0, .74)),
+    linear-gradient(135deg, rgba(255, 255, 255, .12), transparent 30%);
+}
+
+.fig-label {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 14px;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.fig-label strong {
+  color: #fff;
+  font-size: 15px;
+  letter-spacing: -.02em;
+}
+
+.fig-label span {
+  font-size: 11px;
+  color: rgba(255, 255, 255, .68);
+  border: 1px solid rgba(255, 255, 255, .22);
+  padding: 5px 8px;
+  border-radius: 999px;
+  backdrop-filter: blur(10px);
+}
+
+.fig-back {
+  transform: rotateY(180deg);
+  display: flex;
+  align-items: flex-end;
+}
+
+.fig-back::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, .05), rgba(0, 0, 0, .86));
+  z-index: 1;
+}
+
+.fig-back-copy {
+  position: relative;
+  z-index: 2;
+  padding: 19px;
+  text-align: left;
+  width: 100%;
+}
+
+.fig-back-copy small {
+  display: block;
+  color: rgba(255, 255, 255, .66);
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.fig-back-copy strong {
+  display: block;
+  color: #fff;
+  font-size: 21px;
+  line-height: 1.05;
+  margin-top: 7px;
+  letter-spacing: -.035em;
+}
+
+.fig-back-copy em {
+  display: inline-flex;
+  margin-top: 12px;
+  font-style: normal;
+  font-size: 12px;
+  color: white;
+  padding: 8px 11px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .13);
+  border: 1px solid rgba(255, 255, 255, .18);
+  backdrop-filter: blur(12px);
+}
+
+.fig-glow {
+  position: absolute;
+  inset: 12%;
+  border-radius: 24px;
+  z-index: -1;
+  filter: blur(30px);
+  opacity: .22;
+  background: linear-gradient(135deg, #7dd3fc, #c4b5fd, #86efac);
+  transition: opacity var(--motion-base) ease, transform var(--motion-base) ease;
+}
+
+.fig-shell:hover .fig-glow,
+.fig-shell:focus-within .fig-glow {
+  opacity: .72;
+  transform: scale(1.15);
+}
+
+/* Fullscreen modal — click opens the selected image full screen */
+.fig-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: rgba(2, 3, 6, .82);
+  backdrop-filter: blur(22px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--motion-base) ease;
+}
+
+.fig-modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.fig-modal-inner {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 38px;
+  transform: scale(.92);
+  transition: transform var(--motion-slow) var(--ease-out-expressive);
+}
+
+.fig-modal.is-open .fig-modal-inner {
+  transform: scale(1);
+}
+
+.fig-modal-figure {
+  width: min(92vw, 1500px);
+  height: min(84vh, 950px);
+  margin: 0;
+  position: relative;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 50px 180px rgba(0, 0, 0, .7);
+  border: 1px solid rgba(255, 255, 255, .18);
+  background: #090b10;
+}
+
+.fig-modal-figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.035);
+  transition: transform var(--motion-slow) var(--ease-out-expressive);
+}
+
+.fig-modal.is-open .fig-modal-figure img {
+  transform: scale(1);
+}
+
+.fig-modal-figure::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(0, 0, 0, .76));
+  pointer-events: none;
+}
+
+.fig-modal-caption {
+  position: absolute;
+  z-index: 3;
+  left: 28px;
+  right: 28px;
+  bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 24px;
+}
+
+.fig-modal-caption h2 {
+  color: #fff;
+  font-size: clamp(24px, 4vw, 48px);
+  margin: 0;
+  letter-spacing: -.05em;
+}
+
+.fig-modal-caption p {
+  max-width: 480px;
+  margin: 0;
+  color: rgba(255, 255, 255, .72);
+  line-height: 1.5;
+}
+
+.fig-modal-close {
+  position: fixed;
+  top: 22px;
+  right: 22px;
+  z-index: 110;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, .18);
+  background: rgba(255, 255, 255, .08);
+  color: white;
+  font-size: 25px;
+  cursor: pointer;
+  backdrop-filter: blur(14px);
+  transition: background var(--motion-fast) ease, color var(--motion-fast) ease, transform var(--motion-fast) ease;
+}
+
+.fig-modal-close:hover {
+  background: white;
+  color: #111;
+  transform: rotate(90deg);
+}
+
+@media (max-width: 1200px) {
+  .fig-gallery { --fig-columns: 4; --fig-gap: 44px; }
+}
+
+@media (max-width: 900px) {
+  .fig-gallery { --fig-columns: 2; --fig-gap: 28px; }
+  .fig-shell { height: 250px; }
+  .fig-shell:hover .fig-lift,
+  .fig-shell:focus-within .fig-lift { transform: translateY(-20px) scale(1.08); }
+  .fig-modal-caption { display: block; }
+  .fig-modal-caption p { margin-top: 10px; }
+}
+
+@media (max-width: 560px) {
+  .fig-gallery { --fig-columns: 1; --fig-gap: 20px; padding: 20px; }
+  .fig-shell { height: 320px; }
+  .fig-modal-inner { padding: 12px; }
+  .fig-modal-figure { width: 100%; height: 88vh; border-radius: 22px; }
+  .fig-modal-caption { left: 20px; right: 20px; bottom: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* tokens.css zeroes every duration, which collapses all transitions above
+     to instant state changes — sufficient on its own. The idle float is a
+     continuous animation, not a one-off transition, so it needs an explicit
+     stop rather than relying on a 0ms duration (a 0ms infinite loop still
+     recomputes every frame). */
+  .fig-shell { animation: none; }
+}

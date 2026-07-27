@@ -1,0 +1,1 @@
+.card{--x:50%;--y:50%;display:grid;gap:10px;padding:26px;color:#fff;border:1px solid rgba(255,255,255,.15);border-radius:22px;background:radial-gradient(circle at var(--x) var(--y),rgba(125,211,252,.34),transparent 28%),linear-gradient(135deg,#1e293b,#111827);transition:transform var(--motion-fast) var(--ease-out-soft)}.card:hover{transform:translateY(-5px)}

@@ -1,0 +1,1 @@
+export function mountLiquidModeToggle(root, { onChange } = {}) { if (!root) return { destroy() {} }; const click = () => { const pressed = root.getAttribute("aria-pressed") === "true"; root.setAttribute("aria-pressed", String(!pressed)); onChange?.(!pressed); }; root.addEventListener("click", click); return { destroy() { root.removeEventListener("click", click); } }; }

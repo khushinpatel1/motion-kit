@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Motion Kit — 19 effects</title>
+  <link rel="stylesheet" href="../tokens.css">
+  <link rel="stylesheet" href="../vanilla/floating-card.css">
+  <link rel="stylesheet" href="../vanilla/aurora-glass.css">
+  <link rel="stylesheet" href="../vanilla/twirling-icon.css">
+  <link rel="stylesheet" href="../vanilla/shimmer-text.css">
+  <link rel="stylesheet" href="../vanilla/pulse-ring.css">
+  <link rel="stylesheet" href="../vanilla/cursor-spotlight-card.css">
+  <link rel="stylesheet" href="../vanilla/magnetic-action-button.css">
+  <link rel="stylesheet" href="../vanilla/dimensional-tilt-card.css">
+  <link rel="stylesheet" href="../vanilla/morphing-mobile-nav.css">
+  <link rel="stylesheet" href="../vanilla/liquid-mode-toggle.css">
+  <link rel="stylesheet" href="../vanilla/command-palette-bloom.css">
+  <link rel="stylesheet" href="../vanilla/cinematic-type-reveal.css">
+  <link rel="stylesheet" href="../vanilla/particle-cursor-trail.css">
+  <link rel="stylesheet" href="../vanilla/living-analytics.css">
+  <link rel="stylesheet" href="../vanilla/marquee-logo-strip.css">
+  <link rel="stylesheet" href="../vanilla/scroll-linked-hue.css">
+  <link rel="stylesheet" href="../vanilla/staggered-scroll-reveal.css">
+  <link rel="stylesheet" href="../vanilla/noise-grain-overlay.css">
+  <link rel="stylesheet" href="../vanilla/floating-image-gallery.css">
+  <style>
+    :root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;min-width:320px;color:#e2e8f0;background:#070a12;font:15px/1.5 system-ui,sans-serif}main{width:min(1120px,calc(100% - 32px));margin:auto;padding:56px 0 100px}header{padding:24px 0 56px}h1{max-width:700px;margin:0;font-size:clamp(42px,8vw,84px);line-height:.95;letter-spacing:-.07em}h2{margin:54px 0 18px;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#a7f3d0}h3{margin:0 0 8px;font-size:25px;letter-spacing:-.04em}p{color:#94a3b8}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.demo{position:relative;min-height:150px;display:grid;align-content:center;gap:16px;padding:24px;border:1px solid rgba(255,255,255,.1);border-radius:20px;background:#0d1320}.wide{grid-column:1/-1}.swatch{min-height:150px;display:grid;place-items:end;padding:18px;border-radius:18px;background:linear-gradient(135deg,#0ea5e9,#7c3aed 50%,#f97316)}button{font:inherit}details{margin-top:14px;color:#64748b}summary{cursor:pointer;color:#cbd5e1}details a{color:#a7f3d0}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@media(max-width:680px){.grid{grid-template-columns:1fr}.wide{grid-column:auto}}
+  </style>
+</head>
+<body>
+<main>
+  <header><p>Motion Kit / motion-kit-build-2026-07</p><h1>Small, reusable motion with a shared clock.</h1><p>Dependency-free vanilla effects, paired React components, and explicit reduced-motion states.</p></header>
+
+  <section><h2>Ambient</h2><div class="grid">
+    <article class="demo"><div class="fc-card"><strong>Floating card</strong><span>Idle float, hover lift</span></div><details><summary>View source</summary><a href="../vanilla/floating-card.css">vanilla CSS</a> · React: <code>react/FloatingCard.tsx</code></details></article>
+    <article class="demo"><div class="ag-shell"><h3>Aurora glass</h3><p>Glass foreground over animated color.</p></div><details><summary>View source</summary><a href="../vanilla/aurora-glass.css">vanilla CSS</a> · React: <code>react/AuroraGlass.tsx</code></details></article>
+    <article class="demo"><span class="ti-icon" aria-label="Twirling sparkle" role="img"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 1 1.8 8.2L22 12l-8.2 1.8L12 22l-1.8-8.2L2 12l8.2-2.8L12 1Z"/></svg></span><details><summary>View source</summary><a href="../vanilla/twirling-icon.css">vanilla CSS</a> · React: <code>react/TwirlingIcon.tsx</code></details></article>
+    <article class="demo"><strong class="st-text" style="font-size:34px">Shimmer text</strong><details><summary>View source</summary><a href="../vanilla/shimmer-text.css">vanilla CSS</a> · React: <code>react/ShimmerText.tsx</code></details></article>
+    <article class="demo"><div><span class="pr-indicator" aria-hidden="true"></span> <span>Service active</span></div><details><summary>View source</summary><a href="../vanilla/pulse-ring.css">vanilla CSS</a> · React: <code>react/PulseRing.tsx</code></details></article>
+  </div></section>
+
+  <section><h2>Reactive</h2><div class="grid">
+    <article class="demo"><div class="cs-card" id="spotlight"><strong>Cursor spotlight card</strong><span>Move over me</span></div><details><summary>View source</summary><a href="../vanilla/cursor-spotlight-card.css">vanilla CSS</a> · <a href="../vanilla/cursor-spotlight-card.js">vanilla JS</a> · React: <code>react/CursorSpotlightCard.tsx</code></details></article>
+    <article class="demo"><button class="ma-button" id="magnetic">Magnetic action</button><details><summary>View source</summary><a href="../vanilla/magnetic-action-button.css">vanilla CSS</a> · <a href="../vanilla/magnetic-action-button.js">vanilla JS</a> · React: <code>react/MagneticActionButton.tsx</code></details></article>
+    <article class="demo"><div class="dt-card" id="tilt"><div class="dt-inner"><strong>Dimensional tilt card</strong><br><span>Move across the card</span></div></div><details><summary>View source</summary><a href="../vanilla/dimensional-tilt-card.css">vanilla CSS</a> · <a href="../vanilla/dimensional-tilt-card.js">vanilla JS</a> · React: <code>react/DimensionalTiltCard.tsx</code></details></article>
+  </div></section>
+
+  <section><h2>Interaction</h2><div class="grid">
+    <article class="demo"><nav class="mn-nav" id="nav"><span class="mn-indicator"></span><button class="mn-tab is-active">Home</button><button class="mn-tab">Library</button><button class="mn-tab">Settings</button></nav><details><summary>View source</summary><a href="../vanilla/morphing-mobile-nav.css">vanilla CSS</a> · <a href="../vanilla/morphing-mobile-nav.js">vanilla JS</a> · React: <code>react/MorphingMobileNav.tsx</code></details></article>
+    <article class="demo"><button class="lm-toggle" id="toggle" type="button" aria-pressed="false" aria-label="Toggle mode"></button><details><summary>View source</summary><a href="../vanilla/liquid-mode-toggle.css">vanilla CSS</a> · <a href="../vanilla/liquid-mode-toggle.js">vanilla JS</a> · React: <code>react/LiquidModeToggle.tsx</code></details></article>
+    <article class="demo"><button id="palette-trigger" type="button">Open ⌘K palette</button><div class="cp-backdrop" id="palette" aria-hidden="true"><div class="cp-panel" role="dialog" aria-modal="true"><input class="cp-input" placeholder="Type a command…" aria-label="Command" autofocus><div class="cp-list"><div class="cp-item">Open workspace</div><div class="cp-item">Search library</div><div class="cp-item">View settings</div></div></div></div><details><summary>View source</summary><a href="../vanilla/command-palette-bloom.css">vanilla CSS</a> · <a href="../vanilla/command-palette-bloom.js">vanilla JS</a> · React: <code>react/CommandPaletteBloom.tsx</code></details></article>
+  </div></section>
+
+  <section><h2>Entrance</h2><div class="grid"><article class="demo wide"><h3 id="type-reveal"><span class="ctr-line">Cinematic type</span><span class="ctr-line">arrives in layers.</span></h3><details><summary>View source</summary><a href="../vanilla/cinematic-type-reveal.css">vanilla CSS</a> · <a href="../vanilla/cinematic-type-reveal.js">vanilla JS</a> · React: <code>react/CinematicTypeReveal.tsx</code></details></article></div></section>
+
+  <section><h2>Expressive</h2><div class="grid"><article class="demo wide"><p>Move your pointer around the page for a particle trail.</p><details><summary>View source</summary><a href="../vanilla/particle-cursor-trail.css">vanilla CSS</a> · <a href="../vanilla/particle-cursor-trail.js">vanilla JS</a> · React: <code>react/ParticleCursorTrail.tsx</code></details></article></div></section>
+
+  <section><h2>Data</h2><div class="grid"><article class="demo"><div id="analytics"><strong class="la-count">0</strong><div class="la-chart"><span class="la-bar" style="--target:.42"></span><span class="la-bar" style="--target:.72"></span><span class="la-bar" style="--target:.55"></span><span class="la-bar" style="--target:.88"></span><span class="la-bar" style="--target:.63"></span></div></div><details><summary>View source</summary><a href="../vanilla/living-analytics.css">vanilla CSS</a> · <a href="../vanilla/living-analytics.js">vanilla JS</a> · React: <code>react/LivingAnalytics.tsx</code></details></article></div></section>
+
+  <section><h2>Data-adjacent</h2><div class="grid"><article class="demo wide"><div class="ml-viewport"><div class="ml-track"><div class="ml-group"><span>Verdant</span><span>Garden</span><span>Motion Kit</span><span>Studio</span></div><div class="ml-group"><span>Verdant</span><span>Garden</span><span>Motion Kit</span><span>Studio</span></div></div></div><details><summary>View source</summary><a href="../vanilla/marquee-logo-strip.css">vanilla CSS</a> · React: <code>react/MarqueeLogoStrip.tsx</code></details></article></div></section>
+
+  <section><h2>Scroll</h2><div class="grid"><article class="demo"><div class="shb-background" id="hue"><strong>Scroll-linked hue</strong><p>Its background follows document progress.</p></div><details><summary>View source</summary><a href="../vanilla/scroll-linked-hue.css">vanilla CSS</a> · <a href="../vanilla/scroll-linked-hue.js">vanilla JS</a> · React: <code>react/ScrollLinkedHue.tsx</code></details></article><article class="demo"><div id="reveal"><div class="ssr-item" data-stagger-item>First item enters</div><div class="ssr-item" data-stagger-item>Second item enters</div><div class="ssr-item" data-stagger-item>Third item enters</div></div><details><summary>View source</summary><a href="../vanilla/staggered-scroll-reveal.css">vanilla CSS</a> · <a href="../vanilla/staggered-scroll-reveal.js">vanilla JS</a> · React: <code>react/StaggeredScrollReveal.tsx</code></details></article></div></section>
+
+  <section><h2>Atmosphere</h2><div class="grid"><article class="demo wide"><div style="position:relative"><div class="ngo-overlay"></div><div class="swatch">Noise / grain overlay</div></div><details><summary>View source</summary><a href="../vanilla/noise-grain-overlay.css">vanilla CSS</a> · React: <code>react/NoiseGrainOverlay.tsx</code></details></article></div></section>
+
+  <section><h2>Gallery</h2><div class="grid"><article class="demo wide"><div id="gallery"></div><details><summary>View source</summary><a href="../vanilla/floating-image-gallery.css">vanilla CSS</a> · <a href="../vanilla/floating-image-gallery.js">vanilla JS</a> · React: <code>react/FloatingImageGallery.tsx</code></details></article></div></section>
+</main>
+<script type="module">
+  import { mountCursorSpotlightCard } from "../vanilla/cursor-spotlight-card.js";
+  import { mountMagneticActionButton } from "../vanilla/magnetic-action-button.js";
+  import { mountDimensionalTiltCard } from "../vanilla/dimensional-tilt-card.js";
+  import { mountMorphingMobileNav } from "../vanilla/morphing-mobile-nav.js";
+  import { mountLiquidModeToggle } from "../vanilla/liquid-mode-toggle.js";
+  import { mountCommandPaletteBloom } from "../vanilla/command-palette-bloom.js";
+  import { mountCinematicTypeReveal } from "../vanilla/cinematic-type-reveal.js";
+  import { mountParticleCursorTrail } from "../vanilla/particle-cursor-trail.js";
+  import { mountLivingAnalytics } from "../vanilla/living-analytics.js";
+  import { mountScrollLinkedHue } from "../vanilla/scroll-linked-hue.js";
+  import { mountStaggeredScrollReveal } from "../vanilla/staggered-scroll-reveal.js";
+  import { mountFloatingImageGallery } from "../vanilla/floating-image-gallery.js";
+  mountCursorSpotlightCard(document.querySelector("#spotlight"));
+  mountMagneticActionButton(document.querySelector("#magnetic"));
+  mountDimensionalTiltCard(document.querySelector("#tilt"));
+  mountMorphingMobileNav(document.querySelector("#nav"));
+  mountLiquidModeToggle(document.querySelector("#toggle"));
+  mountCommandPaletteBloom(document.querySelector("#palette"), { trigger: document.querySelector("#palette-trigger") });
+  mountCinematicTypeReveal(document.querySelector("#type-reveal"));
+  mountParticleCursorTrail();
+  mountLivingAnalytics(document.querySelector("#analytics"));
+  mountScrollLinkedHue(document.querySelector("#hue"));
+  mountStaggeredScrollReveal(document.querySelector("#reveal"));
+  const swatch = (a,b) => "data:image/svg+xml," + encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' width='800' height='500'><defs><linearGradient id='g' x2='1' y2='1'><stop stop-color='"+a+"'/><stop offset='1' stop-color='"+b+"'/></linearGradient></defs><rect width='100%' height='100%' fill='url(#g)'/><text x='36' y='450' fill='white' font-family='sans-serif' font-size='28'>Floating image gallery</text></svg>");
+  mountFloatingImageGallery(document.querySelector("#gallery"), { columns: 3, items: ["#7c3aed,#06b6d4","#0f766e,#f59e0b","#be123c,#312e81","#0369a1,#16a34a","#c2410c,#7e22ce","#4338ca,#0f766e"].map((colors,i) => { const [a,b] = colors.split(","); return { title: "Gallery swatch "+(i+1), description: "Offline placeholder plate", src: swatch(a,b), alt: "Gradient placeholder for floating image gallery" }; }) });
+</script>
+</body>
+</html>

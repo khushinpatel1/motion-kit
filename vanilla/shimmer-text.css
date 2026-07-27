@@ -1,0 +1,1 @@
+.st-text{color:transparent;background:linear-gradient(110deg,#94a3b8 25%,#fff 45%,#94a3b8 65%);background-size:250% 100%;background-clip:text;-webkit-background-clip:text;animation:st-sweep var(--motion-ambient) var(--ease-linear) infinite}@keyframes st-sweep{to{background-position:-250% 0}}@media(prefers-reduced-motion:reduce){.st-text{animation:none}}

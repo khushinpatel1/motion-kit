@@ -1,0 +1,1 @@
+.ssr-item{opacity:0;transform:translateY(22px);transition:opacity var(--motion-base) var(--ease-out-expressive),transform var(--motion-base) var(--ease-out-expressive);transition-delay:var(--ssr-delay,0)}.ssr-item.is-visible{opacity:1;transform:none}@media(prefers-reduced-motion:reduce){.ssr-item{opacity:1;transform:none;transition:none}}

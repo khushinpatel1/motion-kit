@@ -1,0 +1,1 @@
+.button{--mx:0px;--my:0px;min-height:48px;padding:0 22px;border:0;border-radius:999px;color:#07111f;background:#a7f3d0;transform:translate(var(--mx),var(--my));transition:transform var(--motion-fast) var(--ease-out-soft);cursor:pointer}
