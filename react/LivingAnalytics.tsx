@@ -1,4 +1,62 @@
+/* Living Analytics — React port of vanilla/living-analytics.js/.css. Expects value and normalized targets (0–1); reduced motion sets the count and bars directly to final values. */
 import { useEffect, useRef, useState } from "react";
 import styles from "./LivingAnalytics.module.css";
-export interface LivingAnalyticsProps { value?: number; targets?: number[]; }
-export function LivingAnalytics({ value=8420,targets=[.42,.72,.55,.88,.63] }: LivingAnalyticsProps) { const [count,setCount]=useState(0);const [visible,setVisible]=useState(false);const ref=useRef<HTMLDivElement>(null);useEffect(()=>{const root=ref.current;if(!root)return;const reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;const ob=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){setVisible(true);if(reduced)setCount(value);else{const duration=parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--motion-base"));const start=performance.now();const tick=(now:number)=>{const p=Math.min(1,(now-start)/duration);setCount(Math.round(value*(1-Math.pow(1-p,3))));if(p<1)requestAnimationFrame(tick)};requestAnimationFrame(tick)}ob.disconnect()} });ob.observe(root);return()=>ob.disconnect()},[value]);return <div ref={ref} className={styles.root}><strong className={styles.count}>{count.toLocaleString()}</strong><div className={styles.chart+" "+(visible?styles.visible:"")}>{targets.map((target,i)=><span key={i} className={styles.bar} style={{["--target" as string]:target,["--delay" as string]:"calc(var(--motion-instant) * "+i+")"}}/>)}</div></div>; }
+export interface LivingAnalyticsProps {
+  value?: number;
+  targets?: number[];
+}
+export function LivingAnalytics({
+  value = 8420,
+  targets = [0.42, 0.72, 0.55, 0.88, 0.63],
+}: LivingAnalyticsProps) {
+  const [count, setCount] = useState(0);
+  const [visible, setVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const root = ref.current;
+    if (!root) return;
+    const reduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    const ob = new IntersectionObserver((es) => {
+      if (es.some((e) => e.isIntersecting)) {
+        setVisible(true);
+        if (reduced) setCount(value);
+        else {
+          const duration = parseFloat(
+            getComputedStyle(document.documentElement).getPropertyValue(
+              "--motion-base",
+            ),
+          );
+          const start = performance.now();
+          const tick = (now: number) => {
+            const p = Math.min(1, (now - start) / duration);
+            setCount(Math.round(value * (1 - Math.pow(1 - p, 3))));
+            if (p < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+        }
+        ob.disconnect();
+      }
+    });
+    ob.observe(root);
+    return () => ob.disconnect();
+  }, [value]);
+  return (
+    <div ref={ref} className={styles.root}>
+      <strong className={styles.count}>{count.toLocaleString()}</strong>
+      <div className={styles.chart + " " + (visible ? styles.visible : "")}>
+        {targets.map((target, i) => (
+          <span
+            key={i}
+            className={styles.bar}
+            style={{
+              ["--target" as string]: target,
+              ["--delay" as string]: "calc(var(--motion-instant) * " + i + ")",
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}

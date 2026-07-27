@@ -2,15 +2,21 @@
 
 ## Use it
 
-Use <MagneticActionButton>Continue</MagneticActionButton>.
-
-Import the component and tokens.css globally in the consuming app.
+```tsx
+import "motion-kit/tokens.css";
+import { MagneticActionButton } from "motion-kit/react/MagneticActionButton";
+<MagneticActionButton radius={120} strength={0.28}>Continue</MagneticActionButton>;
+```
 
 ## What's tunable
 
-Pass radius and strength for the pull falloff.
+Props are `children`, `radius` in CSS pixels (`60–180` is sensible), and
+`strength` as a fraction (`0.1–0.35` keeps it subtle). The module uses internal
+`--mx`/`--my`, `--motion-fast`, and `--ease-out-soft`.
 
 ## Notes
 
-The component uses a real button and cleans up pointer listeners.
-
+It moves the whole real button with pointer input, so it is the wrong choice near
+packed controls or on touch-only interfaces. The component cleans up listeners;
+keep label and focus indication clear. Reduced motion changes transition timing
+but does not disable pointer attraction.

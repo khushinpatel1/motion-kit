@@ -1,1 +1,13 @@
-.pct-canvas{position:fixed;inset:0;z-index:10;width:100%;height:100%;pointer-events:none}
+/* Particle Cursor Trail — dependency-free vanilla form.
+   Structure expected: no hand-written markup; mountParticleCursorTrail appends <canvas class="pct-canvas"> to document.body.
+   Consumes no tokens.css variables; pass color and maxParticles to the JS mount function.
+   Under prefers-reduced-motion, JS appends no running animation loop and returns a cleanup handle. */
+
+.pct-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}

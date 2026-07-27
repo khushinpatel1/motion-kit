@@ -2,15 +2,19 @@
 
 ## Use it
 
-Use <NoiseGrainOverlay>Surface</NoiseGrainOverlay>.
-
-Import the component and tokens.css globally in the consuming app.
+```tsx
+import { NoiseGrainOverlay } from "motion-kit/react/NoiseGrainOverlay";
+<NoiseGrainOverlay><p>Surface content</p></NoiseGrainOverlay>;
+```
 
 ## What's tunable
 
-Adjust opacity and blend mode in the module.
+The only prop is `children`; there are no custom properties. Override module
+opacity (default `0.14`) and `mix-blend-mode` (`screen`) if needed.
 
 ## Notes
 
-Static inline SVG; no network or JavaScript.
-
+Static SVG turbulence can add paint cost across large surfaces; it is the wrong
+choice for text-heavy or low-power interfaces. The overlay is pointer-transparent
+and decorative, and is marked `aria-hidden`; preserve content contrast. Reduced
+motion changes nothing.

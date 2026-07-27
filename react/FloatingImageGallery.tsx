@@ -1,3 +1,4 @@
+/* Floating Image Gallery — React port of vanilla/floating-image-gallery.js/.css. Renders .fig-gallery > .fig-shell > .fig-glow/.fig-lift > .fig-card and .fig-modal; tokens.css supplies timing and reduced motion stops ambient motion. */
 import { useCallback, useEffect, useState } from "react";
 import styles from "./FloatingImageGallery.module.css";
 
@@ -14,7 +15,10 @@ export interface FloatingImageGalleryProps {
   columns?: number;
 }
 
-export function FloatingImageGallery({ items, columns = 5 }: FloatingImageGalleryProps) {
+export function FloatingImageGallery({
+  items,
+  columns = 5,
+}: FloatingImageGalleryProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const close = useCallback(() => setOpenIndex(null), []);
@@ -36,7 +40,10 @@ export function FloatingImageGallery({ items, columns = 5 }: FloatingImageGaller
 
   return (
     <>
-      <div className={styles["fig-gallery"]} style={{ ["--fig-columns" as string]: columns }}>
+      <div
+        className={styles["fig-gallery"]}
+        style={{ ["--fig-columns" as string]: columns }}
+      >
         {items.map((item, index) => (
           <div
             key={item.src}
@@ -55,7 +62,11 @@ export function FloatingImageGallery({ items, columns = 5 }: FloatingImageGaller
                 onClick={() => setOpenIndex(index)}
               >
                 <div className={`${styles["fig-face"]} ${styles["fig-front"]}`}>
-                  <img src={item.src} alt={item.alt ?? item.title} loading="lazy" />
+                  <img
+                    src={item.src}
+                    alt={item.alt ?? item.title}
+                    loading="lazy"
+                  />
                   <div className={styles["fig-label"]}>
                     <strong>{item.title}</strong>
                     <span>{String(index + 1).padStart(2, "0")}</span>
@@ -79,7 +90,11 @@ export function FloatingImageGallery({ items, columns = 5 }: FloatingImageGaller
         className={`${styles["fig-modal"]} ${openItem ? styles["is-open"] : ""}`}
         aria-hidden={!openItem}
       >
-        <button className={styles["fig-modal-close"]} aria-label="Close image" onClick={close}>
+        <button
+          className={styles["fig-modal-close"]}
+          aria-label="Close image"
+          onClick={close}
+        >
           ×
         </button>
         <div

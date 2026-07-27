@@ -1,1 +1,24 @@
-.ssr-item{opacity:0;transform:translateY(22px);transition:opacity var(--motion-base) var(--ease-out-expressive),transform var(--motion-base) var(--ease-out-expressive);transition-delay:var(--ssr-delay,0)}.ssr-item.is-visible{opacity:1;transform:none}@media(prefers-reduced-motion:reduce){.ssr-item{opacity:1;transform:none;transition:none}}
+/* Staggered Scroll Reveal — dependency-free vanilla form.
+   Structure expected: <div class="ssr-root"><article class="ssr-item" data-stagger-item>...</article>...</div>.
+   Consumes tokens.css variables --motion-base, --motion-instant, and --ease-out-expressive; JS supplies --ssr-delay.
+   Under prefers-reduced-motion, every item is visible immediately with no transition. */
+
+.ssr-item {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity var(--motion-base) var(--ease-out-expressive),
+    transform var(--motion-base) var(--ease-out-expressive);
+  transition-delay: var(--ssr-delay, 0);
+}
+.ssr-item.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ssr-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

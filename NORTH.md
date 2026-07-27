@@ -1,6 +1,6 @@
 # NORTH — motion-kit
 
-Status: active build, 2026-07-26.
+Status: published 2026-07-27 — `khushinpatel1/motion-kit`, public, MIT.
 
 ## What it is
 
@@ -67,14 +67,39 @@ manifest.json            one entry per effect: name, category, paths, perf notes
 5. Only KP promotes to production — moot here (no deploy target), kept for
    consistency with every other repo's NORTH.
 
-## Current work
+## Provenance and licence
 
-Initial build in progress, 2026-07-26: `tokens.css` and the `floating-image-
-gallery` effect (adjusted from a KP-supplied reference — hover grows the
-card 25% and takes center stage, more gap between cards, higher hover lift,
-click opens full screen; built for a 5×4/20-item design-image display) are
-done. The other 18 effects from the original build plan
-(`~/Dev/docs/motion-kit-plan.md`, now folded in here) are being built via
-`codex exec`. Once `manifest.json` has all 19 entries and `gallery/
-index.html` verifies clean in a browser, wire the pointer into
-`~/Dev/_template/NORTH.md` and close out the work order.
+MIT, `LICENSE` at the root, copyright Khushin Patel. The kit is claimable
+because there is nothing in it to claim from anyone else: **no dependencies, no
+vendored files, no third-party licence headers, and no copied source.** What it
+implements are common techniques — a shimmer sweep, a magnetic button, a tilt
+card, a scroll reveal — and a technique is not copyrightable; the CSS and JS
+expressing them here were written for this repo.
+
+The one file with an outside ancestor is `floating-image-gallery`, adjusted
+from a reference KP supplied on 2026-07-26 (hover grows the card 25% and takes
+centre stage, wider gaps, higher lift, click opens full screen; built for a 5×4
+display). Its own header and `manifest.json` both record that. **That reference
+was never identified, so its licence is unknown** — if it turns out to have
+been someone's published component, this effect is the one to re-derive or
+attribute, and the other eighteen are unaffected.
+
+## Published 2026-07-27 — and what had to be fixed first
+
+The 2026-07-26 note said the kit was built. Everything was present and nothing
+was publishable: all eighteen codex-built effects were **minified single-line
+CSS**, the React components were three or four lines each, and the per-effect
+READMEs were headings with a sentence under them. For a library whose entire
+premise is "copy the files you want into your project," minified source is a
+contradiction — 199 lines of React across nineteen components is the tell.
+
+Before publishing: the whole tree went through prettier, every effect source
+file got a header stating the markup it expects, the `tokens.css` variables it
+consumes and its `prefers-reduced-motion` behaviour, and every README was
+rewritten against the actual file — real custom properties and props by name,
+with the honest caveat. Roughly 200 lines became roughly 1,700. Verified in a
+browser afterwards: all nineteen effects mount from `gallery/index.html` with
+**no console errors**.
+
+The lesson is general and belongs here: **"built" is a claim about the artefact,
+not the file count.** Open the files before writing the word done.

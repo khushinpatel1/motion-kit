@@ -1,1 +1,39 @@
-.status{display:inline-flex;align-items:center;gap:10px}.indicator{position:relative;display:inline-block;width:22px;height:22px;border-radius:50%;background:#34d399}.indicator:before,.indicator:after{content:"";position:absolute;inset:-5px;border:1px solid #34d399;border-radius:inherit;animation:pulse var(--motion-slow) var(--ease-out-soft) infinite}.indicator:after{animation-delay:calc(var(--motion-slow) * -.5)}@keyframes pulse{to{opacity:0;transform:scale(2.8)}}@media(prefers-reduced-motion:reduce){.indicator:before,.indicator:after{animation:none}}
+/* React port of vanilla/pulse-ring.css; .status contains .indicator and visible label text. Consumes --motion-slow/--ease-out-soft; reduced motion removes ring animation. */
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.indicator {
+  position: relative;
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #34d399;
+}
+.indicator:before,
+.indicator:after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border: 1px solid #34d399;
+  border-radius: inherit;
+  animation: pulse var(--motion-slow) var(--ease-out-soft) infinite;
+}
+.indicator:after {
+  animation-delay: calc(var(--motion-slow) * -0.5);
+}
+@keyframes pulse {
+  to {
+    opacity: 0;
+    transform: scale(2.8);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .indicator:before,
+  .indicator:after {
+    animation: none;
+  }
+}

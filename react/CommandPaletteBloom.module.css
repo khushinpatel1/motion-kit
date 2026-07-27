@@ -1,1 +1,47 @@
-.backdrop{position:fixed;inset:0;z-index:20;display:grid;place-items:start center;padding-top:14vh;background:rgba(2,6,23,.65);backdrop-filter:blur(14px);opacity:0;pointer-events:none;transition:opacity var(--motion-base) var(--ease-out-soft)}.open{opacity:1;pointer-events:auto}.panel{width:min(560px,calc(100vw - 32px));padding:10px;border:1px solid rgba(255,255,255,.16);border-radius:20px;background:#111827;transform:scale(.92);transition:transform var(--motion-base) var(--ease-out-expressive)}.open .panel{transform:scale(1)}.input{width:100%;padding:16px;border:0;outline:0;color:#fff;background:transparent}.item{padding:12px;border-radius:10px;color:#cbd5e1}.item:hover{background:rgba(255,255,255,.08)}
+/* React port of vanilla/command-palette-bloom.css; .backdrop contains .panel, .input, and .item. Consumes --motion-base/--ease-out-soft/--ease-out-expressive; reduced motion collapses transitions. */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: start center;
+  padding-top: 14vh;
+  background: rgba(2, 6, 23, 0.65);
+  backdrop-filter: blur(14px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--motion-base) var(--ease-out-soft);
+}
+.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.panel {
+  width: min(560px, calc(100vw - 32px));
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 20px;
+  background: #111827;
+  transform: scale(0.92);
+  transition: transform var(--motion-base) var(--ease-out-expressive);
+}
+.open .panel {
+  transform: scale(1);
+}
+.input {
+  width: 100%;
+  padding: 16px;
+  border: 0;
+  outline: 0;
+  color: #fff;
+  background: transparent;
+}
+.item {
+  padding: 12px;
+  border-radius: 10px;
+  color: #cbd5e1;
+}
+.item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}

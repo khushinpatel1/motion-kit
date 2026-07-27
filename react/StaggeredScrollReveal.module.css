@@ -1,1 +1,28 @@
-.root{display:grid;gap:12px}.item{padding:20px;border:1px solid rgba(255,255,255,.14);border-radius:14px;opacity:0;transform:translateY(22px);transition:opacity var(--motion-base) var(--ease-out-expressive),transform var(--motion-base) var(--ease-out-expressive);transition-delay:var(--delay)}.visible{opacity:1;transform:none}@media(prefers-reduced-motion:reduce){.item{opacity:1;transform:none;transition:none}}
+/* React port of vanilla/staggered-scroll-reveal.css; .root contains .item children. Consumes --motion-base/--motion-instant/--ease-out-expressive; reduced motion reveals all items immediately. */
+
+.root {
+  display: grid;
+  gap: 12px;
+}
+.item {
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity var(--motion-base) var(--ease-out-expressive),
+    transform var(--motion-base) var(--ease-out-expressive);
+  transition-delay: var(--delay);
+}
+.visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

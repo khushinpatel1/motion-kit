@@ -2,15 +2,20 @@
 
 ## Use it
 
-Use <FloatingCard title="..." />.
-
-Import the component and tokens.css globally in the consuming app.
+```tsx
+import "motion-kit/tokens.css";
+import { FloatingCard } from "motion-kit/react/FloatingCard";
+<FloatingCard title="Floating card"><span>Ambient surface</span></FloatingCard>;
+```
 
 ## What's tunable
 
-Pass title or children; shared motion tokens own timing.
+Props are `title?: string` and `children?: ReactNode`; there are no effect-specific
+custom properties. The module consumes `--motion-ambient`, `--motion-fast`, and
+shared easing tokens.
 
 ## Notes
 
-Idle animation is explicitly disabled for reduced motion.
-
+The continuous idle loop and heavy shadow are the wrong choice for dense grids or
+content that should feel still. It remains an article with normal content and
+pauses on hover; reduced motion stops the idle animation.

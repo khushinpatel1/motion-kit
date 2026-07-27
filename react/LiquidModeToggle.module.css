@@ -1,1 +1,32 @@
-.toggle{position:relative;display:inline-flex;align-items:center;width:70px;height:40px;padding:4px;border:1px solid rgba(255,255,255,.18);border-radius:52% 48% 45% 55%/48% 54% 46% 52%;background:#172033;cursor:pointer;transition:background var(--motion-fast) var(--ease-out-soft),border-radius var(--motion-fast) var(--ease-out-expressive)}.toggle:before{content:"";width:30px;height:30px;border-radius:44% 56% 52% 48%/55% 43% 57% 45%;background:#c4b5fd;transition:transform var(--motion-fast) var(--ease-out-expressive)}.toggle[aria-pressed=true]{background:#064e3b}.toggle[aria-pressed=true]:before{transform:translateX(30px);background:#6ee7b7}
+/* React port of vanilla/liquid-mode-toggle.css; the component renders a real .toggle button with aria-pressed. Consumes --motion-fast/--ease-out-*; reduced motion collapses visual transitions. */
+
+.toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 70px;
+  height: 40px;
+  padding: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 52% 48% 45% 55%/48% 54% 46% 52%;
+  background: #172033;
+  cursor: pointer;
+  transition:
+    background var(--motion-fast) var(--ease-out-soft),
+    border-radius var(--motion-fast) var(--ease-out-expressive);
+}
+.toggle:before {
+  content: "";
+  width: 30px;
+  height: 30px;
+  border-radius: 44% 56% 52% 48%/55% 43% 57% 45%;
+  background: #c4b5fd;
+  transition: transform var(--motion-fast) var(--ease-out-expressive);
+}
+.toggle[aria-pressed="true"] {
+  background: #064e3b;
+}
+.toggle[aria-pressed="true"]:before {
+  transform: translateX(30px);
+  background: #6ee7b7;
+}

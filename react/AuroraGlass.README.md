@@ -2,15 +2,20 @@
 
 ## Use it
 
-Use <AuroraGlass>...</AuroraGlass>.
-
-Import the component and tokens.css globally in the consuming app.
+```tsx
+import "motion-kit/tokens.css";
+import { AuroraGlass } from "motion-kit/react/AuroraGlass";
+<AuroraGlass title="Account overview"><p>Foreground content.</p></AuroraGlass>;
+```
 
 ## What's tunable
 
-Override shell padding and colors in the consuming stylesheet.
+There are no component props beyond `title` and `children`, and no effect-specific
+custom properties. Override module styles in a wrapper or fork the module;
+timing uses `--motion-ambient` and `--ease-linear` from global `tokens.css`.
 
 ## Notes
 
-Pure CSS; backdrop-filter is progressive enhancement.
-
+Two continuous blurred blobs and `backdrop-filter` can cost paint time; it is the
+wrong choice for large or low-power surfaces. Keep content readable without the
+glow. Reduced motion stops the blob animations.

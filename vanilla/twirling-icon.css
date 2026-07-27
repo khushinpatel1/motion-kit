@@ -1,1 +1,40 @@
-.ti-icon{display:inline-grid;place-items:center;width:56px;height:56px;border:1px solid rgba(255,255,255,.18);border-radius:18px;color:#fef08a;background:rgba(255,255,255,.06);animation:ti-spin var(--motion-slow) var(--ease-linear) infinite;transition:transform var(--motion-fast) var(--ease-out-soft),background var(--motion-fast) var(--ease-out-soft)}.ti-icon:hover,.ti-icon:focus-visible{transform:scale(1.14) rotate(180deg);background:rgba(250,204,21,.14);animation-duration:var(--motion-fast)}.ti-icon svg{width:27px;height:27px;fill:currentColor}@keyframes ti-spin{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.ti-icon{animation:none}}
+/* Twirling Icon — dependency-free vanilla form.
+   Structure expected: <span class="ti-icon" role="img" aria-label="..."><svg>...</svg></span>.
+   Consumes tokens.css variables --motion-slow, --motion-fast, --ease-linear, and --ease-out-soft.
+   Under prefers-reduced-motion, the continuous spin stops; the icon remains visible. */
+
+.ti-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 18px;
+  color: #fef08a;
+  background: rgba(255, 255, 255, 0.06);
+  animation: ti-spin var(--motion-slow) var(--ease-linear) infinite;
+  transition:
+    transform var(--motion-fast) var(--ease-out-soft),
+    background var(--motion-fast) var(--ease-out-soft);
+}
+.ti-icon:hover,
+.ti-icon:focus-visible {
+  transform: scale(1.14) rotate(180deg);
+  background: rgba(250, 204, 21, 0.14);
+  animation-duration: var(--motion-fast);
+}
+.ti-icon svg {
+  width: 27px;
+  height: 27px;
+  fill: currentColor;
+}
+@keyframes ti-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ti-icon {
+    animation: none;
+  }
+}

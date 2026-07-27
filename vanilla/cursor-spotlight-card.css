@@ -1,1 +1,29 @@
-.cs-card{--x:50%;--y:50%;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.15);border-radius:22px;padding:26px;color:#fff;background:radial-gradient(circle at var(--x) var(--y),rgba(125,211,252,.34),transparent 28%),linear-gradient(135deg,#1e293b,#111827);transition:transform var(--motion-fast) var(--ease-out-soft),border-color var(--motion-fast) var(--ease-out-soft)}.cs-card:hover{transform:translateY(-5px);border-color:rgba(255,255,255,.35)}
+/* Cursor Spotlight Card — dependency-free vanilla form.
+   Structure expected: <article class="cs-card"><strong>Title</strong><span>Supporting text</span></article>.
+   Consumes tokens.css variables --motion-fast and --ease-out-soft; JS writes --x and --y from the pointer.
+   Under prefers-reduced-motion, the hover transition resolves to zero duration; the spotlight still follows a pointer. */
+
+.cs-card {
+  --x: 50%;
+  --y: 50%;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 22px;
+  padding: 26px;
+  color: #fff;
+  background:
+    radial-gradient(
+      circle at var(--x) var(--y),
+      rgba(125, 211, 252, 0.34),
+      transparent 28%
+    ),
+    linear-gradient(135deg, #1e293b, #111827);
+  transition:
+    transform var(--motion-fast) var(--ease-out-soft),
+    border-color var(--motion-fast) var(--ease-out-soft);
+}
+.cs-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.35);
+}

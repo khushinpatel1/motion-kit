@@ -1,1 +1,47 @@
-.shell{position:relative;isolation:isolate;overflow:hidden;border:1px solid rgba(255,255,255,.16);border-radius:28px;padding:40px;color:#fff;background:rgba(9,12,25,.42);backdrop-filter:blur(22px)}.shell:before,.shell:after{content:"";position:absolute;z-index:-1;width:70%;height:130%;border-radius:50%;filter:blur(60px);opacity:.66;background:linear-gradient(135deg,#7c3aed,#06b6d4,#22c55e);background-size:220% 220%;animation:drift var(--motion-ambient) var(--ease-linear) infinite alternate}.shell:before{left:-28%;top:-45%}.shell:after{right:-28%;bottom:-45%}@keyframes drift{to{background-position:100% 70%;transform:translate3d(4%,5%,0) rotate(18deg)}}@media(prefers-reduced-motion:reduce){.shell:before,.shell:after{animation:none}}
+/* Aurora Glass — React port of vanilla/aurora-glass.css; CSS Modules rename .ag-shell to styles.shell. Structure is <AuroraGlass>...</AuroraGlass>. Consumes --motion-ambient and --ease-linear from tokens.css; reduced motion stops the blob animations. */
+
+.shell {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 28px;
+  padding: 40px;
+  color: #fff;
+  background: rgba(9, 12, 25, 0.42);
+  backdrop-filter: blur(22px);
+}
+.shell:before,
+.shell:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 70%;
+  height: 130%;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.66;
+  background: linear-gradient(135deg, #7c3aed, #06b6d4, #22c55e);
+  background-size: 220% 220%;
+  animation: drift var(--motion-ambient) var(--ease-linear) infinite alternate;
+}
+.shell:before {
+  left: -28%;
+  top: -45%;
+}
+.shell:after {
+  right: -28%;
+  bottom: -45%;
+}
+@keyframes drift {
+  to {
+    background-position: 100% 70%;
+    transform: translate3d(4%, 5%, 0) rotate(18deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shell:before,
+  .shell:after {
+    animation: none;
+  }
+}

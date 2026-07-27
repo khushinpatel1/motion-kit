@@ -2,15 +2,20 @@
 
 ## Use it
 
-Use <StaggeredScrollReveal items={[...]} />.
-
-Import the component and tokens.css globally in the consuming app.
+```tsx
+import "motion-kit/tokens.css";
+import { StaggeredScrollReveal } from "motion-kit/react/StaggeredScrollReveal";
+<StaggeredScrollReveal items={["First", "Second", "Third"]} />;
+```
 
 ## What's tunable
 
-Pass any item array; DOM order controls the stagger.
+Pass `items: string[]`; DOM order sets delay, capped at five `--motion-instant`
+steps. The module uses `--motion-base`, `--motion-instant`, and
+`--ease-out-expressive`; its delay variable is generated internally.
 
 ## Notes
 
-IntersectionObserver supports arbitrary group lengths.
-
+Items start hidden and are observed once, so it is the wrong choice for critical
+content that must be visible before intersection or for very long lists. Keep
+meaning in the text itself. Reduced motion marks all items visible immediately.

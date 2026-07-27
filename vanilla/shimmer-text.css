@@ -1,1 +1,23 @@
-.st-text{color:transparent;background:linear-gradient(110deg,#94a3b8 25%,#fff 45%,#94a3b8 65%);background-size:250% 100%;background-clip:text;-webkit-background-clip:text;animation:st-sweep var(--motion-ambient) var(--ease-linear) infinite}@keyframes st-sweep{to{background-position:-250% 0}}@media(prefers-reduced-motion:reduce){.st-text{animation:none}}
+/* Shimmer Text — dependency-free vanilla form.
+   Structure expected: <span class="st-text">Short display text</span>.
+   Consumes tokens.css variables --motion-ambient and --ease-linear.
+   Under prefers-reduced-motion, the continuous sweep stops and the text remains readable. */
+
+.st-text {
+  color: transparent;
+  background: linear-gradient(110deg, #94a3b8 25%, #fff 45%, #94a3b8 65%);
+  background-size: 250% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: st-sweep var(--motion-ambient) var(--ease-linear) infinite;
+}
+@keyframes st-sweep {
+  to {
+    background-position: -250% 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .st-text {
+    animation: none;
+  }
+}

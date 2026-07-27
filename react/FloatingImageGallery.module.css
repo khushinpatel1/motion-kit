@@ -1,4 +1,4 @@
-/* Floating Image Gallery — React (CSS Modules) form.
+/* Floating Image Gallery — React port of vanilla/floating-image-gallery.css.
    Same component as vanilla/floating-image-gallery.css, scoped for CSS
    Modules and paired with FloatingImageGallery.tsx. Adjustments made on
    request: hover grows the card 25% and pulls it to center stage (siblings
@@ -11,7 +11,9 @@
 
    Custom properties (--motion-*, --ease-*) come from tokens.css, which must
    be imported globally somewhere in the app (module scoping doesn't affect
-   CSS custom property cascade). Nothing here hardcodes its own timing. */
+   CSS custom property cascade). Nothing here hardcodes its own timing. Under
+   prefers-reduced-motion, the idle animation stops and tokenized transitions
+   resolve to zero duration. */
 
 .fig-gallery {
   --fig-columns: 5;
@@ -37,13 +39,24 @@
 
 /* Per-item variety so the field doesn't breathe in lockstep — JS sets
    --fig-idle-delay and --fig-idle-amp per card; these are the fallbacks. */
-.fig-shell:nth-child(3n+1) { --fig-idle-amp: -16px; }
-.fig-shell:nth-child(3n+2) { --fig-idle-amp: 14px; }
-.fig-shell:nth-child(5n)   { --fig-idle-amp: -8px; }
+.fig-shell:nth-child(3n + 1) {
+  --fig-idle-amp: -16px;
+}
+.fig-shell:nth-child(3n + 2) {
+  --fig-idle-amp: 14px;
+}
+.fig-shell:nth-child(5n) {
+  --fig-idle-amp: -8px;
+}
 
 @keyframes fig-idle-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(var(--fig-idle-amp, -12px)); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(var(--fig-idle-amp, -12px));
+  }
 }
 
 .fig-shell:hover,
@@ -55,10 +68,12 @@
 /* Center stage: dim and recede every sibling once one card is hovered.
    Progressive enhancement — browsers without :has() just skip the dim and
    still get the grow + lift below. */
-.fig-gallery:has(.fig-shell:hover) .fig-shell:not(:hover):not(:focus-within) .fig-lift {
-  opacity: .38;
-  filter: saturate(.65);
-  transform: scale(.94);
+.fig-gallery:has(.fig-shell:hover)
+  .fig-shell:not(:hover):not(:focus-within)
+  .fig-lift {
+  opacity: 0.38;
+  filter: saturate(0.65);
+  transform: scale(0.94);
 }
 
 .fig-lift {
@@ -82,13 +97,15 @@
   border-radius: 24px;
   position: relative;
   transform-style: preserve-3d;
-  transition: transform var(--motion-slow) var(--ease-out-expressive), box-shadow var(--motion-base) ease;
+  transition:
+    transform var(--motion-slow) var(--ease-out-expressive),
+    box-shadow var(--motion-base) ease;
   cursor: pointer;
   background: transparent;
   box-shadow:
-    0 22px 55px rgba(0, 0, 0, .5),
-    0 7px 20px rgba(0, 0, 0, .34),
-    inset 0 1px 0 rgba(255, 255, 255, .16);
+    0 22px 55px rgba(0, 0, 0, 0.5),
+    0 7px 20px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
 }
 
 .fig-shell:hover .fig-card,
@@ -96,8 +113,8 @@
   transform: rotateY(180deg);
   /* bigger, softer shadow sells the extra height from --fig-hover-lift */
   box-shadow:
-    0 64px 140px rgba(0, 0, 0, .62),
-    0 24px 56px rgba(0, 0, 0, .46);
+    0 64px 140px rgba(0, 0, 0, 0.62),
+    0 24px 56px rgba(0, 0, 0, 0.46);
 }
 
 .fig-face {
@@ -106,7 +123,7 @@
   border-radius: 24px;
   overflow: hidden;
   backface-visibility: hidden;
-  border: 1px solid rgba(255, 255, 255, .16);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   background: #11141a;
 }
 
@@ -122,8 +139,8 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, transparent 46%, rgba(0, 0, 0, .74)),
-    linear-gradient(135deg, rgba(255, 255, 255, .12), transparent 30%);
+    linear-gradient(180deg, transparent 46%, rgba(0, 0, 0, 0.74)),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 30%);
 }
 
 .fig-label {
@@ -141,13 +158,13 @@
 .fig-label strong {
   color: #fff;
   font-size: 15px;
-  letter-spacing: -.02em;
+  letter-spacing: -0.02em;
 }
 
 .fig-label span {
   font-size: 11px;
-  color: rgba(255, 255, 255, .68);
-  border: 1px solid rgba(255, 255, 255, .22);
+  color: rgba(255, 255, 255, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.22);
   padding: 5px 8px;
   border-radius: 999px;
   backdrop-filter: blur(10px);
@@ -163,7 +180,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0, 0, 0, .05), rgba(0, 0, 0, .86));
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.86));
   z-index: 1;
 }
 
@@ -177,9 +194,9 @@
 
 .fig-back-copy small {
   display: block;
-  color: rgba(255, 255, 255, .66);
+  color: rgba(255, 255, 255, 0.66);
   font-size: 11px;
-  letter-spacing: .12em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
@@ -189,7 +206,7 @@
   font-size: 21px;
   line-height: 1.05;
   margin-top: 7px;
-  letter-spacing: -.035em;
+  letter-spacing: -0.035em;
 }
 
 .fig-back-copy em {
@@ -200,8 +217,8 @@
   color: white;
   padding: 8px 11px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, .13);
-  border: 1px solid rgba(255, 255, 255, .18);
+  background: rgba(255, 255, 255, 0.13);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(12px);
 }
 
@@ -211,14 +228,16 @@
   border-radius: 24px;
   z-index: -1;
   filter: blur(30px);
-  opacity: .22;
+  opacity: 0.22;
   background: linear-gradient(135deg, #7dd3fc, #c4b5fd, #86efac);
-  transition: opacity var(--motion-base) ease, transform var(--motion-base) ease;
+  transition:
+    opacity var(--motion-base) ease,
+    transform var(--motion-base) ease;
 }
 
 .fig-shell:hover .fig-glow,
 .fig-shell:focus-within .fig-glow {
-  opacity: .72;
+  opacity: 0.72;
   transform: scale(1.15);
 }
 
@@ -229,7 +248,7 @@
   z-index: 100;
   display: grid;
   place-items: center;
-  background: rgba(2, 3, 6, .82);
+  background: rgba(2, 3, 6, 0.82);
   backdrop-filter: blur(22px);
   opacity: 0;
   pointer-events: none;
@@ -247,7 +266,7 @@
   display: grid;
   place-items: center;
   padding: 38px;
-  transform: scale(.92);
+  transform: scale(0.92);
   transition: transform var(--motion-slow) var(--ease-out-expressive);
 }
 
@@ -262,8 +281,8 @@
   position: relative;
   border-radius: 30px;
   overflow: hidden;
-  box-shadow: 0 50px 180px rgba(0, 0, 0, .7);
-  border: 1px solid rgba(255, 255, 255, .18);
+  box-shadow: 0 50px 180px rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   background: #090b10;
 }
 
@@ -284,7 +303,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 55%, rgba(0, 0, 0, .76));
+  background: linear-gradient(180deg, transparent 55%, rgba(0, 0, 0, 0.76));
   pointer-events: none;
 }
 
@@ -304,13 +323,13 @@
   color: #fff;
   font-size: clamp(24px, 4vw, 48px);
   margin: 0;
-  letter-spacing: -.05em;
+  letter-spacing: -0.05em;
 }
 
 .fig-modal-caption p {
   max-width: 480px;
   margin: 0;
-  color: rgba(255, 255, 255, .72);
+  color: rgba(255, 255, 255, 0.72);
   line-height: 1.5;
 }
 
@@ -322,13 +341,16 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, .18);
-  background: rgba(255, 255, 255, .08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
   color: white;
   font-size: 25px;
   cursor: pointer;
   backdrop-filter: blur(14px);
-  transition: background var(--motion-fast) ease, color var(--motion-fast) ease, transform var(--motion-fast) ease;
+  transition:
+    background var(--motion-fast) ease,
+    color var(--motion-fast) ease,
+    transform var(--motion-fast) ease;
 }
 
 .fig-modal-close:hover {
@@ -338,24 +360,54 @@
 }
 
 @media (max-width: 1200px) {
-  .fig-gallery { --fig-columns: 4; --fig-gap: 44px; }
+  .fig-gallery {
+    --fig-columns: 4;
+    --fig-gap: 44px;
+  }
 }
 
 @media (max-width: 900px) {
-  .fig-gallery { --fig-columns: 2; --fig-gap: 28px; }
-  .fig-shell { height: 250px; }
+  .fig-gallery {
+    --fig-columns: 2;
+    --fig-gap: 28px;
+  }
+  .fig-shell {
+    height: 250px;
+  }
   .fig-shell:hover .fig-lift,
-  .fig-shell:focus-within .fig-lift { transform: translateY(-20px) scale(1.08); }
-  .fig-modal-caption { display: block; }
-  .fig-modal-caption p { margin-top: 10px; }
+  .fig-shell:focus-within .fig-lift {
+    transform: translateY(-20px) scale(1.08);
+  }
+  .fig-modal-caption {
+    display: block;
+  }
+  .fig-modal-caption p {
+    margin-top: 10px;
+  }
 }
 
 @media (max-width: 560px) {
-  .fig-gallery { --fig-columns: 1; --fig-gap: 20px; padding: 20px; }
-  .fig-shell { height: 320px; }
-  .fig-modal-inner { padding: 12px; }
-  .fig-modal-figure { width: 100%; height: 88vh; border-radius: 22px; }
-  .fig-modal-caption { left: 20px; right: 20px; bottom: 18px; }
+  .fig-gallery {
+    --fig-columns: 1;
+    --fig-gap: 20px;
+    padding: 20px;
+  }
+  .fig-shell {
+    height: 320px;
+  }
+  .fig-modal-inner {
+    padding: 12px;
+  }
+  .fig-modal-figure {
+    width: 100%;
+    height: 88vh;
+    border-radius: 22px;
+  }
+  .fig-modal-caption {
+    left: 20px;
+    right: 20px;
+    bottom: 18px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -364,5 +416,7 @@
      continuous animation, not a one-off transition, so it needs an explicit
      stop rather than relying on a 0ms duration (a 0ms infinite loop still
      recomputes every frame). */
-  .fig-shell { animation: none; }
+  .fig-shell {
+    animation: none;
+  }
 }

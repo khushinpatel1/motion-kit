@@ -1,1 +1,10 @@
-.canvas{position:fixed;inset:0;z-index:10;width:100%;height:100%;pointer-events:none}
+/* React port of vanilla/particle-cursor-trail.css; the component appends .canvas to document.body. It consumes no tokens; reduced motion starts no canvas loop. */
+
+.canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}

@@ -1,25 +1,38 @@
 # FloatingImageGallery (React)
 
+Same behavior as the vanilla version: cards float at rest, grow 25% and take
+center stage on hover, flip to reveal a caption, and open full screen on click.
+This is a straight React port of `vanilla/floating-image-gallery.css` and
+`vanilla/floating-image-gallery.js`; its CSS Modules names are scoped versions
+of the same structure.
+
+## Use it
+
 ```tsx
-import { FloatingImageGallery } from "motion-kit/react/FloatingImageGallery";
-// tokens.css must be imported once, globally, somewhere in the app
 import "motion-kit/tokens.css";
+import { FloatingImageGallery } from "motion-kit/react/FloatingImageGallery";
 
 <FloatingImageGallery
   columns={5}
-  items={[
-    { title: "Vault roots", description: "...", src: "/img/vault-roots.png" },
-    // ...
-  ]}
-/>
+  items={[{ title: "Vault roots", description: "A study", src: "/img/vault-roots.png", alt: "Vault roots" }]}
+/>;
 ```
 
-Same behavior as the vanilla version: cards float at rest, grow 25% and take
-center stage on hover (siblings dim via `:has()`, degrades gracefully where
-unsupported), flip to reveal a caption, and open full screen on click.
+## What's tunable
 
-Needs a dark-ish background — bring your own page shell, this component
-doesn't ship one. Tunables (`--fig-gap`, `--fig-hover-scale`,
-`--fig-hover-lift`) are documented in
-`vanilla/floating-image-gallery.README.md` — same custom properties, same
-defaults, this is a straight port.
+Props are `items` (required, non-empty), each with `title`, `src`, optional
+`description`/`alt`, and `columns` (default `5`). CSS custom properties are
+`--fig-columns` (set by `columns`), `--fig-gap` (default `64px`),
+`--fig-hover-scale` (default `1.25`, sensible range `1–1.4`), and
+`--fig-hover-lift` (default `-56px`, roughly `-24px` to `-80px`). Timing comes
+from `--motion-ambient`, `--motion-slow`, `--motion-base`, and shared easing
+tokens. The `--fig-idle-*` values are generated internally per item.
+
+## Notes
+
+This is a high-cost, layered effect: 3D transforms, blur/glow, lazy images,
+`:has()` sibling dimming, and a fullscreen modal. It is the wrong choice for a
+dense thumbnail list or a page that needs instant scanning. The cards and modal
+use real buttons and image alts, but you still need meaningful `alt` text and
+descriptions; focus trapping is not implemented. Reduced motion stops the idle
+animation and collapses tokenized transitions.

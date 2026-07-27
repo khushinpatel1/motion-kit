@@ -1,4 +1,50 @@
+/* Command Palette Bloom — React port of vanilla/command-palette-bloom.css. Renders a trigger plus .backdrop/.panel/.input; reduced motion changes only visual timing, while Escape and focus behavior remain. */
 import { useEffect, useRef, useState } from "react";
 import styles from "./CommandPaletteBloom.module.css";
-export interface CommandPaletteBloomProps { triggerLabel?: string; items?: string[]; }
-export function CommandPaletteBloom({ triggerLabel="Open command palette",items=["Open workspace","Search library","View settings"] }: CommandPaletteBloomProps) { const [open,setOpen]=useState(false);const input=useRef<HTMLInputElement>(null);useEffect(()=>{if(!open)return;input.current?.focus();const key=(e:KeyboardEvent)=>{if(e.key==="Escape")setOpen(false)};document.addEventListener("keydown",key);return()=>document.removeEventListener("keydown",key)},[open]);return <><button type="button" onClick={()=>setOpen(true)}>{triggerLabel}</button><div className={styles.backdrop+" "+(open?styles.open:"")} aria-hidden={!open} onClick={e=>{if(e.target===e.currentTarget)setOpen(false)}}><div className={styles.panel} role="dialog" aria-modal="true"><input ref={input} className={styles.input} placeholder="Type a command…" />{items.map(item=><div key={item} className={styles.item}>{item}</div>)}</div></div></>; }
+export interface CommandPaletteBloomProps {
+  triggerLabel?: string;
+  items?: string[];
+}
+export function CommandPaletteBloom({
+  triggerLabel = "Open command palette",
+  items = ["Open workspace", "Search library", "View settings"],
+}: CommandPaletteBloomProps) {
+  const [open, setOpen] = useState(false);
+  const input = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    input.current?.focus();
+    const key = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", key);
+    return () => document.removeEventListener("keydown", key);
+  }, [open]);
+  return (
+    <>
+      <button type="button" onClick={() => setOpen(true)}>
+        {triggerLabel}
+      </button>
+      <div
+        className={styles.backdrop + " " + (open ? styles.open : "")}
+        aria-hidden={!open}
+        onClick={(e) => {
+          if (e.target === e.currentTarget) setOpen(false);
+        }}
+      >
+        <div className={styles.panel} role="dialog" aria-modal="true">
+          <input
+            ref={input}
+            className={styles.input}
+            placeholder="Type a command…"
+          />
+          {items.map((item) => (
+            <div key={item} className={styles.item}>
+              {item}
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}

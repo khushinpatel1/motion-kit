@@ -1,1 +1,29 @@
-.ctr-line{display:block;overflow:hidden}.ctr-line>span{display:inline-block;transform:translateY(110%);opacity:0;transition:transform var(--motion-base) var(--ease-out-expressive),opacity var(--motion-base) var(--ease-out-expressive);transition-delay:var(--ctr-delay,0)}.ctr-line.is-visible>span{transform:translateY(0);opacity:1}@media(prefers-reduced-motion:reduce){.ctr-line>span{transform:none;opacity:1;transition:none}}
+/* Cinematic Type Reveal — dependency-free vanilla form.
+   Structure expected: <div class="ctr-root"><div class="ctr-line">Text</div>...</div>; JS adds a child <span>.
+   Consumes tokens.css variables --motion-base, --motion-instant, and --ease-out-expressive.
+   Under prefers-reduced-motion, lines are visible immediately with no transition. */
+
+.ctr-line {
+  display: block;
+  overflow: hidden;
+}
+.ctr-line > span {
+  display: inline-block;
+  transform: translateY(110%);
+  opacity: 0;
+  transition:
+    transform var(--motion-base) var(--ease-out-expressive),
+    opacity var(--motion-base) var(--ease-out-expressive);
+  transition-delay: var(--ctr-delay, 0);
+}
+.ctr-line.is-visible > span {
+  transform: translateY(0);
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ctr-line > span {
+    transform: none;
+    opacity: 1;
+    transition: none;
+  }
+}

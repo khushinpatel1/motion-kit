@@ -1,1 +1,20 @@
-.text{color:transparent;background:linear-gradient(110deg,#94a3b8 25%,#fff 45%,#94a3b8 65%);background-size:250% 100%;background-clip:text;-webkit-background-clip:text;animation:sweep var(--motion-ambient) var(--ease-linear) infinite}@keyframes sweep{to{background-position:-250% 0}}@media(prefers-reduced-motion:reduce){.text{animation:none}}
+/* React port of vanilla/shimmer-text.css; .text wraps short display content. Consumes --motion-ambient/--ease-linear; reduced motion stops the sweep. */
+
+.text {
+  color: transparent;
+  background: linear-gradient(110deg, #94a3b8 25%, #fff 45%, #94a3b8 65%);
+  background-size: 250% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: sweep var(--motion-ambient) var(--ease-linear) infinite;
+}
+@keyframes sweep {
+  to {
+    background-position: -250% 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .text {
+    animation: none;
+  }
+}

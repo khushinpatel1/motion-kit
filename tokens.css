@@ -5,17 +5,17 @@
 
 :root {
   /* durations */
-  --motion-instant: 120ms;   /* hover feedback, button press */
-  --motion-fast: 250ms;      /* toggles, small state changes */
-  --motion-base: 450ms;      /* entrances, reveals */
-  --motion-slow: 900ms;      /* ambient loops, one full cycle */
-  --motion-ambient: 3000ms;  /* idle breathing/floating loops, minimum cycle length
+  --motion-instant: 120ms; /* hover feedback, button press */
+  --motion-fast: 250ms; /* toggles, small state changes */
+  --motion-base: 450ms; /* entrances, reveals */
+  --motion-slow: 900ms; /* ambient loops, one full cycle */
+  --motion-ambient: 3000ms; /* idle breathing/floating loops, minimum cycle length
                                  so multiple ambient effects don't visibly sync up */
 
   /* easings */
-  --ease-out-expressive: cubic-bezier(.16,1,.3,1);  /* entrances, reveals */
-  --ease-out-soft: cubic-bezier(.2,.8,.2,1);        /* hover, tilt, magnetic */
-  --ease-linear: linear;                             /* rotation loops, marquee */
+  --ease-out-expressive: cubic-bezier(0.16, 1, 0.3, 1); /* entrances, reveals */
+  --ease-out-soft: cubic-bezier(0.2, 0.8, 0.2, 1); /* hover, tilt, magnetic */
+  --ease-linear: linear; /* rotation loops, marquee */
 }
 
 @media (prefers-reduced-motion: reduce) {

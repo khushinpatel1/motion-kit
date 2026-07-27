@@ -1,5 +1,43 @@
+/* Scroll-Linked Hue — React port of vanilla/scroll-linked-hue.js/.css. Renders .background around children; reduced motion fixes hue/alpha and attaches no scroll listener. */
 import type { ReactNode } from "react";
 import { useEffect, useRef } from "react";
 import styles from "./ScrollLinkedHue.module.css";
-export interface ScrollLinkedHueProps { children?: ReactNode; }
-export function ScrollLinkedHue({ children="Scroll to shift the field" }: ScrollLinkedHueProps) { const ref=useRef<HTMLDivElement>(null);useEffect(()=>{const root=ref.current;if(!root)return;if(window.matchMedia("(prefers-reduced-motion: reduce)").matches){root.style.setProperty("--hue","220");root.style.setProperty("--alpha",".18");return}let frame=0;const update=()=>{frame=0;const max=document.documentElement.scrollHeight-innerHeight,p=max?scrollY/max:0;root.style.setProperty("--hue",String(220+p*110));root.style.setProperty("--alpha",String(.14+p*.2))};const onScroll=()=>{if(!frame)frame=requestAnimationFrame(update)};addEventListener("scroll",onScroll,{passive:true});update();return()=>{removeEventListener("scroll",onScroll);if(frame)cancelAnimationFrame(frame)}},[]);return <section ref={ref} className={styles.background}>{children}</section>; }
+export interface ScrollLinkedHueProps {
+  children?: ReactNode;
+}
+export function ScrollLinkedHue({
+  children = "Scroll to shift the field",
+}: ScrollLinkedHueProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const root = ref.current;
+    if (!root) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      root.style.setProperty("--hue", "220");
+      root.style.setProperty("--alpha", ".18");
+      return;
+    }
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const max = document.documentElement.scrollHeight - innerHeight,
+        p = max ? scrollY / max : 0;
+      root.style.setProperty("--hue", String(220 + p * 110));
+      root.style.setProperty("--alpha", String(0.14 + p * 0.2));
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    addEventListener("scroll", onScroll, { passive: true });
+    update();
+    return () => {
+      removeEventListener("scroll", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, []);
+  return (
+    <section ref={ref} className={styles.background}>
+      {children}
+    </section>
+  );
+}

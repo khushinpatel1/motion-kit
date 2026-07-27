@@ -1,1 +1,10 @@
-.background{--hue:220;--alpha:.18;min-height:180px;padding:28px;border-radius:24px;background:hsl(var(--hue) 70% 42% / var(--alpha))}
+/* React port of vanilla/scroll-linked-hue.css; <ScrollLinkedHue> renders .background and JS writes --hue/--alpha. Consumes --motion-fast/--ease-out-soft; reduced motion fixes the initial field values. */
+
+.background {
+  --hue: 220;
+  --alpha: 0.18;
+  min-height: 180px;
+  padding: 28px;
+  border-radius: 24px;
+  background: hsl(var(--hue) 70% 42% / var(--alpha));
+}
