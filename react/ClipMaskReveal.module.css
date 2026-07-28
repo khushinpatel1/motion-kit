@@ -1,0 +1,38 @@
+/* React port of vanilla/clip-mask-reveal.css; .reveal contains the supplied content and JS toggles .visible. Consumes --motion-base/--ease-out-expressive; reduced motion reveals immediately. */
+
+.reveal {
+  --shift: 24px;
+  clip-path: inset(0 0 100% 0);
+  opacity: 0;
+  transform: translateY(var(--shift));
+  transition:
+    clip-path var(--motion-base) var(--ease-out-expressive),
+    opacity var(--motion-base) var(--ease-out-expressive),
+    transform var(--motion-base) var(--ease-out-expressive);
+}
+.reveal[data-direction="down"] {
+  clip-path: inset(100% 0 0 0);
+  transform: translateY(calc(var(--shift) * -1));
+}
+.reveal[data-direction="left"] {
+  clip-path: inset(0 0 0 100%);
+  transform: translateX(var(--shift));
+}
+.reveal[data-direction="right"] {
+  clip-path: inset(0 100% 0 0);
+  transform: translateX(calc(var(--shift) * -1));
+}
+.visible {
+  clip-path: inset(0);
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .visible {
+    clip-path: inset(0);
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

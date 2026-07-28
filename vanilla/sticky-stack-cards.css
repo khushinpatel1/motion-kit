@@ -1,0 +1,40 @@
+/* Sticky Stack Cards — dependency-free vanilla form.
+   Structure expected: <div class="ssc-stack"><article class="ssc-card">...</article></div>; --ssc-scale-floor and --ssc-pin-offset are tunables.
+   Consumes tokens.css variable --motion-slow for the scroll-linked animation; no JS writes custom properties.
+   Under prefers-reduced-motion, cards remain pinned without the compression animation. */
+
+.ssc-stack {
+  --ssc-scale-floor: 0.92;
+  --ssc-pin-offset: 24px;
+  display: grid;
+  gap: 20vh;
+  padding-bottom: 20vh;
+}
+.ssc-card {
+  position: sticky;
+  top: var(--ssc-pin-offset);
+  min-height: 220px;
+  padding: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 24px;
+  color: #fff;
+  background: linear-gradient(135deg, #312e81, #0f172a 65%, #164e63);
+  transform-origin: top center;
+  animation: ssc-compress var(--motion-slow) linear both;
+  animation-timeline: view(block);
+  animation-range: cover 0% cover 100%;
+}
+@keyframes ssc-compress {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(var(--ssc-scale-floor));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ssc-card {
+    animation: none;
+    transform: none;
+  }
+}

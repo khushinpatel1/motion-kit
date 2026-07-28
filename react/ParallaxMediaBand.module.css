@@ -1,0 +1,36 @@
+/* React port of vanilla/parallax-media-band.css; .band contains .media and .content while JS writes --progress/--shift and data-in-view. Consumes --motion-fast; reduced motion centres static media. */
+.band {
+  --depth: 0.35;
+  --progress: 0.5;
+  --shift: 0px;
+  position: relative;
+  min-height: 420px;
+  overflow: hidden;
+  isolation: isolate;
+}
+.media {
+  position: absolute;
+  inset: calc(var(--shift) / -2) 0;
+  width: 100%;
+  height: calc(100% + var(--shift));
+  object-fit: cover;
+  transform: translateY(calc((0.5 - var(--progress)) * var(--shift)));
+  will-change: auto;
+}
+.band[data-in-view="true"] .media {
+  will-change: transform;
+}
+.content {
+  position: relative;
+  z-index: 1;
+  padding: 64px 28px;
+  color: #fff;
+}
+@media (prefers-reduced-motion: reduce) {
+  .media {
+    inset: 0;
+    height: 100%;
+    transform: none;
+    will-change: auto;
+  }
+}

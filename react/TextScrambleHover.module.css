@@ -1,0 +1,32 @@
+/* Text Scramble Hover — React stylesheet. Expects .root > .label + .visual; consumes --motion-instant/--ease-out-soft; no JS custom properties. Reduced motion shows the label and hides the visual layer. */
+.root {
+  position: relative;
+  color: var(--tsh-color, #fff);
+  cursor: default;
+}
+.label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+.visual {
+  display: inline-block;
+}
+@media (prefers-reduced-motion: reduce) {
+  .label {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    clip-path: none;
+    white-space: normal;
+  }
+  .visual {
+    display: none;
+  }
+}

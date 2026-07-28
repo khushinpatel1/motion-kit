@@ -1,0 +1,53 @@
+/* Anchored Tooltip — dependency-free vanilla form.
+   Structure expected: a .at-tooltip-root containing a focusable .at-trigger and a sibling .at-tooltip with role="tooltip".
+   Consumes tokens.css variables --motion-fast and --ease-out-soft; JS writes --at-x, --at-y, and --at-origin.
+   Under prefers-reduced-motion, the tooltip fades with no lift and all delay, focus, and Escape behavior remains. */
+
+.at-tooltip-root {
+  position: relative;
+  display: inline-block;
+}
+
+.at-tooltip {
+  position: fixed;
+  z-index: 10;
+  top: var(--at-y);
+  left: var(--at-x);
+  max-width: 240px;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  color: #fff;
+  background: #17152b;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(var(--at-origin, -50%), 8px);
+  transition:
+    opacity var(--motion-fast) var(--ease-out-soft),
+    transform var(--motion-fast) var(--ease-out-soft);
+}
+
+.at-tooltip[data-state="visible"] {
+  opacity: 1;
+  transform: translate(var(--at-origin, -50%), 0);
+}
+
+.at-tooltip[data-side="left"],
+.at-tooltip[data-side="right"] {
+  --at-origin: 0;
+}
+
+.at-tooltip[data-side="left"] {
+  transform: translate(-100%, 0);
+}
+
+.at-tooltip[data-side="left"][data-state="visible"] {
+  transform: translate(-100%, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .at-tooltip {
+    transform: translate(var(--at-origin, -50%), 0);
+  }
+}

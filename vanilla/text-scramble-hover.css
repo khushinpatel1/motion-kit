@@ -1,0 +1,41 @@
+/* Text Scramble Hover — dependency-free vanilla form.
+   Structure expected: a heading root containing a .tsh-label and .tsh-visual span; JS writes --tsh-progress and --tsh-index on visual glyph spans.
+   Consumes tokens.css variables --motion-instant and --ease-out-soft.
+   Under prefers-reduced-motion, the visual layer is static and the real label remains visible without listeners. */
+
+.tsh-root {
+  position: relative;
+  color: var(--tsh-color, #fff);
+  cursor: default;
+}
+.tsh-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+.tsh-visual {
+  display: inline-block;
+}
+.tsh-glyph {
+  display: inline-block;
+  min-width: 0.08em;
+  transition: color var(--motion-instant) var(--ease-out-soft);
+}
+@media (prefers-reduced-motion: reduce) {
+  .tsh-label {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    clip-path: none;
+    white-space: normal;
+  }
+  .tsh-visual {
+    display: none;
+  }
+}

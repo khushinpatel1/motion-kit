@@ -1,0 +1,24 @@
+/* React port of vanilla/svg-path-draw.css; .svg contains paths with data-draw and JS writes --progress, --length, --start, and --span. Consumes --motion-fast/--ease-linear; reduced motion draws fully. */
+
+.svg {
+  --progress: 0;
+  overflow: visible;
+}
+.svg [data-draw] {
+  --length: 0;
+  --start: 0;
+  --span: 1;
+  fill: none;
+  stroke-dasharray: var(--length);
+  stroke-dashoffset: calc(
+    var(--length) *
+      (1 - clamp(0, (var(--progress) - var(--start)) / var(--span), 1))
+  );
+  transition: stroke-dashoffset var(--motion-fast) var(--ease-linear);
+}
+@media (prefers-reduced-motion: reduce) {
+  .svg [data-draw] {
+    stroke-dashoffset: 0;
+    transition: none;
+  }
+}

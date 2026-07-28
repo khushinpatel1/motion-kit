@@ -1,0 +1,31 @@
+/* React port of vanilla/retracting-header.css; .header wraps navigation and JS writes data-retracted/data-scrolled. Consumes --motion-fast/--ease-out-soft; reduced motion pins it. */
+.header {
+  --surface: rgba(15, 23, 42, 0.92);
+  --border: rgba(255, 255, 255, 0.18);
+  position: sticky;
+  top: 0;
+  z-index: 15;
+  border-bottom: 1px solid transparent;
+  background: transparent;
+  transform: translateY(0);
+  transition:
+    transform var(--motion-fast) var(--ease-out-soft),
+    background var(--motion-fast) var(--ease-out-soft),
+    border-color var(--motion-fast) var(--ease-out-soft);
+}
+.header[data-retracted="true"] {
+  transform: translateY(-100%);
+}
+.header[data-scrolled="true"] {
+  border-bottom-color: var(--border);
+  background: var(--surface);
+}
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .header[data-retracted="true"] {
+    transform: none;
+    transition:
+      background var(--motion-fast),
+      border-color var(--motion-fast);
+  }
+}

@@ -1,0 +1,52 @@
+/* Cursor Follow Image List — dependency-free vanilla form.
+   Structure expected: .cfil-list with .cfil-row[data-image] children and one .cfil-preview img.
+   Consumes tokens.css variables --motion-fast and --ease-out-soft; JS writes --cfil-x, --cfil-y, and --cfil-rotation.
+   Under prefers-reduced-motion, the preview is not shown and no pointer loop is attached. */
+
+.cfil-list {
+  position: relative;
+  display: grid;
+  color: #fff;
+}
+.cfil-row {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 22px 0;
+  color: inherit;
+  text-decoration: none;
+}
+.cfil-row:last-of-type {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+}
+.cfil-preview {
+  position: fixed;
+  z-index: 2;
+  top: var(--cfil-y, 50vh);
+  left: var(--cfil-x, 50vw);
+  width: 220px;
+  height: 280px;
+  overflow: hidden;
+  border-radius: 20px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(var(--cfil-rotation, 0deg));
+  transition: opacity var(--motion-fast) var(--ease-out-soft);
+}
+.cfil-preview img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cfil-preview[data-visible="true"] {
+  opacity: 1;
+}
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  .cfil-preview {
+    display: none;
+  }
+}

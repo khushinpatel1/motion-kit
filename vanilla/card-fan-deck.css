@@ -1,0 +1,50 @@
+/* Card Fan Deck — dependency-free vanilla form.
+   Structure expected: .cfd-deck containing .cfd-card elements with a --i index custom property set in markup.
+   Consumes tokens.css variables --motion-base and --ease-out-expressive; CSS consumes --i, --fan-angle, --fan-spread, and --fan-lift.
+   Under prefers-reduced-motion, the deck snaps between a neat pile and its fanned state. */
+
+.cfd-deck {
+  --fan-angle: 28deg;
+  --fan-spread: 92px;
+  --fan-lift: 18px;
+  position: relative;
+  display: grid;
+  width: min(100%, 360px);
+  min-height: 260px;
+  place-items: center;
+}
+.cfd-card {
+  grid-area: 1 / 1;
+  width: 190px;
+  min-height: 240px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 24px;
+  padding: 24px;
+  color: #fff;
+  background: linear-gradient(145deg, #27224f, #0f172a 70%, #164e63);
+  transform: translateX(0) rotate(0deg);
+  transition:
+    transform var(--motion-base) var(--ease-out-expressive),
+    box-shadow var(--motion-fast) var(--ease-out-soft);
+}
+.cfd-deck:hover .cfd-card,
+.cfd-deck:focus-within .cfd-card {
+  transform: translateX(
+      calc((var(--i) - ((var(--deck-count, 5) - 1) / 2)) * var(--fan-spread))
+    )
+    rotate(
+      calc((var(--i) - ((var(--deck-count, 5) - 1) / 2)) * var(--fan-angle))
+    );
+}
+.cfd-deck:hover .cfd-card:hover,
+.cfd-deck:focus-within .cfd-card:focus {
+  z-index: 2;
+  transform: translateX(
+      calc((var(--i) - ((var(--deck-count, 5) - 1) / 2)) * var(--fan-spread))
+    )
+    translateY(calc(var(--fan-lift) * -1))
+    rotate(
+      calc((var(--i) - ((var(--deck-count, 5) - 1) / 2)) * var(--fan-angle))
+    );
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35);
+}

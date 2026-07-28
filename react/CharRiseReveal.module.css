@@ -1,0 +1,28 @@
+/* Char Rise Reveal — React stylesheet. Expects .root > .chars > .char; consumes --motion-instant/--motion-base/--ease-out-expressive and JS-written --crr-index. Reduced motion makes every char visible without transition. */
+.root {
+  color: var(--crr-color, #fff);
+}
+.chars {
+  display: inline;
+}
+.char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.7em);
+  transition:
+    opacity var(--motion-base) var(--ease-out-expressive),
+    transform var(--motion-base) var(--ease-out-expressive);
+  transition-delay: calc(var(--motion-instant) * var(--crr-index));
+}
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .char,
+  .visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

@@ -1,0 +1,40 @@
+/* Typewriter Caret — React stylesheet. Expects .root > .accessible + .visual > text/.caret; consumes --motion-slow/--ease-linear, while JS derives per-character delay from --motion-instant. Reduced motion disables blinking. */
+.root {
+  color: var(--twc-color, #fff);
+}
+.visual {
+  display: inline-flex;
+  align-items: baseline;
+}
+.caret {
+  width: 0.62ch;
+  height: 1em;
+  margin-left: 0.08em;
+  background: currentColor;
+  animation: blink var(--motion-slow) var(--ease-linear) infinite;
+}
+.accessible {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+@keyframes blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  46%,
+  100% {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .caret {
+    animation: none;
+    opacity: 1;
+  }
+}

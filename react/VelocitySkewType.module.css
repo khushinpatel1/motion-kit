@@ -1,0 +1,22 @@
+/* Velocity Skew Type — React stylesheet. Expects .root; consumes --motion-fast/--ease-out-soft and JS-written --vst-skew/--vst-weight. Reduced motion removes transforms and transitions. */
+.root {
+  --vst-skew: 0deg;
+  --vst-weight: 600;
+  color: var(--vst-color, #fff);
+  transform: skewY(var(--vst-skew));
+  transform-origin: center;
+  font-variation-settings: "wght" var(--vst-weight);
+  transition:
+    transform var(--motion-fast) var(--ease-out-soft),
+    font-variation-settings var(--motion-fast) var(--ease-out-soft);
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .root {
+    --vst-skew: 0deg;
+    transform: none;
+    font-variation-settings: normal;
+    transition: none;
+    will-change: auto;
+  }
+}

@@ -1,0 +1,39 @@
+/* React port of vanilla/edge-detail-drawer.css. Expects .root with .trigger, .scrim, and .drawer[role=dialog]; consumes shared timing tokens. */
+.root {
+  position: relative;
+}
+.scrim {
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  border: 0;
+  background: rgba(5, 4, 16, 0.62);
+  opacity: 0;
+  transition: opacity var(--motion-base) var(--ease-out-soft);
+}
+.drawer {
+  position: fixed;
+  z-index: 21;
+  top: 0;
+  bottom: 0;
+  width: min(440px, 100vw);
+  overflow: auto;
+  padding: 28px;
+  color: #fff;
+  background: linear-gradient(160deg, #27224f, #0f172a 70%);
+  transition: transform var(--motion-base) var(--ease-out-expressive);
+}
+.root[data-side="left"] .drawer {
+  left: 0;
+  transform: translateX(-100%);
+}
+.root[data-side="right"] .drawer {
+  right: 0;
+  transform: translateX(100%);
+}
+.root.open .scrim {
+  opacity: 1;
+}
+.root.open .drawer {
+  transform: translateX(0);
+}

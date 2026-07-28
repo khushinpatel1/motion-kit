@@ -1,0 +1,41 @@
+/* Clip Mask Reveal — dependency-free vanilla form.
+   Structure expected: an element with class .cmr-reveal and optional data-direction="up|down|left|right".
+   Consumes tokens.css variables --motion-base and --ease-out-expressive; JS writes the .is-visible state.
+   Under prefers-reduced-motion, the element is fully revealed with no transform or transition. */
+
+.cmr-reveal {
+  --cmr-shift: 24px;
+  clip-path: inset(0 0 100% 0);
+  opacity: 0;
+  transform: translateY(var(--cmr-shift));
+  transition:
+    clip-path var(--motion-base) var(--ease-out-expressive),
+    opacity var(--motion-base) var(--ease-out-expressive),
+    transform var(--motion-base) var(--ease-out-expressive);
+}
+.cmr-reveal[data-direction="down"] {
+  clip-path: inset(100% 0 0 0);
+  transform: translateY(calc(var(--cmr-shift) * -1));
+}
+.cmr-reveal[data-direction="left"] {
+  clip-path: inset(0 0 0 100%);
+  transform: translateX(var(--cmr-shift));
+}
+.cmr-reveal[data-direction="right"] {
+  clip-path: inset(0 100% 0 0);
+  transform: translateX(calc(var(--cmr-shift) * -1));
+}
+.cmr-reveal.is-visible {
+  clip-path: inset(0);
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cmr-reveal,
+  .cmr-reveal.is-visible {
+    clip-path: inset(0);
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

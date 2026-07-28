@@ -1,0 +1,26 @@
+/* Velocity Skew Type — dependency-free vanilla form.
+   Structure expected: a heading root with its text content; JS writes --vst-skew and --vst-weight on that heading.
+   Consumes tokens.css variables --motion-fast and --ease-out-soft.
+   Under prefers-reduced-motion, the heading is static, unskewed, and has no scroll listener. */
+
+.vst-root {
+  --vst-skew: 0deg;
+  --vst-weight: 600;
+  color: var(--vst-color, #fff);
+  transform: skewY(var(--vst-skew));
+  transform-origin: center;
+  font-variation-settings: "wght" var(--vst-weight);
+  transition:
+    transform var(--motion-fast) var(--ease-out-soft),
+    font-variation-settings var(--motion-fast) var(--ease-out-soft);
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .vst-root {
+    --vst-skew: 0deg;
+    transform: none;
+    font-variation-settings: normal;
+    transition: none;
+    will-change: auto;
+  }
+}

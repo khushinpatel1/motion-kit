@@ -1,0 +1,40 @@
+/* Parallax Media Band — dependency-free vanilla form.
+   Structure expected: <section class="pmb-band"><img class="pmb-media">...</section>; JS writes --pmb-progress and --pmb-shift.
+   Consumes tokens.css variable --motion-fast for state transitions; --pmb-depth controls the computed overscan.
+   Under prefers-reduced-motion, the media is centred and static and no scroll listener is attached. */
+
+.pmb-band {
+  --pmb-depth: 0.35;
+  --pmb-progress: 0.5;
+  --pmb-shift: 0px;
+  position: relative;
+  min-height: 420px;
+  overflow: hidden;
+  isolation: isolate;
+}
+.pmb-media {
+  position: absolute;
+  inset: calc(var(--pmb-shift) / -2) 0;
+  width: 100%;
+  height: calc(100% + var(--pmb-shift));
+  object-fit: cover;
+  transform: translateY(calc((0.5 - var(--pmb-progress)) * var(--pmb-shift)));
+  will-change: auto;
+}
+.pmb-band[data-in-view="true"] .pmb-media {
+  will-change: transform;
+}
+.pmb-content {
+  position: relative;
+  z-index: 1;
+  padding: 64px 28px;
+  color: #fff;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pmb-media {
+    inset: 0;
+    height: 100%;
+    transform: none;
+    will-change: auto;
+  }
+}

@@ -1,0 +1,34 @@
+/* Underline Draw Link — dependency-free vanilla form.
+   Structure expected: an inline <a class="udl-link"> containing its real link text; CSS writes no custom properties.
+   Consumes tokens.css variables --motion-fast and --ease-out-soft.
+   Under prefers-reduced-motion, token durations collapse to 0ms, so the underline appears or disappears without a bespoke motion path. */
+
+.udl-link {
+  --udl-color: var(--link-underline-color, currentColor);
+  --udl-thickness: 2px;
+  position: relative;
+  display: inline-block;
+  color: inherit;
+  text-decoration: none;
+}
+.udl-link::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -0.18em;
+  left: 0;
+  height: var(--udl-thickness);
+  background: var(--udl-color);
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform var(--motion-fast) var(--ease-out-soft);
+}
+.udl-link:hover::after,
+.udl-link:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+.udl-link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 5px;
+}

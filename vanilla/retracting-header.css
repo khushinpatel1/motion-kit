@@ -1,0 +1,35 @@
+/* Retracting Header — dependency-free vanilla form.
+   Structure expected: <header class="rh-header">...</header>; JS toggles data-retracted and data-scrolled.
+   Consumes tokens.css variables --motion-fast and --ease-out-soft; JS writes only the two data-state attributes.
+   Under prefers-reduced-motion, the header remains pinned while its scrolled surface state still changes. */
+
+.rh-header {
+  --rh-surface: rgba(15, 23, 42, 0.92);
+  --rh-border: rgba(255, 255, 255, 0.18);
+  position: sticky;
+  top: 0;
+  z-index: 15;
+  border-bottom: 1px solid transparent;
+  background: transparent;
+  transform: translateY(0);
+  transition:
+    transform var(--motion-fast) var(--ease-out-soft),
+    background var(--motion-fast) var(--ease-out-soft),
+    border-color var(--motion-fast) var(--ease-out-soft);
+}
+.rh-header[data-retracted="true"] {
+  transform: translateY(-100%);
+}
+.rh-header[data-scrolled="true"] {
+  border-bottom-color: var(--rh-border);
+  background: var(--rh-surface);
+}
+@media (prefers-reduced-motion: reduce) {
+  .rh-header,
+  .rh-header[data-retracted="true"] {
+    transform: none;
+    transition:
+      background var(--motion-fast),
+      border-color var(--motion-fast);
+  }
+}

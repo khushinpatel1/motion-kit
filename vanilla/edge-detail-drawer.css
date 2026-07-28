@@ -1,0 +1,47 @@
+/* Edge Detail Drawer — dependency-free vanilla form.
+   Structure expected: .edd-root with .edd-trigger, .edd-scrim, and .edd-drawer[role="dialog"] containing a close button.
+   Consumes tokens.css variables --motion-base and --ease-out-expressive; JS writes no custom properties.
+   Under prefers-reduced-motion, the drawer and scrim appear instantly while scroll locking and focus management remain. */
+
+.edd-scrim {
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  border: 0;
+  background: rgba(5, 4, 16, 0.62);
+  opacity: 0;
+  transition: opacity var(--motion-base) var(--ease-out-soft);
+}
+
+.edd-drawer {
+  position: fixed;
+  z-index: 21;
+  top: 0;
+  bottom: 0;
+  width: min(440px, 100vw);
+  overflow: auto;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 28px;
+  color: #fff;
+  background: linear-gradient(160deg, #27224f, #0f172a 70%);
+  transition: transform var(--motion-base) var(--ease-out-expressive);
+}
+
+.edd-root[data-side="left"] .edd-drawer {
+  left: 0;
+  transform: translateX(-100%);
+}
+.edd-root[data-side="right"] .edd-drawer {
+  right: 0;
+  transform: translateX(100%);
+}
+.edd-root:not(.is-open) .edd-scrim,
+.edd-root:not(.is-open) .edd-drawer {
+  pointer-events: none;
+}
+.edd-root.is-open .edd-scrim {
+  opacity: 1;
+}
+.edd-root.is-open .edd-drawer {
+  transform: translateX(0);
+}

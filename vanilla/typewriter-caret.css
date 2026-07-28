@@ -1,0 +1,44 @@
+/* Typewriter Caret — dependency-free vanilla form.
+   Structure expected: .twc root containing .twc-accessible and an aria-hidden .twc-visual with .twc-caret; JS writes the visual text.
+   Consumes tokens.css variables --motion-instant, --motion-slow, and --ease-linear.
+   Under prefers-reduced-motion, the complete text is shown immediately and the caret is present without blinking. */
+
+.twc {
+  color: var(--twc-color, #fff);
+}
+.twc-visual {
+  display: inline-flex;
+  align-items: baseline;
+}
+.twc-caret {
+  width: 0.62ch;
+  height: 1em;
+  margin-left: 0.08em;
+  background: currentColor;
+  animation: twc-blink var(--motion-slow) var(--ease-linear) infinite;
+}
+.twc-accessible {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+@keyframes twc-blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  46%,
+  100% {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .twc-caret {
+    animation: none;
+    opacity: 1;
+  }
+}

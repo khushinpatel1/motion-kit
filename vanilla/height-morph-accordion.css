@@ -1,0 +1,65 @@
+/* Height Morph Accordion — dependency-free vanilla form.
+   Structure expected: a .hma-accordion containing .hma-item elements, each with a .hma-trigger button and a .hma-panel element whose id matches aria-controls.
+   Consumes tokens.css variables --motion-fast and --ease-out-soft; JS writes no custom properties.
+   Under prefers-reduced-motion, the grid row changes instantly while hidden state and keyboard behavior remain accessible. */
+
+.hma-accordion {
+  display: grid;
+  gap: 12px;
+  color: #fff;
+}
+
+.hma-item {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 24px;
+  background: linear-gradient(135deg, #1e1b4b, #0f172a 68%, #164e63);
+}
+
+.hma-trigger {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border: 0;
+  padding: 20px 24px;
+  color: inherit;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.hma-trigger::after {
+  content: "+";
+  flex: 0 0 auto;
+  font-size: 24px;
+  line-height: 1;
+  transition: transform var(--motion-fast) var(--ease-out-soft);
+}
+
+.hma-trigger[aria-expanded="true"]::after {
+  transform: rotate(45deg);
+}
+
+.hma-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--motion-fast) var(--ease-out-soft);
+}
+
+.hma-panel-inner {
+  min-height: 0;
+  overflow: hidden;
+  padding: 0 24px;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.hma-panel[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+
+.hma-panel[data-open="true"] .hma-panel-inner {
+  padding-bottom: 24px;
+}

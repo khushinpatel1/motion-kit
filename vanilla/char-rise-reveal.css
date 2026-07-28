@@ -1,0 +1,32 @@
+/* Char Rise Reveal — dependency-free vanilla form.
+   Structure expected: a root with original text content; JS writes an aria-label and an aria-hidden .crr-chars wrapper containing .crr-char spans with --crr-index.
+   Consumes tokens.css variables --motion-instant, --motion-base, and --ease-out-expressive; JS writes --crr-index.
+   Under prefers-reduced-motion, the observer remains present but characters are fully opaque, untransformed, and unstaggered. */
+
+.crr-root {
+  color: var(--crr-color, #fff);
+}
+.crr-chars {
+  display: inline;
+}
+.crr-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.7em);
+  transition:
+    opacity var(--motion-base) var(--ease-out-expressive),
+    transform var(--motion-base) var(--ease-out-expressive);
+  transition-delay: calc(var(--motion-instant) * var(--crr-index));
+}
+.crr-char.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .crr-char,
+  .crr-char.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

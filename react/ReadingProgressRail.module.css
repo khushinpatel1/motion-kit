@@ -1,0 +1,48 @@
+/* React port of vanilla/reading-progress-rail.css; .rail contains .fill and .label, while JS writes --progress and aria-valuenow. Consumes --motion-fast/--ease-out-soft; reduced motion still tracks. */
+.rail {
+  --progress: 0;
+  --thickness: 4px;
+  --track: rgba(255, 255, 255, 0.14);
+  --fill: #a78bfa;
+  position: fixed;
+  z-index: 20;
+  display: flex;
+  overflow: hidden;
+  color: #fff;
+  background: var(--track);
+  pointer-events: none;
+}
+.rail[data-edge="top"] {
+  inset: 0 0 auto;
+  width: 100%;
+  height: var(--thickness);
+}
+.rail[data-edge="side"] {
+  inset: 0 auto 0 0;
+  width: var(--thickness);
+  height: 100%;
+  flex-direction: column;
+}
+.fill {
+  display: block;
+  background: var(--fill);
+  transform: scaleX(var(--progress));
+  transform-origin: left center;
+  transition: transform var(--motion-fast) var(--ease-out-soft);
+}
+.rail[data-edge="side"] .fill {
+  width: 100%;
+  transform: scaleY(var(--progress));
+  transform-origin: center bottom;
+}
+.label {
+  position: absolute;
+  inset: 8px 12px auto auto;
+  padding: 4px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.9);
+  font:
+    600 0.75rem/1 system-ui,
+    sans-serif;
+}

@@ -1,0 +1,55 @@
+/* Reading Progress Rail — dependency-free vanilla form.
+   Structure expected: <div class="rpr-rail" data-edge="top" role="progressbar"><span class="rpr-fill"></span><span class="rpr-label"></span></div>.
+   Consumes tokens.css variables --motion-fast and --ease-out-soft; JS writes --rpr-progress and the ARIA/readout state.
+   Under prefers-reduced-motion, tracking remains live while the fill transition is zeroed by tokens.css. */
+
+.rpr-rail {
+  --rpr-progress: 0;
+  --rpr-thickness: 4px;
+  --rpr-track: rgba(255, 255, 255, 0.14);
+  --rpr-fill: #a78bfa;
+  position: fixed;
+  z-index: 20;
+  display: flex;
+  overflow: hidden;
+  color: #fff;
+  background: var(--rpr-track);
+  pointer-events: none;
+}
+.rpr-rail[data-edge="top"] {
+  inset: 0 0 auto;
+  width: 100%;
+  height: var(--rpr-thickness);
+}
+.rpr-rail[data-edge="side"] {
+  inset: 0 auto 0 0;
+  width: var(--rpr-thickness);
+  height: 100%;
+  flex-direction: column;
+}
+.rpr-fill {
+  display: block;
+  background: var(--rpr-fill);
+  transform: scaleX(var(--rpr-progress));
+  transform-origin: left center;
+  transition: transform var(--motion-fast) var(--ease-out-soft);
+}
+.rpr-rail[data-edge="side"] .rpr-fill {
+  width: 100%;
+  transform: scaleY(var(--rpr-progress));
+  transform-origin: center bottom;
+}
+.rpr-label {
+  position: absolute;
+  inset: 8px 12px auto auto;
+  padding: 4px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.9);
+  font:
+    600 0.75rem/1 system-ui,
+    sans-serif;
+}
+.rpr-label[hidden] {
+  display: none;
+}

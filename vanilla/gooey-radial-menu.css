@@ -1,0 +1,61 @@
+/* Gooey Radial Menu — dependency-free vanilla form.
+   Structure expected: .grm-menu with a .grm-trigger button, .grm-items containing .grm-item buttons or links, and an optional SVG #grm-goo-filter.
+   Consumes tokens.css variables --motion-base and --ease-out-expressive; JS writes --grm-x, --grm-y, and --grm-index.
+   Under prefers-reduced-motion, items appear at their final radial positions with no travel or stagger; keyboard and Escape behavior remain. */
+
+.grm-menu {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  min-width: 64px;
+  min-height: 64px;
+}
+.grm-items {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.grm-item,
+.grm-trigger {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  color: #fff;
+  background: #27224f;
+  font: inherit;
+  cursor: pointer;
+}
+.grm-item {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  opacity: 0;
+  transform: translate(0, 0) scale(0.7);
+  transition:
+    transform var(--motion-base) var(--ease-out-expressive),
+    opacity var(--motion-fast) var(--ease-out-soft);
+  transition-delay: calc(var(--grm-index) * var(--motion-instant));
+}
+.grm-menu.is-open .grm-items {
+  filter: url(#grm-goo-filter);
+  pointer-events: auto;
+}
+.grm-menu.is-open .grm-item {
+  opacity: 1;
+  transform: translate(var(--grm-x), var(--grm-y)) scale(1);
+}
+.grm-menu:not(.is-open) .grm-items {
+  filter: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .grm-item {
+    transition-delay: var(--motion-instant);
+    transform: translate(var(--grm-x), var(--grm-y)) scale(1);
+  }
+  .grm-menu:not(.is-open) .grm-item {
+    transform: translate(0, 0) scale(1);
+  }
+}

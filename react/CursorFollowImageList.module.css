@@ -1,0 +1,46 @@
+/* React port of vanilla/cursor-follow-image-list.css. Expects .list > .row links and .preview > img; consumes shared timing tokens and JS-written follow variables. */
+.list {
+  position: relative;
+  display: grid;
+  color: #fff;
+}
+.row {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 22px 0;
+  color: inherit;
+  text-decoration: none;
+}
+.row:last-of-type {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+}
+.preview {
+  position: fixed;
+  z-index: 2;
+  top: var(--cfil-y, 50vh);
+  left: var(--cfil-x, 50vw);
+  width: 220px;
+  height: 280px;
+  overflow: hidden;
+  border-radius: 20px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(var(--cfil-rotation, 0deg));
+  transition: opacity var(--motion-fast) var(--ease-out-soft);
+}
+.preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.preview[data-visible="true"] {
+  opacity: 1;
+}
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  .preview {
+    display: none;
+  }
+}

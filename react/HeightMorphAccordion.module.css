@@ -1,0 +1,45 @@
+/* React port of vanilla/height-morph-accordion.css. Expects .accordion > .item > .trigger + .panel > .panelInner; consumes --motion-fast/--ease-out-soft and relies on hidden for collapsed panels. */
+.accordion {
+  display: grid;
+  gap: 12px;
+  color: #fff;
+}
+.item {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 24px;
+  background: linear-gradient(135deg, #1e1b4b, #0f172a 68%, #164e63);
+}
+.trigger {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  border: 0;
+  padding: 20px 24px;
+  color: inherit;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.trigger::after {
+  content: "+";
+  transition: transform var(--motion-fast) var(--ease-out-soft);
+}
+.trigger[aria-expanded="true"]::after {
+  transform: rotate(45deg);
+}
+.panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--motion-fast) var(--ease-out-soft);
+}
+.panel[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+.panelInner {
+  min-height: 0;
+  overflow: hidden;
+  padding: 0 24px 24px;
+  color: rgba(255, 255, 255, 0.72);
+}

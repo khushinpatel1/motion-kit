@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Motion Kit — 19 effects</title>
+    <title>Motion Kit — 38 effects</title>
     <link rel="stylesheet" href="../tokens.css" />
     <link rel="stylesheet" href="../vanilla/floating-card.css" />
     <link rel="stylesheet" href="../vanilla/aurora-glass.css" />
@@ -24,6 +24,25 @@
     <link rel="stylesheet" href="../vanilla/staggered-scroll-reveal.css" />
     <link rel="stylesheet" href="../vanilla/noise-grain-overlay.css" />
     <link rel="stylesheet" href="../vanilla/floating-image-gallery.css" />
+    <link rel="stylesheet" href="../vanilla/text-scramble-hover.css" />
+    <link rel="stylesheet" href="../vanilla/word-morph-cycle.css" />
+    <link rel="stylesheet" href="../vanilla/typewriter-caret.css" />
+    <link rel="stylesheet" href="../vanilla/velocity-skew-type.css" />
+    <link rel="stylesheet" href="../vanilla/char-rise-reveal.css" />
+    <link rel="stylesheet" href="../vanilla/underline-draw-link.css" />
+    <link rel="stylesheet" href="../vanilla/clip-mask-reveal.css" />
+    <link rel="stylesheet" href="../vanilla/svg-path-draw.css" />
+    <link rel="stylesheet" href="../vanilla/reading-progress-rail.css" />
+    <link rel="stylesheet" href="../vanilla/retracting-header.css" />
+    <link rel="stylesheet" href="../vanilla/sticky-stack-cards.css" />
+    <link rel="stylesheet" href="../vanilla/parallax-media-band.css" />
+    <link rel="stylesheet" href="../vanilla/height-morph-accordion.css" />
+    <link rel="stylesheet" href="../vanilla/anchored-tooltip.css" />
+    <link rel="stylesheet" href="../vanilla/flip-dialog-expand.css" />
+    <link rel="stylesheet" href="../vanilla/edge-detail-drawer.css" />
+    <link rel="stylesheet" href="../vanilla/cursor-follow-image-list.css" />
+    <link rel="stylesheet" href="../vanilla/gooey-radial-menu.css" />
+    <link rel="stylesheet" href="../vanilla/card-fan-deck.css" />
     <style>
       :root {
         color-scheme: dark;
@@ -121,6 +140,58 @@
         clip: rect(0, 0, 0, 0);
         white-space: nowrap;
         border: 0;
+      }
+      .mini-scroll {
+        max-height: 260px;
+        overflow: auto;
+        padding: 18px;
+        border-radius: 16px;
+        background: #080d18;
+      }
+      .mini-scroll > * + * {
+        margin-top: 18px;
+      }
+      .mini-progress {
+        position: relative;
+        padding: 0;
+      }
+      .mini-progress .rpr-rail {
+        position: absolute;
+        z-index: 2;
+        inset: 0 0 auto;
+        width: 100%;
+      }
+      .mini-progress .rpr-label {
+        display: none;
+      }
+      .mini-header {
+        min-height: 190px;
+      }
+      .mini-header .rh-header {
+        position: sticky;
+        padding: 14px 18px;
+        color: #fff;
+      }
+      .mini-header .rh-header nav {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .mini-header p {
+        margin: 16px 0 120px;
+      }
+      .pmb-demo .pmb-band {
+        min-height: 260px;
+      }
+      .pmb-demo .pmb-content {
+        padding: 36px 24px;
+      }
+      .pmb-demo .pmb-media {
+        opacity: 0.8;
+      }
+      .source-note {
+        margin: 0;
+        font-size: 13px;
       }
       @media (max-width: 680px) {
         .grid {
@@ -242,6 +313,36 @@
               React: <code>react/DimensionalTiltCard.tsx</code>
             </details>
           </article>
+          <article class="demo">
+            <h3 class="tsh-root">Read the signal</h3>
+            <details>
+              <summary>View source</summary>
+              <a href="../vanilla/text-scramble-hover.css">vanilla CSS</a> ·
+              <a href="../vanilla/text-scramble-hover.js">vanilla JS</a> · React:
+              <code>react/TextScrambleHover.tsx</code>
+            </details>
+          </article>
+          <article class="demo">
+            <a class="udl-link" href="#journal">Read the journal</a>
+            <details>
+              <summary>View source</summary>
+              <a href="../vanilla/underline-draw-link.css">vanilla CSS</a> · React:
+              <code>react/UnderlineDrawLink.tsx</code>
+            </details>
+          </article>
+          <article class="demo wide">
+            <div class="cfil-list" id="cursor-list">
+              <a class="cfil-row" data-image="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500'%3E%3Crect width='100%25' height='100%25' fill='%230f766e'/%3E%3C/svg%3E" href="#field-notes">Field notes <span>01</span></a>
+              <a class="cfil-row" data-image="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500'%3E%3Crect width='100%25' height='100%25' fill='%237c3aed'/%3E%3C/svg%3E" href="#quiet-systems">Quiet systems <span>02</span></a>
+              <span class="cfil-preview" aria-hidden="true"><img alt="" /></span>
+            </div>
+            <details>
+              <summary>View source</summary>
+              <a href="../vanilla/cursor-follow-image-list.css">vanilla CSS</a> ·
+              <a href="../vanilla/cursor-follow-image-list.js">vanilla JS</a> · React:
+              <code>react/CursorFollowImageList.tsx</code>
+            </details>
+          </article>
         </div>
       </section>
 
@@ -301,6 +402,51 @@
               React: <code>react/CommandPaletteBloom.tsx</code>
             </details>
           </article>
+          <article class="demo">
+            <div class="hma-accordion" id="accordion">
+              <section class="hma-item">
+                <button class="hma-trigger" aria-expanded="false" aria-controls="panel-one">A measured pace</button>
+                <div class="hma-panel" id="panel-one"><div class="hma-panel-inner">Space to notice what is changing before deciding what comes next.</div></div>
+              </section>
+              <section class="hma-item">
+                <button class="hma-trigger" aria-expanded="false" aria-controls="panel-two">A clear edge</button>
+                <div class="hma-panel" id="panel-two"><div class="hma-panel-inner">Small transitions make the whole system easier to read.</div></div>
+              </section>
+            </div>
+            <details>
+              <summary>View source</summary>
+              <a href="../vanilla/height-morph-accordion.css">vanilla CSS</a> ·
+              <a href="../vanilla/height-morph-accordion.js">vanilla JS</a> · React:
+              <code>react/HeightMorphAccordion.tsx</code>
+            </details>
+          </article>
+          <article class="demo">
+            <span class="at-tooltip-root"><button class="at-trigger" type="button">Hover or focus</button><span class="at-tooltip" role="tooltip">Helpful context, close at hand.</span></span>
+            <details>
+              <summary>View source</summary>
+              <a href="../vanilla/anchored-tooltip.css">vanilla CSS</a> ·
+              <a href="../vanilla/anchored-tooltip.js">vanilla JS</a> · React:
+              <code>react/AnchoredTooltip.tsx</code>
+            </details>
+          </article>
+          <article class="demo">
+            <div class="fde-root" id="dialog-demo"><button class="fde-card" type="button">Open detail</button><dialog class="fde-dialog"><div class="fde-dialog-inner"><button class="fde-dialog-close" type="button">Close</button><strong>A considered detail</strong><span>The useful thing is often one quiet layer deeper.</span></div></dialog></div>
+            <details>
+              <summary>View source</summary>
+              <a href="../vanilla/flip-dialog-expand.css">vanilla CSS</a> ·
+              <a href="../vanilla/flip-dialog-expand.js">vanilla JS</a> · React:
+              <code>react/FlipDialogExpand.tsx</code>
+            </details>
+          </article>
+          <article class="demo">
+            <div class="edd-root" id="drawer-demo"><button class="edd-trigger" type="button">Open details</button><button class="edd-scrim" aria-label="Close details" type="button"></button><div class="edd-drawer" role="dialog" aria-modal="true" tabindex="-1"><button type="button">Close</button><h3>Edge detail</h3><p>A focused surface for context that should not crowd the main path.</p></div></div>
+            <details>
+              <summary>View source</summary>
+              <a href="../vanilla/edge-detail-drawer.css">vanilla CSS</a> ·
+              <a href="../vanilla/edge-detail-drawer.js">vanilla JS</a> · React:
+              <code>react/EdgeDetailDrawer.tsx</code>
+            </details>
+          </article>
         </div>
       </section>
 
@@ -319,6 +465,24 @@
               React: <code>react/CinematicTypeReveal.tsx</code>
             </details>
           </article>
+          <article class="demo">
+            <p class="twc">Make room for better work</p>
+            <details>
+              <summary>View source</summary>
+              <a href="../vanilla/typewriter-caret.css">vanilla CSS</a> ·
+              <a href="../vanilla/typewriter-caret.js">vanilla JS</a> · React:
+              <code>react/TypewriterCaret.tsx</code>
+            </details>
+          </article>
+          <article class="demo">
+            <h3 class="crr-root">A quieter kind of motion</h3>
+            <details>
+              <summary>View source</summary>
+              <a href="../vanilla/char-rise-reveal.css">vanilla CSS</a> ·
+              <a href="../vanilla/char-rise-reveal.js">vanilla JS</a> · React:
+              <code>react/CharRiseReveal.tsx</code>
+            </details>
+          </article>
         </div>
       </section>
 
@@ -332,6 +496,32 @@
               <a href="../vanilla/particle-cursor-trail.css">vanilla CSS</a> ·
               <a href="../vanilla/particle-cursor-trail.js">vanilla JS</a> ·
               React: <code>react/ParticleCursorTrail.tsx</code>
+            </details>
+          </article>
+          <article class="demo">
+            <p class="wmc"><span class="wmc-shell">build</span> with care</p>
+            <details>
+              <summary>View source</summary>
+              <a href="../vanilla/word-morph-cycle.css">vanilla CSS</a> ·
+              <a href="../vanilla/word-morph-cycle.js">vanilla JS</a> · React:
+              <code>react/WordMorphCycle.tsx</code>
+            </details>
+          </article>
+          <article class="demo">
+            <div class="grm-menu" id="radial-menu"><div class="grm-items"><button class="grm-item" type="button">A</button><button class="grm-item" type="button">B</button><button class="grm-item" type="button">C</button></div><button class="grm-trigger" type="button" aria-expanded="false">+</button><svg aria-hidden="true" width="0" height="0"><filter id="grm-goo-filter"><feGaussianBlur stdDeviation="8" result="blur"></feGaussianBlur><feColorMatrix in="blur" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -10"></feColorMatrix></filter></svg></div>
+            <details>
+              <summary>View source</summary>
+              <a href="../vanilla/gooey-radial-menu.css">vanilla CSS</a> ·
+              <a href="../vanilla/gooey-radial-menu.js">vanilla JS</a> · React:
+              <code>react/GooeyRadialMenu.tsx</code>
+            </details>
+          </article>
+          <article class="demo">
+            <div class="cfd-deck" style="--deck-count: 3"><article class="cfd-card" style="--i: 0" tabindex="0">North</article><article class="cfd-card" style="--i: 1" tabindex="0">Field</article><article class="cfd-card" style="--i: 2" tabindex="0">Notes</article></div>
+            <details>
+              <summary>View source</summary>
+              <a href="../vanilla/card-fan-deck.css">vanilla CSS</a> · React:
+              <code>react/CardFanDeck.tsx</code>
             </details>
           </article>
         </div>
@@ -414,6 +604,69 @@
               React: <code>react/StaggeredScrollReveal.tsx</code>
             </details>
           </article>
+          <article class="demo">
+            <h3 class="vst-root">Motion with a point of view</h3>
+            <details>
+              <summary>View source</summary>
+              <a href="../vanilla/velocity-skew-type.css">vanilla CSS</a> ·
+              <a href="../vanilla/velocity-skew-type.js">vanilla JS</a> · React:
+              <code>react/VelocitySkewType.tsx</code>
+            </details>
+          </article>
+          <article class="demo">
+            <div class="cmr-reveal" data-direction="up">A revealed card with a clear edge.</div>
+            <details>
+              <summary>View source</summary>
+              <a href="../vanilla/clip-mask-reveal.css">vanilla CSS</a> ·
+              <a href="../vanilla/clip-mask-reveal.js">vanilla JS</a> · React:
+              <code>react/ClipMaskReveal.tsx</code>
+            </details>
+          </article>
+          <article class="demo">
+            <svg class="spd-svg" viewBox="0 0 200 100" aria-hidden="true"><path data-draw d="M10 80 C50 10 90 10 190 80" stroke="#a7f3d0" stroke-width="5"></path><path data-draw d="M10 20 C70 70 130 70 190 20" stroke="#a78bfa" stroke-width="3"></path></svg>
+            <details>
+              <summary>View source</summary>
+              <a href="../vanilla/svg-path-draw.css">vanilla CSS</a> ·
+              <a href="../vanilla/svg-path-draw.js">vanilla JS</a> · React:
+              <code>react/SvgPathDraw.tsx</code>
+            </details>
+          </article>
+          <article class="demo wide mini-progress">
+            <div class="mini-scroll" id="progress-scroll"><div class="rpr-rail" data-edge="top" role="progressbar" aria-label="Reading progress"><span class="rpr-fill"></span><span class="rpr-label"></span></div><h3>Reading progress</h3><p>Scroll this small page to see the rail track the passage.</p><p>Good motion gives the reader a sense of where they are without asking for attention.</p><p>It marks a path, then gets out of the way. The interface remains calm while the state stays legible.</p><p>Finish with a little more room to think.</p></div>
+            <details>
+              <summary>View source</summary>
+              <a href="../vanilla/reading-progress-rail.css">vanilla CSS</a> ·
+              <a href="../vanilla/reading-progress-rail.js">vanilla JS</a> · React:
+              <code>react/ReadingProgressRail.tsx</code>
+            </details>
+          </article>
+          <article class="demo wide mini-header">
+            <div class="mini-scroll"><header class="rh-header"><nav aria-label="Primary"><strong>Fieldwork</strong><span>Index · Notes · About</span></nav></header><p>A compact header that retracts as the page moves down, then returns when the reader changes direction.</p></div>
+            <p class="source-note">The header listens to the gallery page scroll, while this contained preview keeps the demo from taking over the page.</p>
+            <details>
+              <summary>View source</summary>
+              <a href="../vanilla/retracting-header.css">vanilla CSS</a> ·
+              <a href="../vanilla/retracting-header.js">vanilla JS</a> · React:
+              <code>react/RetractingHeader.tsx</code>
+            </details>
+          </article>
+          <article class="demo">
+            <div class="mini-scroll"><div class="ssc-stack" style="--ssc-scale-floor: .92; --ssc-pin-offset: 24px"><article class="ssc-card"><strong>First card</strong><p>Stay with the signal.</p></article><article class="ssc-card"><strong>Second card</strong><p>Let the next layer arrive.</p></article><article class="ssc-card"><strong>Third card</strong><p>Keep the ending light.</p></article></div></div>
+            <details>
+              <summary>View source</summary>
+              <a href="../vanilla/sticky-stack-cards.css">vanilla CSS</a> · React:
+              <code>react/StickyStackCards.tsx</code>
+            </details>
+          </article>
+          <article class="demo pmb-demo">
+            <div class="mini-scroll"><section class="pmb-band"><img class="pmb-media" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Cdefs%3E%3ClinearGradient id='g' x2='1' y2='1'%3E%3Cstop stop-color='%230f766e'/%3E%3Cstop offset='1' stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" alt="Abstract quiet landscape gradient"><div class="pmb-content"><h2>A slower horizon</h2></div></section></div>
+            <details>
+              <summary>View source</summary>
+              <a href="../vanilla/parallax-media-band.css">vanilla CSS</a> ·
+              <a href="../vanilla/parallax-media-band.js">vanilla JS</a> · React:
+              <code>react/ParallaxMediaBand.tsx</code>
+            </details>
+          </article>
         </div>
       </section>
 
@@ -462,6 +715,22 @@
       import { mountScrollLinkedHue } from "../vanilla/scroll-linked-hue.js";
       import { mountStaggeredScrollReveal } from "../vanilla/staggered-scroll-reveal.js";
       import { mountFloatingImageGallery } from "../vanilla/floating-image-gallery.js";
+      import { mountTextScrambleHover } from "../vanilla/text-scramble-hover.js";
+      import { mountWordMorphCycle } from "../vanilla/word-morph-cycle.js";
+      import { mountTypewriterCaret } from "../vanilla/typewriter-caret.js";
+      import { mountVelocitySkewType } from "../vanilla/velocity-skew-type.js";
+      import { mountCharRiseReveal } from "../vanilla/char-rise-reveal.js";
+      import { mountClipMaskReveal } from "../vanilla/clip-mask-reveal.js";
+      import { mountSvgPathDraw } from "../vanilla/svg-path-draw.js";
+      import { mountReadingProgressRail } from "../vanilla/reading-progress-rail.js";
+      import { mountRetractingHeader } from "../vanilla/retracting-header.js";
+      import { mountParallaxMediaBand } from "../vanilla/parallax-media-band.js";
+      import { mountHeightMorphAccordion } from "../vanilla/height-morph-accordion.js";
+      import { mountAnchoredTooltip } from "../vanilla/anchored-tooltip.js";
+      import { mountFlipDialogExpand } from "../vanilla/flip-dialog-expand.js";
+      import { mountEdgeDetailDrawer } from "../vanilla/edge-detail-drawer.js";
+      import { mountCursorFollowImageList } from "../vanilla/cursor-follow-image-list.js";
+      import { mountGooeyRadialMenu } from "../vanilla/gooey-radial-menu.js";
       mountCursorSpotlightCard(document.querySelector("#spotlight"));
       mountMagneticActionButton(document.querySelector("#magnetic"));
       mountDimensionalTiltCard(document.querySelector("#tilt"));
@@ -475,6 +744,57 @@
       mountLivingAnalytics(document.querySelector("#analytics"));
       mountScrollLinkedHue(document.querySelector("#hue"));
       mountStaggeredScrollReveal(document.querySelector("#reveal"));
+      mountTextScrambleHover(document.querySelector(".tsh-root"), {
+        glyphs: "ABC123",
+      });
+      mountWordMorphCycle(document.querySelector(".wmc"), {
+        words: ["build", "ship", "tend"],
+        interval: 3000,
+      });
+      mountTypewriterCaret(document.querySelector(".twc"), {
+        strings: ["Make room", "Make better work"],
+      });
+      mountVelocitySkewType(document.querySelector(".vst-root"), {
+        maxSkew: 6,
+      });
+      mountCharRiseReveal(document.querySelector(".crr-root"), {
+        staggerStep: 1,
+        threshold: 0.2,
+      });
+      mountClipMaskReveal(document.querySelector(".cmr-reveal"), {
+        direction: "up",
+      });
+      mountSvgPathDraw(document.querySelector(".spd-svg"), { stagger: 0.08 });
+      mountReadingProgressRail(document.querySelector(".rpr-rail"), {
+        target: document.querySelector("#progress-scroll"),
+        showPercentage: true,
+      });
+      mountRetractingHeader(document.querySelector(".rh-header"), {
+        threshold: 24,
+        minDelta: 4,
+      });
+      mountParallaxMediaBand(document.querySelector(".pmb-band"), {
+        depth: 0.35,
+      });
+      mountHeightMorphAccordion(document.querySelector("#accordion"), {
+        multiple: false,
+      });
+      mountAnchoredTooltip(document.querySelector(".at-tooltip-root"), {
+        delay: 250,
+        side: "top",
+      });
+      mountFlipDialogExpand(document.querySelector("#dialog-demo"));
+      mountEdgeDetailDrawer(document.querySelector("#drawer-demo"), {
+        side: "right",
+      });
+      mountCursorFollowImageList(document.querySelector("#cursor-list"), {
+        lag: 0.14,
+        rotationCap: 8,
+      });
+      mountGooeyRadialMenu(document.querySelector("#radial-menu"), {
+        radius: 104,
+        arc: 120,
+      });
       const swatch = (a, b) =>
         "data:image/svg+xml," +
         encodeURIComponent(

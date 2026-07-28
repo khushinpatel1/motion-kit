@@ -1,0 +1,30 @@
+/* Underline Draw Link — React stylesheet. Expects .link around real anchor content; consumes --motion-fast/--ease-out-soft and writes no custom properties. Reduced motion collapses timing through tokens.css. */
+.link {
+  --udl-color: var(--link-underline-color, currentColor);
+  --udl-thickness: 2px;
+  position: relative;
+  display: inline-block;
+  color: inherit;
+  text-decoration: none;
+}
+.link::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -0.18em;
+  left: 0;
+  height: var(--udl-thickness);
+  background: var(--udl-color);
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform var(--motion-fast) var(--ease-out-soft);
+}
+.link:hover::after,
+.link:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+.link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 5px;
+}

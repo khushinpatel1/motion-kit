@@ -1,0 +1,34 @@
+/* SVG Path Draw — dependency-free vanilla form.
+   Structure expected: <svg class="spd-svg"><path data-draw>...</path></svg>; JS writes path lengths, starts, spans, and --spd-progress.
+   Consumes tokens.css variables --motion-fast and --ease-linear through the stylesheet.
+   Under prefers-reduced-motion, every path is fully drawn and no scroll listener is attached. */
+
+.spd-svg {
+  --spd-progress: 0;
+  overflow: visible;
+}
+.spd-svg [data-draw] {
+  --spd-length: 0;
+  --spd-start: 0;
+  --spd-span: 1;
+  fill: none;
+  stroke-dasharray: var(--spd-length);
+  stroke-dashoffset: calc(
+    var(--spd-length) *
+      (
+        1 -
+          clamp(
+            0,
+            (var(--spd-progress) - var(--spd-start)) / var(--spd-span),
+            1
+          )
+      )
+  );
+  transition: stroke-dashoffset var(--motion-fast) var(--ease-linear);
+}
+@media (prefers-reduced-motion: reduce) {
+  .spd-svg [data-draw] {
+    stroke-dashoffset: 0;
+    transition: none;
+  }
+}

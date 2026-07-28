@@ -1,0 +1,38 @@
+/* React port of vanilla/anchored-tooltip.css. Expects .root > focusable trigger + .tooltip; consumes --motion-fast/--ease-out-soft and JS writes --at-x/--at-y/--at-origin. */
+.root {
+  position: relative;
+  display: inline-block;
+}
+.root > button {
+  color: inherit;
+  background: none;
+  border: 0;
+  font: inherit;
+}
+.tooltip {
+  position: fixed;
+  z-index: 10;
+  top: var(--at-y);
+  left: var(--at-x);
+  max-width: 240px;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  color: #fff;
+  background: #17152b;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 8px);
+  transition:
+    opacity var(--motion-fast) var(--ease-out-soft),
+    transform var(--motion-fast) var(--ease-out-soft);
+}
+.tooltip[data-state="visible"] {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .tooltip {
+    transform: translate(-50%, 0);
+  }
+}

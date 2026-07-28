@@ -1,0 +1,36 @@
+/* React port of vanilla/sticky-stack-cards.css; .stack contains sticky .card children and props write --scale-floor/--pin-offset. Consumes --motion-slow; reduced motion removes compression. */
+.stack {
+  --scale-floor: 0.92;
+  --pin-offset: 24px;
+  display: grid;
+  gap: 20vh;
+  padding-bottom: 20vh;
+}
+.card {
+  position: sticky;
+  top: var(--pin-offset);
+  min-height: 220px;
+  padding: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 24px;
+  color: #fff;
+  background: linear-gradient(135deg, #312e81, #0f172a 65%, #164e63);
+  transform-origin: top center;
+  animation: compress var(--motion-slow) linear both;
+  animation-timeline: view(block);
+  animation-range: cover 0% cover 100%;
+}
+@keyframes compress {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(var(--scale-floor));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    animation: none;
+    transform: none;
+  }
+}

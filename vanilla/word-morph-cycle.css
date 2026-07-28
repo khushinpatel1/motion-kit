@@ -1,0 +1,60 @@
+/* Word Morph Cycle — dependency-free vanilla form.
+   Structure expected: .wmc-shell containing two .wmc-word spans; JS writes --wmc-width and the active word classes.
+   Consumes tokens.css variables --motion-fast, --motion-base, and --ease-out-expressive.
+   Under prefers-reduced-motion, the first word remains visible, the shell is static, and JS does not start the cycle. */
+
+.wmc {
+  color: var(--wmc-color, #fff);
+}
+.wmc-shell {
+  position: relative;
+  display: inline-block;
+  width: var(--wmc-width, auto);
+  min-width: 3ch;
+  overflow: hidden;
+  vertical-align: baseline;
+  transition: width var(--motion-base) var(--ease-out-expressive);
+}
+.wmc-measure {
+  visibility: hidden;
+  white-space: nowrap;
+}
+.wmc-word {
+  position: absolute;
+  inset: 0 auto auto 0;
+  white-space: nowrap;
+  opacity: 0;
+  filter: blur(4px);
+  transform: translateY(0.55em);
+  transition:
+    opacity var(--motion-fast) var(--ease-out-expressive),
+    filter var(--motion-fast) var(--ease-out-expressive),
+    transform var(--motion-base) var(--ease-out-expressive);
+}
+.wmc-word.is-active {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}
+.wmc-word.is-outgoing {
+  opacity: 0;
+  filter: blur(4px);
+  transform: translateY(-0.35em);
+}
+@media (prefers-reduced-motion: reduce) {
+  .wmc-shell {
+    width: auto;
+    transition: none;
+  }
+  .wmc-word {
+    position: static;
+    display: none;
+    transition: none;
+    filter: none;
+    transform: none;
+  }
+  .wmc-word.is-active {
+    display: inline;
+    opacity: 1;
+  }
+}

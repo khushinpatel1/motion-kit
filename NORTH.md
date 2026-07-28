@@ -76,6 +76,26 @@ implements are common techniques — a shimmer sweep, a magnetic button, a tilt
 card, a scroll reveal — and a technique is not copyrightable; the CSS and JS
 expressing them here were written for this repo.
 
+**The 2026-07-28 expansion (19 → 38) has a provenance question worth stating
+plainly, because it was nearly a mistake.** KP asked for "all the free motion
+components and tools" from `annnimate.com` to be added to the kit. That site is
+a **€29/month subscription library**: two components are free, the rest are
+paid, and its licence forbids repackaging its components into a competing
+library — which is exactly what this repo is. Copying anything from it would
+have broken their terms *and* voided the claim below.
+
+So nothing was copied. The nineteen new effects were written from written
+descriptions of what each technique *does* — a scramble settle, a clip-path
+wipe, a FLIP dialog, a goo filter — against this repo's own tokens and header
+conventions. That is the same footing as the original nineteen: **a technique
+is not copyrightable, and an implementation of one written from scratch owes
+nobody attribution.** No file was fetched from that site, no source was
+vendored, and no third-party licence header exists anywhere in the tree.
+
+The general rule this establishes: **"free to look at" is not "free to take."**
+A public gallery demonstrating a paid component is marketing, not a licence
+grant. Read the terms before treating a reference as a source.
+
 The one file with an outside ancestor is `floating-image-gallery`, adjusted
 from a reference KP supplied on 2026-07-26 (hover grows the card 25% and takes
 centre stage, wider gaps, higher lift, click opens full screen; built for a 5×4

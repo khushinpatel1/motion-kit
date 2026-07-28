@@ -1,0 +1,56 @@
+/* Word Morph Cycle — React stylesheet. Expects .root > .shell with generated .measure/.word layers; consumes --motion-fast/--motion-base/--ease-out-expressive and JS-written --wmc-width. Reduced motion leaves only the first word. */
+.root {
+  color: var(--wmc-color, #fff);
+}
+.shell {
+  position: relative;
+  display: inline-block;
+  width: var(--wmc-width, auto);
+  min-width: 3ch;
+  overflow: hidden;
+  vertical-align: baseline;
+  transition: width var(--motion-base) var(--ease-out-expressive);
+}
+.measure {
+  visibility: hidden;
+  white-space: nowrap;
+}
+.word {
+  position: absolute;
+  inset: 0 auto auto 0;
+  white-space: nowrap;
+  opacity: 0;
+  filter: blur(4px);
+  transform: translateY(0.55em);
+  transition:
+    opacity var(--motion-fast) var(--ease-out-expressive),
+    filter var(--motion-fast) var(--ease-out-expressive),
+    transform var(--motion-base) var(--ease-out-expressive);
+}
+.active {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}
+.outgoing {
+  opacity: 0;
+  filter: blur(4px);
+  transform: translateY(-0.35em);
+}
+@media (prefers-reduced-motion: reduce) {
+  .shell {
+    width: auto;
+    transition: none;
+  }
+  .word {
+    position: static;
+    display: none;
+    transition: none;
+    filter: none;
+    transform: none;
+  }
+  .word.active {
+    display: inline;
+    opacity: 1;
+  }
+}

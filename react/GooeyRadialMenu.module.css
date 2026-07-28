@@ -1,0 +1,55 @@
+/* React port of vanilla/gooey-radial-menu.css. Expects .menu > .items/.item, .trigger, and an SVG #grm-goo-filter; consumes shared timing tokens and JS-style position variables. */
+.menu {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  min-width: 64px;
+  min-height: 64px;
+}
+.items {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.item,
+.trigger {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  color: #fff;
+  background: #27224f;
+}
+.item {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  opacity: 0;
+  transform: translate(0, 0) scale(0.7);
+  transition:
+    transform var(--motion-base) var(--ease-out-expressive),
+    opacity var(--motion-fast) var(--ease-out-soft);
+  transition-delay: calc(var(--grm-index) * var(--motion-instant));
+}
+.open .items {
+  filter: url(#grm-goo-filter);
+  pointer-events: auto;
+}
+.open .item {
+  opacity: 1;
+  transform: translate(var(--grm-x), var(--grm-y)) scale(1);
+}
+.menu:not(.open) .items {
+  filter: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .item {
+    transition-delay: var(--motion-instant);
+    transform: translate(var(--grm-x), var(--grm-y)) scale(1);
+  }
+  .menu:not(.open) .item {
+    transform: translate(0, 0) scale(1);
+  }
+}
