@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Motion Kit — 38 effects</title>
+    <title>Motion Kit — 39 effects</title>
     <link rel="stylesheet" href="../tokens.css" />
     <link rel="stylesheet" href="../vanilla/floating-card.css" />
     <link rel="stylesheet" href="../vanilla/aurora-glass.css" />
@@ -43,6 +43,7 @@
     <link rel="stylesheet" href="../vanilla/cursor-follow-image-list.css" />
     <link rel="stylesheet" href="../vanilla/gooey-radial-menu.css" />
     <link rel="stylesheet" href="../vanilla/card-fan-deck.css" />
+    <link rel="stylesheet" href="../vanilla/launch-teaser.css" />
     <style>
       :root {
         color-scheme: dark;
@@ -188,6 +189,10 @@
       }
       .pmb-demo .pmb-media {
         opacity: 0.8;
+      }
+      .lt-demo .lt-teaser {
+        min-height: 480px;
+        border-radius: 20px;
       }
       .source-note {
         margin: 0;
@@ -701,6 +706,49 @@
           </article>
         </div>
       </section>
+
+      <section>
+        <h2>Composite</h2>
+        <div class="grid">
+          <article class="demo wide lt-demo">
+            <div class="lt-teaser ag-shell" id="launch-teaser">
+              <span class="ngo-overlay" aria-hidden="true"></span>
+              <div class="lt-content">
+                <div class="lt-mark">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <rect
+                      x="2"
+                      y="2"
+                      width="20"
+                      height="20"
+                      rx="6"
+                      fill="none"
+                      stroke="#fff"
+                      stroke-width="1.6"
+                    /><circle cx="12" cy="12" r="4" fill="#fff" />
+                  </svg>
+                </div>
+                <div class="lt-headline">
+                  <div class="ctr-line">Ship something worth announcing.</div>
+                  <div class="ctr-line">A one-screen launch moment.</div>
+                </div>
+                <div class="dt-card lt-card">
+                  <div class="dt-inner">
+                    <strong>Product preview</strong><br /><span
+                      >Drop in a screenshot</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <details>
+              <summary>View source</summary>
+              <a href="../vanilla/launch-teaser.css">vanilla CSS</a> ·
+              <a href="../vanilla/launch-teaser.js">vanilla JS</a>
+            </details>
+          </article>
+        </div>
+      </section>
     </main>
     <script type="module">
       import { mountCursorSpotlightCard } from "../vanilla/cursor-spotlight-card.js";
@@ -731,6 +779,7 @@
       import { mountEdgeDetailDrawer } from "../vanilla/edge-detail-drawer.js";
       import { mountCursorFollowImageList } from "../vanilla/cursor-follow-image-list.js";
       import { mountGooeyRadialMenu } from "../vanilla/gooey-radial-menu.js";
+      import { mountLaunchTeaser } from "../vanilla/launch-teaser.js";
       mountCursorSpotlightCard(document.querySelector("#spotlight"));
       mountMagneticActionButton(document.querySelector("#magnetic"));
       mountDimensionalTiltCard(document.querySelector("#tilt"));
@@ -823,6 +872,7 @@
           };
         }),
       });
+      mountLaunchTeaser(document.querySelector("#launch-teaser"));
     </script>
   </body>
 </html>

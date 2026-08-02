@@ -521,5 +521,22 @@
     "reactStylePath": "react/CardFanDeck.module.css",
     "vanillaReadmePath": "vanilla/card-fan-deck.README.md",
     "reactReadmePath": "react/CardFanDeck.README.md"
+  },
+  {
+    "name": "launch-teaser",
+    "category": "composite",
+    "sourceGallery": "motion-kit-build-2026-08",
+    "dependencies": [
+      "aurora-glass",
+      "noise-grain-overlay",
+      "cinematic-type-reveal",
+      "dimensional-tilt-card"
+    ],
+    "reducedMotionSafe": true,
+    "perfNotes": "heavy — stacks aurora-glass's continuous blob animation, a grain overlay, and an optional pointer-driven 3D tilt card; treat as a single hero moment, not a repeatable pattern",
+    "vanillaPath": "vanilla/launch-teaser.css",
+    "vanillaJsPath": "vanilla/launch-teaser.js",
+    "note": "Composite, vanilla only (no React port). Combines four existing effects unmodified — aurora-glass as full-bleed background, noise-grain-overlay as finishing grain, cinematic-type-reveal for a 1-2 line headline, dimensional-tilt-card as an optional secondary glass panel. Brand-agnostic: mark, headline lines, and card content are HTML slots; colors/sizing are CSS custom properties layered on top of the underlying effects' own tokens (--lt-bg-gradient and --lt-card-bg override those effects' hardcoded gradients without editing their files). JS sequences the type reveal and tilt-card mount to fire after the shell's own fade-in transition ends.",
+    "vanillaReadmePath": "vanilla/launch-teaser.README.md"
   }
 ]

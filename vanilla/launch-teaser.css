@@ -1,0 +1,96 @@
+/* Launch Teaser — dependency-free vanilla composite.
+   Combines aurora-glass (background wash), noise-grain-overlay (grain),
+   cinematic-type-reveal (headline), and dimensional-tilt-card (secondary panel)
+   unmodified; this file only adds layout and tunables on top.
+   Structure expected:
+   <div class="lt-teaser ag-shell">
+     <span class="ngo-overlay" aria-hidden="true"></span>
+     <div class="lt-content">
+       <div class="lt-mark"><!-- logo/mark slot --></div>
+       <div class="lt-headline"><div class="ctr-line">Line one</div><div class="ctr-line">Line two</div></div>
+       <div class="dt-card lt-card"><div class="dt-inner"><!-- screenshot/mark slot --></div></div>
+     </div>
+   </div>
+   Consumes tokens.css variables --motion-base and --ease-out-expressive for its
+   own fade-in; aurora-glass, noise-grain-overlay, cinematic-type-reveal, and
+   dimensional-tilt-card each still consume their own tokens independently.
+   Under prefers-reduced-motion, the teaser is visible immediately; its
+   children fall back to their own reduced-motion behavior. */
+
+.lt-teaser {
+  --lt-max-width: 640px;
+  --lt-gap: clamp(20px, 4vw, 40px);
+  --lt-headline-size: clamp(28px, 5vw, 56px);
+  --lt-headline-color: #fff;
+  --lt-subline-color: rgba(255, 255, 255, 0.78);
+  --lt-mark-size: 56px;
+  --lt-card-width: min(360px, 100%);
+  --lt-grain-opacity: 0.14;
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: clamp(32px, 8vw, 96px) clamp(20px, 6vw, 64px);
+  border-radius: 0;
+  text-align: center;
+  opacity: 0;
+  transition: opacity var(--motion-base) var(--ease-out-expressive);
+}
+.lt-teaser.is-in {
+  opacity: 1;
+}
+.lt-teaser .ngo-overlay {
+  opacity: var(--lt-grain-opacity);
+}
+.lt-teaser.ag-shell::before,
+.lt-teaser.ag-shell::after {
+  background: var(
+    --lt-bg-gradient,
+    linear-gradient(135deg, #7c3aed, #06b6d4, #22c55e)
+  );
+}
+.lt-content {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  gap: var(--lt-gap);
+  max-width: var(--lt-max-width);
+}
+.lt-mark {
+  width: var(--lt-mark-size);
+  height: var(--lt-mark-size);
+}
+.lt-mark img,
+.lt-mark svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 22%;
+}
+.lt-headline {
+  display: grid;
+  gap: 0.2em;
+  font-size: var(--lt-headline-size);
+  line-height: 1.08;
+  font-weight: 600;
+  color: var(--lt-headline-color);
+}
+.lt-headline .ctr-line:nth-child(2) {
+  font-size: 0.45em;
+  font-weight: 400;
+  color: var(--lt-subline-color);
+}
+.lt-card.dt-card {
+  width: var(--lt-card-width);
+  margin-top: calc(var(--lt-gap) * 0.5);
+  background: var(
+    --lt-card-bg,
+    linear-gradient(135deg, #4c1d95, #0f172a 62%, #164e63)
+  );
+}
+@media (prefers-reduced-motion: reduce) {
+  .lt-teaser {
+    opacity: 1;
+    transition: none;
+  }
+}
