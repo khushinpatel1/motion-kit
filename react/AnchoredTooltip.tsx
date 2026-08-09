@@ -19,11 +19,12 @@ export function AnchoredTooltip({
   const trigger = useRef<HTMLSpanElement>(null);
   const tooltip = useRef<HTMLSpanElement>(null);
   const [visible, setVisible] = useState(false);
-  const timer = useRef<number>();
+  const timer = useRef<number>(0);
   const place = () => {
     const anchor = trigger.current?.getBoundingClientRect();
     const tip = tooltip.current?.getBoundingClientRect();
-    if (!anchor || !tip) return;
+    const tooltipEl = tooltip.current;
+    if (!anchor || !tip || !tooltipEl) return;
     const gap = 10;
     const fits = (s: string) =>
       s === "top"
@@ -56,9 +57,9 @@ export function AnchoredTooltip({
         : actual === "bottom"
           ? anchor.bottom + gap
           : anchor.top + anchor.height / 2;
-    tooltip.current.style.setProperty("--at-x", `${x}px`);
-    tooltip.current.style.setProperty("--at-y", `${y}px`);
-    tooltip.current.dataset.side = actual;
+    tooltipEl.style.setProperty("--at-x", `${x}px`);
+    tooltipEl.style.setProperty("--at-y", `${y}px`);
+    tooltipEl.dataset.side = actual;
   };
   const show = () => {
     window.clearTimeout(timer.current);

@@ -22,7 +22,9 @@ export function SvgPathDraw({
   useEffect(() => {
     const root = ref.current;
     if (!root) return;
-    const nodes = [...root.querySelectorAll<SVGPathElement>("path[data-draw]")];
+    const nodes = Array.from(
+      root.querySelectorAll<SVGPathElement>("path[data-draw]"),
+    );
     const clamp = (value: number) => Math.min(1, Math.max(0, value));
     const measure = () =>
       nodes.forEach((node, index) => {

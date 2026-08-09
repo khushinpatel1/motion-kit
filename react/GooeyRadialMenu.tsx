@@ -1,6 +1,6 @@
 /* Gooey Radial Menu — React port of vanilla/gooey-radial-menu.css and .js.
    Expects a trigger and ordered item buttons/links plus an SVG goo filter; consumes --motion-base/--motion-fast/--motion-instant, writes --grm-x/--grm-y/--grm-index, and uses final positions without travel or stagger under reduced motion. */
-import { useMemo, useState } from "react";
+import { useId, useMemo, useState } from "react";
 import styles from "./GooeyRadialMenu.module.css";
 export interface GooeyRadialMenuProps {
   items: React.ReactNode[];
@@ -15,6 +15,7 @@ export function GooeyRadialMenu({
   label = "Open actions",
 }: GooeyRadialMenuProps) {
   const [open, setOpen] = useState(false);
+  const filterId = `grm-goo-filter-${useId().replaceAll(":", "")}`;
   const positions = useMemo(
     () =>
       items.map((_, index) => {
@@ -29,7 +30,10 @@ export function GooeyRadialMenu({
   );
   return (
     <div className={`${styles.menu} ${open ? styles.open : ""}`}>
-      <div className={styles.items}>
+      <div
+        className={styles.items}
+        style={{ ["--grm-filter" as string]: `url(#${filterId})` }}
+      >
         {items.map((item, index) => (
           <span
             className={styles.item}
@@ -51,6 +55,7 @@ export function GooeyRadialMenu({
         className={styles.trigger}
         type="button"
         aria-expanded={open}
+        aria-label={open ? "Close actions" : label}
         onClick={() => setOpen(!open)}
         onKeyDown={(event) => {
           if (event.key === "Escape") setOpen(false);
@@ -59,7 +64,7 @@ export function GooeyRadialMenu({
         {open ? "×" : "+"}
       </button>
       <svg aria-hidden="true" width="0" height="0">
-        <filter id="grm-goo-filter">
+        <filter id={filterId}>
           <feGaussianBlur stdDeviation="8" result="blur" />
           <feColorMatrix
             in="blur"

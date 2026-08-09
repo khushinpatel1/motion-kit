@@ -13,7 +13,7 @@ export function FlipDialogExpand({
   const card = useRef<HTMLButtonElement>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   const reduced = useRef(false);
-  const origin = useRef<DOMRect>();
+  const origin = useRef<DOMRect | undefined>(undefined);
   const close = () => {
     const node = dialog.current;
     const source = card.current;

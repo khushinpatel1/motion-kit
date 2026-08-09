@@ -1,6 +1,6 @@
 /* Edge Detail Drawer — React port of vanilla/edge-detail-drawer.css and .js.
    Expects a trigger and role=dialog drawer, consumes --motion-base/--ease-out-expressive, writes no custom properties, and keeps scroll lock, focus trapping, Escape, and focus return under reduced motion. */
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import styles from "./EdgeDetailDrawer.module.css";
 export interface EdgeDetailDrawerProps {
   children: React.ReactNode;
@@ -13,6 +13,7 @@ export function EdgeDetailDrawer({
   label = "Open details",
 }: EdgeDetailDrawerProps) {
   const [open, setOpen] = useState(false);
+  const drawerId = `edge-detail-drawer-${useId().replaceAll(":", "")}`;
   const trigger = useRef<HTMLButtonElement>(null);
   const drawer = useRef<HTMLDivElement>(null);
   const scroll = useRef(0);
@@ -23,11 +24,11 @@ export function EdgeDetailDrawer({
     document.body.style.top = `-${scroll.current}px`;
     document.body.style.width = "100%";
     const items = () =>
-      [
-        ...(drawer.current?.querySelectorAll<HTMLElement>(
+      Array.from(
+        drawer.current?.querySelectorAll<HTMLElement>(
           "button, [href], input, textarea, select, [tabindex]:not([tabindex='-1'])",
-        ) || []),
-      ].filter((item) => !item.hasAttribute("disabled"));
+        ) || [],
+      ).filter((item) => !item.hasAttribute("disabled"));
     const key = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         event.preventDefault();
@@ -73,7 +74,7 @@ export function EdgeDetailDrawer({
         ref={trigger}
         type="button"
         aria-expanded={open}
-        aria-controls="edge-detail-drawer"
+        aria-controls={drawerId}
         onClick={() => setOpen(true)}
       >
         {label}
@@ -88,7 +89,7 @@ export function EdgeDetailDrawer({
       <div
         className={styles.drawer}
         ref={drawer}
-        id="edge-detail-drawer"
+        id={drawerId}
         role="dialog"
         aria-modal="true"
         aria-label={label}

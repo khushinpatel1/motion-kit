@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2022", "DOM"],
+    "jsx": "react-jsx",
+    "rootDir": "react",
+    "outDir": "dist/react",
+    "declaration": true,
+    "declarationMap": false,
+    "sourceMap": false,
+    "strict": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "noEmitOnError": true
+  },
+  "include": ["react/**/*.tsx", "react/index.ts", "react/css-modules.d.ts"]
+}

@@ -6,7 +6,7 @@
 .idea/
 *.swp
 
-# There is deliberately no node_modules entry that matters here: this repo has
-# no dependencies and no build step, and that is the point of it. If a
-# package.json ever appears, ask what it is buying first.
+# Dependencies and generated distribution are reproducible from the lockfile.
 node_modules/
+dist/
+motion-kit-*.tgz

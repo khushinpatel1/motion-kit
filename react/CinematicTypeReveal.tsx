@@ -12,7 +12,9 @@ export function CinematicTypeReveal({ lines }: CinematicTypeRevealProps) {
     const reduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
-    const nodes = [...root.querySelectorAll<HTMLElement>("." + styles.line)];
+    const nodes = Array.from(
+      root.querySelectorAll<HTMLElement>("." + styles.line),
+    );
     const observer = reduced
       ? null
       : new IntersectionObserver((entries) =>

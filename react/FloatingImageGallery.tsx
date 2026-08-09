@@ -91,6 +91,7 @@ export function FloatingImageGallery({
         aria-hidden={!openItem}
       >
         <button
+          type="button"
           className={styles["fig-modal-close"]}
           aria-label="Close image"
           onClick={close}

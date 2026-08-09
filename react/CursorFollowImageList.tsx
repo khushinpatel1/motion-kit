@@ -18,7 +18,7 @@ export function CursorFollowImageList({
   rotationCap = 8,
 }: CursorFollowImageListProps) {
   const preview = useRef<HTMLImageElement>(null);
-  const frame = useRef<number>();
+  const frame = useRef<number>(0);
   const target = useRef({ x: 0, y: 0 });
   const current = useRef({ x: 0, y: 0 });
   const lastX = useRef(0);
@@ -31,7 +31,7 @@ export function CursorFollowImageList({
     if (reduced) return;
     const tick = () => {
       if (!preview.current || active === null) {
-        frame.current = undefined;
+        frame.current = 0;
         return;
       }
       current.current.x += (target.current.x - current.current.x) * lag;
@@ -56,7 +56,7 @@ export function CursorFollowImageList({
       frame.current = requestAnimationFrame(tick);
     return () => {
       if (frame.current) cancelAnimationFrame(frame.current);
-      frame.current = undefined;
+      frame.current = 0;
     };
   }, [active, lag, rotationCap]);
   return (

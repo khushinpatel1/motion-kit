@@ -24,10 +24,12 @@ export function MorphingMobileNav({
       {tabs.map((tab, i) => (
         <button
           key={tab}
+          type="button"
           ref={(el) => {
             refs.current[i] = el;
           }}
           className={styles.tab + " " + (i === active ? styles.active : "")}
+          aria-pressed={i === active}
           onClick={() => setActive(i)}
         >
           {tab}

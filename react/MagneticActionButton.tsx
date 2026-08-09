@@ -1,8 +1,10 @@
 /* Magnetic Action Button — React port of vanilla/magnetic-action-button.js/.css. Expects optional radius and strength; renders a real button and cleans up pointer listeners. */
-import type { ReactNode } from "react";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { useEffect, useRef } from "react";
 import styles from "./MagneticActionButton.module.css";
-export interface MagneticActionButtonProps {
+
+export interface MagneticActionButtonProps
+  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children"> {
   children?: ReactNode;
   radius?: number;
   strength?: number;
@@ -11,6 +13,9 @@ export function MagneticActionButton({
   children = "Magnetic action",
   radius = 120,
   strength = 0.28,
+  type = "button",
+  className,
+  ...buttonProps
 }: MagneticActionButtonProps) {
   const ref = useRef<HTMLButtonElement>(null);
   useEffect(() => {
@@ -36,7 +41,12 @@ export function MagneticActionButton({
     };
   }, [radius, strength]);
   return (
-    <button ref={ref} className={styles.button}>
+    <button
+      {...buttonProps}
+      ref={ref}
+      type={type}
+      className={[styles.button, className].filter(Boolean).join(" ")}
+    >
       {children}
     </button>
   );

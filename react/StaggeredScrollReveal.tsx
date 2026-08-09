@@ -12,7 +12,7 @@ export function StaggeredScrollReveal({ items }: StaggeredScrollRevealProps) {
     const reduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
-    const nodes = [...root.children] as HTMLElement[];
+    const nodes = Array.from(root.children) as HTMLElement[];
     nodes.forEach((n, i) => {
       n.style.setProperty(
         "--delay",

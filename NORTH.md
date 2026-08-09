@@ -4,18 +4,20 @@ Status: published 2026-07-27 — `khushinpatel1/motion-kit`, public, MIT.
 
 ## What it is
 
-A dependency-free library of ambient/interactive motion effects that every
-new studio project starts from instead of hand-rolling hover states and
-scroll reveals from scratch. Each effect ships in two forms — a vanilla
-CSS+JS version with no dependency, and a plain-React version using CSS
-Modules (no Tailwind) — built on one shared duration/easing token system
-(`tokens.css`) so a page using several effects reads as one motion language
-instead of a dozen things animating on their own clock.
+A focused library of ambient/interactive motion effects that every new studio
+project can start from instead of hand-rolling hover states and scroll reveals.
+The catalogue has 39 effects: 38 paired vanilla CSS+JS and plain-React forms,
+plus one vanilla-only composite. The paired effects use no vanilla runtime
+dependency and React CSS Modules (no Tailwind), all built on one shared
+duration/easing token system (`tokens.css`) so a page using several effects
+reads as one motion language instead of a dozen things animating on their own
+clock.
 
-It is a source library, not a package: consumers copy the files they want
-into their own project. There is no build step, no `npm install`, no
-`package.json` — `gallery/index.html` opens directly in a browser with no
-tooling.
+It is now an installable package: `npm run build` emits modern ESM, declarations,
+and every React CSS Module under `dist/react/`. The package root and documented
+React subpaths resolve to those built artifacts; vanilla modules, tokens, the
+manifest, and the standalone gallery retain their direct exports. The gallery
+still opens directly in a browser with no tooling.
 
 Web only. `garden-native` and `kapers` are Swift/SwiftUI; native motion
 (Rive, `PhaseAnimator`) is a separate effort with a different toolchain and
@@ -27,9 +29,11 @@ revenue test in `~/Dev/CLAUDE.md` § Routing).
 ## Run it
 
 Open `gallery/index.html` directly in a browser — no server needed. To use
-an effect in a project: copy the relevant `vanilla/*.css`(+`.js`) or
-`react/*.tsx`+`.module.css` files, plus `tokens.css`, and read the effect's
-own `.README.md` for usage and tunables.
+an effect in a project: install the package and import the root or a documented
+React subpath, or copy the relevant `vanilla/*.css`(+`.js`) files plus
+`tokens.css`. `npm run verify` builds and typechecks the React surface, checks
+manifest paths and package contents, proves a packed consumer import, checks
+JavaScript syntax, and checks doc health.
 
 ## Test it
 
@@ -41,7 +45,11 @@ disk with working paths. Re-check both after adding or editing an effect.
 ## Structure
 
 ```
-tokens.css / tokens.md   shared duration + easing vocabulary, one paragraph per token
+package.json             package metadata, compiled exports, peer dependency, verify gate
+dist/react/              generated ESM, declarations, CSS Modules, component notes
+react/index.ts            source barrel for all 38 React components
+tsconfig.json             strict TypeScript build contract
+tokens.css / tokens.md    shared duration + easing vocabulary, one paragraph per token
 vanilla/                 dependency-free CSS(+JS) per effect, one .README.md each
 react/                   CSS Modules + typed .tsx per effect, one .README.md each
 gallery/index.html       every effect live in one page, organized by category
@@ -53,8 +61,9 @@ manifest.json            one entry per effect: name, category, paths, perf notes
 1. Every duration and easing curve comes from `tokens.css`. No effect
    hardcodes its own `ms`/`s` value or a bespoke `cubic-bezier` — that's what
    turned the two source demo galleries into noise instead of a system.
-2. Two forms per effect, always: vanilla (source of truth, built first) and
-   React (a straight port, not a reinterpretation).
+2. Paired effects have two forms: vanilla (source of truth, built first) and
+   React (a straight port, not a reinterpretation). A composite may be
+   vanilla-only when the manifest says so and its README explains why.
 3. No animation library dependency (no GSAP, no Framer Motion, no Lenis).
    This kit is the dependency-free baseline every project gets by default —
    reach for a real library separately when a project needs scroll-sequenced

@@ -1,0 +1,74 @@
+{
+  "name": "motion-kit",
+  "version": "0.1.0",
+  "description": "Dependency-free motion primitives for vanilla CSS and React.",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "author": "Khushin Patel",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/khushinpatel1/motion-kit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/khushinpatel1/motion-kit/issues"
+  },
+  "files": [
+    "README.md",
+    "LICENSE",
+    "manifest.json",
+    "tokens.css",
+    "tokens.md",
+    "dist",
+    "vanilla",
+    "gallery"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/react/index.d.ts",
+      "import": "./dist/react/index.js",
+      "default": "./dist/react/index.js"
+    },
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "import": "./dist/react/index.js",
+      "default": "./dist/react/index.js"
+    },
+    "./react/*": {
+      "types": "./dist/react/*.d.ts",
+      "import": "./dist/react/*.js",
+      "default": "./dist/react/*.js"
+    },
+    "./vanilla/*": "./vanilla/*",
+    "./tokens.css": "./tokens.css",
+    "./manifest.json": "./manifest.json",
+    "./gallery": "./gallery/index.html",
+    "./package.json": "./package.json"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "peerDependencies": {
+    "react": ">=18.2.0"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "check:library": "node scripts/check-library.mjs",
+    "check:syntax": "node scripts/check-syntax.mjs",
+    "check:package": "node scripts/check-package.mjs",
+    "check:consumer": "node scripts/check-consumer.mjs",
+    "docs:check": "node scripts/doc-gc.mjs --check",
+    "verify": "npm run build && npm run typecheck && npm run check:library && npm run check:syntax && npm run check:package && npm run check:consumer && npm run docs:check",
+    "prepare": "npm run build",
+    "prepack": "npm run build"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.10",
+    "react": "19.1.1",
+    "typescript": "5.9.2",
+    "vite": "7.1.2"
+  }
+}

@@ -34,7 +34,7 @@
   transition-delay: calc(var(--grm-index) * var(--motion-instant));
 }
 .open .items {
-  filter: url(#grm-goo-filter);
+  filter: var(--grm-filter, url(#grm-goo-filter));
   pointer-events: auto;
 }
 .open .item {

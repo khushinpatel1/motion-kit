@@ -1,6 +1,6 @@
 /* Height Morph Accordion — React port of vanilla/height-morph-accordion.css and .js.
    Expects items rendered as trigger buttons followed by linked panels; consumes --motion-fast and --ease-out-soft, writes no custom properties, and settles panels immediately under reduced motion while preserving hidden and keyboard behavior. */
-import { useState } from "react";
+import { useId, useState } from "react";
 import styles from "./HeightMorphAccordion.module.css";
 
 export interface HeightMorphAccordionItem {
@@ -17,6 +17,7 @@ export function HeightMorphAccordion({
   multiple = false,
 }: HeightMorphAccordionProps) {
   const [open, setOpen] = useState<number[]>([]);
+  const instanceId = useId().replaceAll(":", "");
   const toggle = (index: number) =>
     setOpen((current) => {
       if (current.includes(index))
@@ -27,7 +28,8 @@ export function HeightMorphAccordion({
     <section className={styles.accordion} aria-label="Details">
       {items.map((item, index) => {
         const expanded = open.includes(index);
-        const panelId = `hma-panel-${index}`;
+        const panelId = `hma-panel-${instanceId}-${index}`;
+        const triggerId = `hma-trigger-${instanceId}-${index}`;
         return (
           <div className={styles.item} key={panelId}>
             <button
@@ -45,9 +47,9 @@ export function HeightMorphAccordion({
                     (event.key === "ArrowDown" ? 1 : -1) +
                     items.length) %
                   items.length;
-                document.getElementById(`hma-trigger-${next}`)?.focus();
+                    document.getElementById(`hma-trigger-${instanceId}-${next}`)?.focus();
               }}
-              id={`hma-trigger-${index}`}
+              id={triggerId}
             >
               {item.title}
             </button>
