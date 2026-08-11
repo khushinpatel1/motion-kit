@@ -42,16 +42,26 @@ export function mountParticleCursorTrail({
   const draw = () => {
     if (!running) return;
     context.clearRect(0, 0, innerWidth, innerHeight);
-    particles.forEach((p) => {
+    for (let i = particles.length - 1; i >= 0; i -= 1) {
+      const p = particles[i];
       p.x += p.vx;
       p.y += p.vy;
       p.life -= 0.025;
-      context.globalAlpha = Math.max(0, p.life);
+      if (!Number.isFinite(p.life) || p.life <= 0) {
+        particles.splice(i, 1);
+        continue;
+      }
+      const radius = p.size * p.life;
+      if (!Number.isFinite(radius) || radius <= 0) {
+        particles.splice(i, 1);
+        continue;
+      }
+      context.globalAlpha = p.life;
       context.fillStyle = color;
       context.beginPath();
-      context.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+      context.arc(p.x, p.y, radius, 0, Math.PI * 2);
       context.fill();
-    });
+    }
     context.globalAlpha = 1;
     frame = requestAnimationFrame(draw);
   };

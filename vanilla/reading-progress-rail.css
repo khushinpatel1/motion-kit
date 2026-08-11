@@ -43,9 +43,10 @@
   position: absolute;
   inset: 8px 12px auto auto;
   padding: 4px 8px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 999px;
-  background: rgba(15, 23, 42, 0.9);
+  color: #fff;
+  background: #172033;
   font:
     600 0.75rem/1 system-ui,
     sans-serif;

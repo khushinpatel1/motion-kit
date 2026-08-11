@@ -172,6 +172,18 @@
       .mini-progress .rpr-label {
         display: none;
       }
+      .mini-progress .mini-scroll {
+        min-height: 260px;
+      }
+      .mini-progress .mini-scroll h3 {
+        position: relative;
+        z-index: 1;
+        margin-top: 0;
+        color: #fff;
+      }
+      .mini-progress .mini-scroll p {
+        color: #d7dde5;
+      }
       .mini-header {
         min-height: 190px;
       }
@@ -188,6 +200,9 @@
       .mini-header p {
         margin: 16px 0 120px;
       }
+      .mini-header .mini-scroll > p {
+        color: #d7dde5;
+      }
       .pmb-demo .pmb-band {
         min-height: 260px;
       }
@@ -196,6 +211,13 @@
       }
       .pmb-demo .pmb-media {
         opacity: 0.8;
+      }
+      .pmb-demo .pmb-content h2 {
+        margin: 0;
+        padding: 8px 12px;
+        border-radius: 10px;
+        color: #fff;
+        background: rgba(8, 13, 24, 0.88);
       }
       .lt-demo .lt-teaser {
         min-height: 480px;
@@ -305,6 +327,10 @@
         background: var(--accent);
         transform: translateY(-160%);
       }
+      :root[data-theme="light"] .skip-link {
+        color: #fff;
+        background: var(--accent);
+      }
       .skip-link:focus {
         transform: translateY(0);
       }
@@ -363,6 +389,9 @@
         font-size: 13px;
         text-decoration: none;
       }
+      .theme-toggle-icon {
+        display: none;
+      }
       .nav-links a:hover,
       .nav-links a:focus-visible,
       .theme-toggle:hover {
@@ -373,6 +402,7 @@
         border-left: 1px solid var(--line);
         background: transparent;
         cursor: pointer;
+        min-width: 44px;
       }
       .hero-grid {
         display: grid;
@@ -382,14 +412,20 @@
         padding: clamp(56px, 10vw, 120px) 0 0;
       }
       .hero-copy {
+        width: 100%;
+        min-width: 0;
         max-width: 760px;
+      }
+      .hero-copy > * {
+        min-width: 0;
+        max-width: 100%;
       }
       .eyebrow,
       .panel-label,
       .section-kicker {
         margin: 0 0 18px;
         color: var(--accent);
-        font-size: 11px;
+        font-size: 12px;
         font-weight: 700;
         letter-spacing: 0.16em;
         text-transform: uppercase;
@@ -493,6 +529,8 @@
         margin: 0;
         padding: 16px 52px 16px 16px;
         overflow: auto;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
         border: 1px solid var(--line);
         border-radius: 14px;
         color: var(--accent);
@@ -530,7 +568,7 @@
         display: block;
         margin-bottom: 10px;
         color: var(--quiet);
-        font-size: 11px;
+        font-size: 12px;
         letter-spacing: 0.12em;
         text-transform: uppercase;
       }
@@ -561,7 +599,7 @@
         display: block;
         margin-bottom: 18px;
         color: var(--warm);
-        font: 11px ui-monospace, SFMono-Regular, Menlo, monospace;
+        font: 12px ui-monospace, SFMono-Regular, Menlo, monospace;
       }
       .principle strong {
         display: block;
@@ -623,12 +661,33 @@
       }
       code {
         color: var(--warm);
-        font-size: 0.9em;
+        font-size: 12px;
+      }
+      .code-block code {
+        white-space: inherit;
+        overflow-wrap: inherit;
+      }
+      .text-link,
+      .udl-link {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+      }
+      .demo details a {
+        display: inline-flex;
+        align-items: center;
+        min-width: 44px;
+        min-height: 44px;
+        padding: 0 4px;
+        vertical-align: middle;
       }
       .section-jump {
         flex-wrap: wrap;
         gap: 8px;
         margin: 0 0 20px;
+      }
+      #effects {
+        padding-bottom: 24px;
       }
       .section-jump a {
         display: inline-flex;
@@ -657,7 +716,7 @@
           display: none;
         }
         .hero-grid {
-          grid-template-columns: 1fr;
+          grid-template-columns: minmax(0, 1fr);
           padding-top: 64px;
         }
         .hero-panel {
@@ -679,11 +738,26 @@
           padding-bottom: 54px;
         }
         .theme-toggle {
-          font-size: 0;
+          width: 44px;
+          min-width: 44px;
+          justify-content: center;
+          padding: 0;
         }
-        .theme-toggle::after {
-          content: "◐";
+        .theme-toggle-label {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+          border: 0;
+        }
+        .theme-toggle-icon {
+          display: block;
           font-size: 18px;
+          line-height: 1;
         }
         .hero-grid {
           padding-top: 48px;
@@ -735,7 +809,7 @@
             <a href="#effects">Effects</a>
             <a href="../README.md">Docs</a>
           </div>
-          <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to light theme">Light mode</button>
+          <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to light theme"><span class="theme-toggle-label">Light mode</span><span class="theme-toggle-icon" aria-hidden="true">◐</span></button>
         </nav>
         <div class="hero-grid">
           <div class="hero-copy">
@@ -943,7 +1017,8 @@
               <code>react/LiquidModeToggle.tsx</code>
             </details>
           </article>
-          <article class="demo">
+          <!-- The command palette is a fixed, mutually exclusive overlay inside this demo; its panel intentionally shares geometry with the trigger state. -->
+          <article class="demo" data-uilint-ignore-overlap>
             <button id="palette-trigger" type="button">Open ⌘K palette</button>
             <div class="cp-backdrop" id="palette" aria-hidden="true">
               <div class="cp-panel" role="dialog" aria-modal="true">
@@ -1018,7 +1093,8 @@
       <section id="entrance" class="section-heading">
         <h2>Entrance</h2>
         <div class="grid">
-          <article class="demo wide">
+          <!-- Split cinematic letters intentionally layer their two entrance states within this demo. -->
+          <article class="demo wide" data-uilint-ignore-overlap>
             <h3 id="type-reveal">
               <span class="ctr-line">Cinematic type</span
               ><span class="ctr-line">arrives in layers.</span>
@@ -1072,7 +1148,8 @@
               <code>react/WordMorphCycle.tsx</code>
             </details>
           </article>
-          <article class="demo">
+          <!-- Orbital actions intentionally share the compact trigger geometry while their three buttons expand around it. -->
+          <article class="demo" data-uilint-ignore-overlap>
             <div class="grm-menu" id="radial-menu"><div class="grm-items"><button class="grm-item" type="button">A</button><button class="grm-item" type="button">B</button><button class="grm-item" type="button">C</button></div><button class="grm-trigger" type="button" aria-expanded="false" aria-label="Open actions">+</button><svg aria-hidden="true" width="0" height="0"><filter id="grm-goo-filter"><feGaussianBlur stdDeviation="8" result="blur"></feGaussianBlur><feColorMatrix in="blur" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -10"></feColorMatrix></filter></svg></div>
             <details>
               <summary>View source</summary>
@@ -1081,7 +1158,8 @@
               <code>react/GooeyRadialMenu.tsx</code>
             </details>
           </article>
-          <article class="demo">
+          <!-- The fan deck intentionally stacks its three cards in one contained geometry before interaction spreads them apart. -->
+          <article class="demo" data-uilint-ignore-overlap>
             <div class="cfd-deck" style="--deck-count: 3"><article class="cfd-card" style="--i: 0" tabindex="0">North</article><article class="cfd-card" style="--i: 1" tabindex="0">Field</article><article class="cfd-card" style="--i: 2" tabindex="0">Notes</article></div>
             <details>
               <summary>View source</summary>
@@ -1215,7 +1293,8 @@
               <code>react/RetractingHeader.tsx</code>
             </details>
           </article>
-          <article class="demo">
+          <!-- Sticky cards intentionally overlap as a contained scroll stack; the layered cards are the effect being demonstrated. -->
+          <article class="demo" data-uilint-ignore-overlap>
             <div class="mini-scroll"><div class="ssc-stack" style="--ssc-scale-floor: .92; --ssc-pin-offset: 24px"><article class="ssc-card"><strong>First card</strong><p>Stay with the signal.</p></article><article class="ssc-card"><strong>Second card</strong><p>Let the next layer arrive.</p></article><article class="ssc-card"><strong>Third card</strong><p>Keep the ending light.</p></article></div></div>
             <details>
               <summary>View source</summary>
@@ -1255,7 +1334,8 @@
       <section id="gallery-section" class="section-heading">
         <h2>Gallery</h2>
         <div class="grid">
-          <article class="demo wide">
+          <!-- Front and back faces intentionally occupy the same contained card geometry and are mutually exclusive in the flip state. -->
+          <article class="demo wide" data-uilint-ignore-overlap>
             <div id="gallery"></div>
             <details>
               <summary>View source</summary>
@@ -1312,6 +1392,7 @@
     </main>
     <script type="module">
       const themeToggle = document.querySelector("#theme-toggle");
+      const themeToggleLabel = themeToggle.querySelector(".theme-toggle-label");
       const copyButton = document.querySelector("#copy-install");
       const copyStatus = document.querySelector("#copy-status");
       const installCommand = "npm install github:khushinpatel1/motion-kit";
@@ -1323,7 +1404,7 @@
           "aria-label",
           light ? "Switch to dark theme" : "Switch to light theme",
         );
-        themeToggle.textContent = light ? "Dark mode" : "Light mode";
+        themeToggleLabel.textContent = light ? "Dark mode" : "Light mode";
       };
       setTheme(
         document.documentElement.dataset.theme ||

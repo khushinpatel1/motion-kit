@@ -57,11 +57,12 @@
     "build": "node scripts/build.mjs",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "check:library": "node scripts/check-library.mjs",
+    "check:runtime": "node scripts/check-runtime.mjs",
     "check:syntax": "node scripts/check-syntax.mjs",
     "check:package": "node scripts/check-package.mjs",
     "check:consumer": "node scripts/check-consumer.mjs",
     "docs:check": "node scripts/doc-gc.mjs --check",
-    "verify": "npm run build && npm run typecheck && npm run check:library && npm run check:syntax && npm run check:package && npm run check:consumer && npm run docs:check",
+    "verify": "npm run build && npm run typecheck && npm run check:library && npm run check:runtime && npm run check:syntax && npm run check:package && npm run check:consumer && npm run docs:check",
     "prepare": "npm run build",
     "prepack": "npm run build"
   },

@@ -31,14 +31,24 @@ export function ParticleCursorTrail({
     const draw = () => {
       if (!running) return;
       context.clearRect(0, 0, innerWidth, innerHeight);
-      particles.forEach((particle) => {
+      for (let index = particles.length - 1; index >= 0; index -= 1) {
+        const particle = particles[index];
         particle.life -= 0.025;
+        if (!Number.isFinite(particle.life) || particle.life <= 0) {
+          particles.splice(index, 1);
+          continue;
+        }
+        const radius = 4 * particle.life;
+        if (!Number.isFinite(radius) || radius <= 0) {
+          particles.splice(index, 1);
+          continue;
+        }
         context.globalAlpha = particle.life;
         context.fillStyle = color;
         context.beginPath();
-        context.arc(particle.x, particle.y, 4 * particle.life, 0, Math.PI * 2);
+        context.arc(particle.x, particle.y, radius, 0, Math.PI * 2);
         context.fill();
-      });
+      }
       context.globalAlpha = 1;
       frame = requestAnimationFrame(draw);
     };
