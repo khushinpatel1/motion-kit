@@ -1,7 +1,7 @@
 /* Cursor Spotlight Card — dependency-free vanilla form.
    Structure expected: <article class="cs-card"><strong>Title</strong><span>Supporting text</span></article>.
    Consumes tokens.css variables --motion-fast and --ease-out-soft; JS writes --x and --y from the pointer.
-   Under prefers-reduced-motion, the hover transition resolves to zero duration; the spotlight still follows a pointer. */
+   Under prefers-reduced-motion, the hover lift and pointer spotlight are static. */
 
 .cs-card {
   --x: 50%;
@@ -26,4 +26,10 @@
 .cs-card:hover {
   transform: translateY(-5px);
   border-color: rgba(255, 255, 255, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-card:hover {
+    transform: none;
+  }
 }

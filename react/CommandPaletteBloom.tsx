@@ -11,22 +11,47 @@ export function CommandPaletteBloom({
 }: CommandPaletteBloomProps) {
   const [open, setOpen] = useState(false);
   const input = useRef<HTMLInputElement>(null);
+  const trigger = useRef<HTMLButtonElement>(null);
+  const backdrop = useRef<HTMLDivElement>(null);
   useEffect(() => {
+    const root = backdrop.current;
+    if (root) root.inert = !open;
     if (!open) return;
     input.current?.focus();
     const key = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);
+      if (e.key !== "Tab") return;
+      const items = Array.from(
+        root?.querySelectorAll<HTMLElement>(
+          "button, [href], input, textarea, select, [tabindex]:not([tabindex='-1'])",
+        ) || [],
+      ).filter((item) => !item.hasAttribute("disabled"));
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     };
     document.addEventListener("keydown", key);
-    return () => document.removeEventListener("keydown", key);
+    return () => {
+      document.removeEventListener("keydown", key);
+      if (root) root.inert = true;
+      trigger.current?.focus();
+    };
   }, [open]);
   return (
     <>
-      <button type="button" onClick={() => setOpen(true)}>
+      <button ref={trigger} type="button" onClick={() => setOpen(true)}>
         {triggerLabel}
       </button>
       <div
         className={styles.backdrop + " " + (open ? styles.open : "")}
+        ref={backdrop}
         aria-hidden={!open}
         onClick={(e) => {
           if (e.target === e.currentTarget) setOpen(false);

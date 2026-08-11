@@ -73,7 +73,7 @@ export function mountFloatingImageGallery(root, { items, columns = 5 } = {}) {
 
   root.addEventListener("click", (e) => {
     const card = e.target.closest(".fig-card");
-    if (card) modal.open(items[Number(card.dataset.index)]);
+    if (card) modal.open(items[Number(card.dataset.index)], card);
   });
 
   return { modal };
@@ -82,6 +82,8 @@ export function mountFloatingImageGallery(root, { items, columns = 5 } = {}) {
 function buildModal(root) {
   const modal = document.createElement("div");
   modal.className = "fig-modal";
+  modal.setAttribute("role", "dialog");
+  modal.setAttribute("aria-modal", "true");
   modal.setAttribute("aria-hidden", "true");
   modal.innerHTML = `
     <button class="fig-modal-close" aria-label="Close image">×</button>
@@ -100,8 +102,19 @@ function buildModal(root) {
   const titleEl = modal.querySelector(".fig-modal-title");
   const descriptionEl = modal.querySelector(".fig-modal-description");
   const closeBtn = modal.querySelector(".fig-modal-close");
+  const focusable = () =>
+    [
+      ...modal.querySelectorAll(
+        "button, [href], input, textarea, select, [tabindex]:not([tabindex='-1'])",
+      ),
+    ].filter((item) => !item.disabled);
+  let previousFocus;
+  let previousOverflow = "";
 
-  function open(item) {
+  function open(item, opener) {
+    previousFocus = opener || document.activeElement;
+    previousOverflow = document.body.style.overflow;
+    modal.inert = false;
     image.src = item.src;
     image.alt = item.alt || item.title || "";
     titleEl.textContent = item.title || "";
@@ -113,9 +126,37 @@ function buildModal(root) {
   }
 
   function close() {
+    if (!modal.classList.contains("is-open")) return;
     modal.classList.remove("is-open");
     modal.setAttribute("aria-hidden", "true");
-    document.body.style.overflow = "";
+    modal.inert = true;
+    document.body.style.overflow = previousOverflow;
+    previousFocus?.focus();
+  }
+
+  function keydown(event) {
+    if (!modal.classList.contains("is-open")) return;
+    if (event.key === "Escape") {
+      event.preventDefault();
+      close();
+      return;
+    }
+    if (event.key !== "Tab") return;
+    const items = focusable();
+    if (!items.length) {
+      event.preventDefault();
+      modal.focus();
+      return;
+    }
+    const first = items[0];
+    const last = items[items.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
   }
 
   closeBtn.addEventListener("click", close);
@@ -123,9 +164,8 @@ function buildModal(root) {
     if (e.target === modal || e.target.classList.contains("fig-modal-inner"))
       close();
   });
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") close();
-  });
+  document.addEventListener("keydown", keydown);
+  modal.inert = true;
 
   return { open, close };
 }

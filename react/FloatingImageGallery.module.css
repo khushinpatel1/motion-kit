@@ -419,4 +419,9 @@
   .fig-shell {
     animation: none;
   }
+  .fig-modal-inner,
+  .fig-modal-figure img,
+  .fig-modal-close:hover {
+    transform: none;
+  }
 }

@@ -37,3 +37,9 @@
 .root.open .drawer {
   transform: translateX(0);
 }
+@media (prefers-reduced-motion: reduce) {
+  .scrim,
+  .drawer {
+    transition: none;
+  }
+}

@@ -35,6 +35,8 @@ React subpath, or copy the relevant `vanilla/*.css`(+`.js`) files plus
 manifest paths and package contents, proves a packed consumer import, checks
 JavaScript syntax, and checks doc health.
 
+The live launch work order and host evidence are in `launch/gate-report.md`.
+
 ## Test it
 
 No automated test suite — this is static source, not an app. Verification is

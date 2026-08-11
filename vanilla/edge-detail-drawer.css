@@ -45,3 +45,10 @@
 .edd-root.is-open .edd-drawer {
   transform: translateX(0);
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .edd-scrim,
+  .edd-drawer {
+    transition: none;
+  }
+}

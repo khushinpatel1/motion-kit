@@ -1,4 +1,4 @@
-/* Cursor Spotlight Card — React port of vanilla/cursor-spotlight-card.css. Renders .card; pointer tracking is attached only for hover-capable pointers, and reduced motion does not disable that tracking. */
+/* Cursor Spotlight Card — React port of vanilla/cursor-spotlight-card.css. Renders .card; pointer tracking is attached only for hover-capable pointers and is skipped under reduced motion. */
 import { useEffect, useRef } from "react";
 import styles from "./CursorSpotlightCard.module.css";
 export interface CursorSpotlightCardProps {
@@ -10,7 +10,12 @@ export function CursorSpotlightCard({
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const root = ref.current;
-    if (!root || !window.matchMedia("(hover: hover)").matches) return;
+    if (
+      !root ||
+      !window.matchMedia("(hover: hover)").matches ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    )
+      return;
     const move = (e: PointerEvent) => {
       const r = root.getBoundingClientRect();
       root.style.setProperty("--x", e.clientX - r.left + "px");

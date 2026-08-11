@@ -8,6 +8,7 @@ export function mountEdgeDetailDrawer(root, { side = "right" } = {}) {
   const trigger = root.querySelector(".edd-trigger");
   const scrim = root.querySelector(".edd-scrim");
   const drawer = root.querySelector(".edd-drawer");
+  const closeButton = drawer?.querySelector("button");
   if (!trigger || !scrim || !drawer) return { destroy() {} };
   const focusable = () =>
     [
@@ -35,10 +36,10 @@ export function mountEdgeDetailDrawer(root, { side = "right" } = {}) {
     drawer.hidden = true;
     scrim.hidden = true;
     unlock();
-    previousFocus?.focus();
+    (previousFocus?.isConnected ? previousFocus : trigger).focus();
   };
   const open = () => {
-    previousFocus = document.activeElement;
+    previousFocus = trigger;
     root.dataset.side = side;
     root.classList.add("is-open");
     drawer.hidden = false;
@@ -47,6 +48,7 @@ export function mountEdgeDetailDrawer(root, { side = "right" } = {}) {
     (focusable()[0] || drawer).focus();
   };
   const keydown = (event) => {
+    if (!root.classList.contains("is-open")) return;
     if (event.key === "Escape") {
       event.preventDefault();
       close();
@@ -71,7 +73,8 @@ export function mountEdgeDetailDrawer(root, { side = "right" } = {}) {
   };
   trigger.addEventListener("click", open);
   scrim.addEventListener("click", close);
-  drawer.addEventListener("keydown", keydown);
+  closeButton?.addEventListener("click", close);
+  document.addEventListener("keydown", keydown);
   drawer.hidden = true;
   scrim.hidden = true;
   return {
@@ -80,7 +83,8 @@ export function mountEdgeDetailDrawer(root, { side = "right" } = {}) {
     destroy() {
       trigger.removeEventListener("click", open);
       scrim.removeEventListener("click", close);
-      drawer.removeEventListener("keydown", keydown);
+      closeButton?.removeEventListener("click", close);
+      document.removeEventListener("keydown", keydown);
       if (root.classList.contains("is-open")) unlock();
     },
   };

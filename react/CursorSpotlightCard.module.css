@@ -1,4 +1,4 @@
-/* React port of vanilla/cursor-spotlight-card.css; the component renders .card with title and supporting text. Consumes --motion-fast/--ease-out-soft and JS-written --x/--y; reduced motion only removes transition time. */
+/* React port of vanilla/cursor-spotlight-card.css; the component renders .card with title and supporting text. Consumes --motion-fast/--ease-out-soft and JS-written --x/--y; reduced motion removes the hover lift and pointer tracking. */
 
 .card {
   --x: 50%;
@@ -20,4 +20,9 @@
 }
 .card:hover {
   transform: translateY(-5px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .card:hover {
+    transform: none;
+  }
 }

@@ -1,5 +1,5 @@
 /* Flip Dialog Expand — React port of vanilla/flip-dialog-expand.css and .js.
-   Expects a card trigger and native dialog, consumes --motion-base/--ease-out-expressive, writes --fde-x/--fde-y/--fde-scale-x/--fde-scale-y, and skips FLIP entirely under reduced motion. */
+   Expects a card trigger and native dialog, consumes --motion-base/--ease-out-expressive, writes --fde-x/--fde-y/--fde-scale-x/--fde-scale-y, and skips FLIP entirely under reduced motion. Native showModal() supplies document inertness; the local Tab loop keeps focus cycling stable across user agents. */
 import { useRef } from "react";
 import styles from "./FlipDialogExpand.module.css";
 export interface FlipDialogExpandProps {
@@ -14,6 +14,12 @@ export function FlipDialogExpand({
   const dialog = useRef<HTMLDialogElement>(null);
   const reduced = useRef(false);
   const origin = useRef<DOMRect | undefined>(undefined);
+  const focusable = () =>
+    Array.from(
+      dialog.current?.querySelectorAll<HTMLElement>(
+        "button, [href], input, textarea, select, [tabindex]:not([tabindex='-1'])",
+      ) || [],
+    ).filter((item) => !item.hasAttribute("disabled"));
   const close = () => {
     const node = dialog.current;
     const source = card.current;
@@ -81,6 +87,24 @@ export function FlipDialogExpand({
     }
     node.querySelector<HTMLButtonElement>("button")?.focus();
   };
+  const onKeyDown = (event: React.KeyboardEvent<HTMLDialogElement>) => {
+    if (event.key !== "Tab" || !dialog.current?.open) return;
+    const list = focusable();
+    if (!list.length) {
+      event.preventDefault();
+      dialog.current?.focus();
+      return;
+    }
+    const first = list[0];
+    const last = list[list.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  };
   return (
     <div className={styles.root}>
       <button ref={card} className={styles.card} type="button" onClick={open}>
@@ -92,6 +116,10 @@ export function FlipDialogExpand({
         onCancel={(event) => {
           event.preventDefault();
           close();
+        }}
+        onKeyDown={onKeyDown}
+        onClick={(event) => {
+          if (event.target === event.currentTarget) close();
         }}
       >
         <div className={styles.inner}>
