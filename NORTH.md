@@ -39,10 +39,20 @@ The live launch work order and host evidence are in `launch/gate-report.md`.
 
 ## Test it
 
-No automated test suite — this is static source, not an app. Verification is
-manual: `gallery/index.html` must open standalone with every effect running
-and no console errors, and `manifest.json` must list every effect actually on
-disk with working paths. Re-check both after adding or editing an effect.
+`npm run verify` covers the build and the package. The BEHAVIOUR of the
+overlays is covered by `scripts/host-proof.mjs` — see
+[`scripts/host-proof.README.md`](scripts/host-proof.README.md) for the exact
+commands. It drives a real browser at desktop and 390×844 dark and asserts what
+the components promise: the cursor tracks the pointer, and the dialog and
+drawer each trap focus, close on Escape, on their close control and on their
+scrim, and return focus to the element that opened them. It cannot run inside a
+crew sandbox — macOS denies Chromium the Mach bootstrap port — so it is
+host-only work for the foreman. 18 of 18 must pass before a launch.
+
+Beyond that: `gallery/index.html` must open standalone with every effect
+running and no console errors, and `manifest.json` must list every effect
+actually on disk with working paths. Re-check both after adding or editing an
+effect.
 
 ## Structure
 
@@ -115,22 +125,15 @@ was never identified, so its licence is unknown** — if it turns out to have
 been someone's published component, this effect is the one to re-derive or
 attribute, and the other eighteen are unaffected.
 
-## Published 2026-07-27 — and what had to be fixed first
+## Two lessons this repo paid for
 
-The 2026-07-26 note said the kit was built. Everything was present and nothing
-was publishable: all eighteen codex-built effects were **minified single-line
-CSS**, the React components were three or four lines each, and the per-effect
-READMEs were headings with a sentence under them. For a library whose entire
-premise is "copy the files you want into your project," minified source is a
-contradiction — 199 lines of React across nineteen components is the tell.
+**"Built" is a claim about the artefact, not the file count.** The kit was
+called done while every effect was minified single-line CSS and each React
+component was three lines. Open the files before writing the word done.
+(The 2026-07-27 repair is in git history.)
 
-Before publishing: the whole tree went through prettier, every effect source
-file got a header stating the markup it expects, the `tokens.css` variables it
-consumes and its `prefers-reduced-motion` behaviour, and every README was
-rewritten against the actual file — real custom properties and props by name,
-with the honest caveat. Roughly 200 lines became roughly 1,700. Verified in a
-browser afterwards: all nineteen effects mount from `gallery/index.html` with
-**no console errors**.
-
-The lesson is general and belongs here: **"built" is a claim about the artefact,
-not the file count.** Open the files before writing the word done.
+**A component that ships an overlay ships a focus contract.** The dialog went
+out relying on `showModal()` alone with no Tab boundary, and the drawer closed
+without returning focus — both invisible to a build gate and both found only by
+driving a real browser. Anything modal must trap Tab and Shift+Tab, keep focus
+off the page behind it, and return focus to its trigger on *every* close path.

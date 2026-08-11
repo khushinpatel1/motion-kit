@@ -29,15 +29,30 @@
   cursor: pointer;
 }
 .grm-item {
+  box-sizing: border-box;
   position: absolute;
-  left: 4px;
-  top: 4px;
+  left: 0;
+  top: 0;
+  width: 64px;
+  height: 64px;
+  padding: 4px;
+  border: 0;
+  background: transparent;
   opacity: 0;
   transform: translate(0, 0) scale(0.7);
   transition:
     transform var(--motion-base) var(--ease-out-expressive),
     opacity var(--motion-fast) var(--ease-out-soft);
   transition-delay: calc(var(--grm-index) * var(--motion-instant));
+}
+.grm-item::before {
+  position: absolute;
+  inset: 4px;
+  content: "";
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: #27224f;
+  pointer-events: none;
 }
 .grm-menu.is-open .grm-items {
   filter: url(#grm-goo-filter);

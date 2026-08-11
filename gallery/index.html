@@ -117,12 +117,21 @@
         grid-column: 1/-1;
       }
       .swatch {
+        position: relative;
         min-height: 150px;
         display: grid;
         place-items: end;
         padding: 18px;
         border-radius: 18px;
         background: linear-gradient(135deg, #0ea5e9, #7c3aed 50%, #f97316);
+      }
+      .swatch-label {
+        position: relative;
+        z-index: 1;
+        padding: 8px 10px;
+        border-radius: 10px;
+        color: #fff;
+        background: rgba(7, 10, 18, 0.86);
       }
       button {
         font: inherit;
@@ -275,10 +284,9 @@
       }
       body {
         color: var(--ink);
-        background:
-          radial-gradient(circle at 78% 2%, rgba(93, 190, 147, 0.1), transparent 28rem),
-          radial-gradient(circle at 8% 32%, rgba(240, 181, 141, 0.07), transparent 24rem),
-          var(--page);
+        position: relative;
+        isolation: isolate;
+        background: var(--page);
         font:
           15px/1.55 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
           "Segoe UI", sans-serif;
@@ -294,6 +302,16 @@
           linear-gradient(90deg, var(--line) 1px, transparent 1px);
         background-size: 72px 72px;
         mask-image: linear-gradient(to bottom, black, transparent 55%);
+      }
+      body::after {
+        position: fixed;
+        z-index: -1;
+        inset: 0;
+        pointer-events: none;
+        content: "";
+        background:
+          radial-gradient(circle at 78% 2%, rgba(93, 190, 147, 0.1), transparent 28rem),
+          radial-gradient(circle at 8% 32%, rgba(240, 181, 141, 0.07), transparent 24rem);
       }
       a {
         color: inherit;
@@ -388,6 +406,10 @@
         color: var(--muted);
         font-size: 13px;
         text-decoration: none;
+      }
+      .nav-links a {
+        padding-inline: 7px;
+        margin-inline: -7px;
       }
       .theme-toggle-icon {
         display: none;
@@ -706,6 +728,56 @@
       }
       .source-note {
         color: var(--quiet);
+      }
+      /* Text over fixed gradients, animated color, and image faces gets a
+         dark plate so contrast does not depend on the sampled frame. */
+      .fc-card::before,
+      .cs-card::before {
+        position: absolute;
+        z-index: 0;
+        inset: 0;
+        content: "";
+        border-radius: inherit;
+        background: rgba(7, 10, 18, 0.42);
+        pointer-events: none;
+      }
+      .fc-card > *,
+      .cs-card > * {
+        position: relative;
+        z-index: 1;
+      }
+      .ag-shell > h3,
+      .ag-shell > p,
+      .dt-inner,
+      .fig-label,
+      .fig-back-copy,
+      .lt-headline,
+      .lt-card .dt-inner {
+        padding: 10px 12px;
+        border-radius: 12px;
+        color: #fff;
+        background: rgba(7, 10, 18, 0.86);
+      }
+      .ag-shell > h3,
+      .ag-shell > p {
+        width: fit-content;
+      }
+      .dt-inner,
+      .lt-card .dt-inner {
+        margin: -10px -12px;
+      }
+      .fig-label {
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+      }
+      .fig-back-copy {
+        margin: 19px;
+        padding: 10px 12px;
+        width: auto;
+      }
+      .lt-headline {
+        padding-inline: 18px;
       }
       @media (max-width: 760px) {
         main {
@@ -1095,8 +1167,8 @@
           <!-- Split cinematic letters intentionally layer their two entrance states within this demo. -->
           <article class="demo wide" data-uilint-ignore-overlap>
             <h3 id="type-reveal">
-              <span class="ctr-line">Cinematic type</span
-              ><span class="ctr-line">arrives in layers.</span>
+              <span class="ctr-line">Cinematic type</span>
+              <span class="ctr-line">arrives in layers.</span>
             </h3>
             <details>
               <summary>View source</summary>
@@ -1159,7 +1231,7 @@
           </article>
           <!-- The fan deck intentionally stacks its three cards in one contained geometry before interaction spreads them apart. -->
           <article class="demo" data-uilint-ignore-overlap>
-            <div class="cfd-deck" style="--deck-count: 3"><article class="cfd-card" style="--i: 0" tabindex="0">North</article><article class="cfd-card" style="--i: 1" tabindex="0">Field</article><article class="cfd-card" style="--i: 2" tabindex="0">Notes</article></div>
+            <div class="cfd-deck" style="--deck-count: 3"><article class="cfd-card" data-uilint-ignore-overlap style="--i: 0" tabindex="0">North</article><article class="cfd-card" data-uilint-ignore-overlap style="--i: 1" tabindex="0">Field</article><article class="cfd-card" data-uilint-ignore-overlap style="--i: 2" tabindex="0">Notes</article></div>
             <details>
               <summary>View source</summary>
               <a href="../vanilla/card-fan-deck.css">vanilla CSS</a> · React:
@@ -1294,7 +1366,7 @@
           </article>
           <!-- Sticky cards intentionally overlap as a contained scroll stack; the layered cards are the effect being demonstrated. -->
           <article class="demo" data-uilint-ignore-overlap>
-            <div class="mini-scroll"><div class="ssc-stack" style="--ssc-scale-floor: .92; --ssc-pin-offset: 24px"><article class="ssc-card"><strong>First card</strong><p>Stay with the signal.</p></article><article class="ssc-card"><strong>Second card</strong><p>Let the next layer arrive.</p></article><article class="ssc-card"><strong>Third card</strong><p>Keep the ending light.</p></article></div></div>
+            <div class="mini-scroll"><div class="ssc-stack" style="--ssc-scale-floor: .92; --ssc-pin-offset: 24px"><article class="ssc-card"><strong data-uilint-ignore-overlap>First card</strong><p data-uilint-ignore-overlap>Stay with the signal.</p></article><article class="ssc-card"><strong data-uilint-ignore-overlap>Second card</strong><p data-uilint-ignore-overlap>Let the next layer arrive.</p></article><article class="ssc-card"><strong data-uilint-ignore-overlap>Third card</strong><p data-uilint-ignore-overlap>Keep the ending light.</p></article></div></div>
             <details>
               <summary>View source</summary>
               <a href="../vanilla/sticky-stack-cards.css">vanilla CSS</a> · React:
@@ -1319,7 +1391,7 @@
           <article class="demo wide">
             <div style="position: relative">
               <div class="ngo-overlay"></div>
-              <div class="swatch">Noise / grain overlay</div>
+              <div class="swatch"><span class="swatch-label">Noise / grain overlay</span></div>
             </div>
             <details>
               <summary>View source</summary>
