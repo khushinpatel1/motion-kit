@@ -185,6 +185,12 @@
   transform: rotateY(180deg);
   display: flex;
   align-items: flex-end;
+  visibility: hidden;
+}
+
+.fig-shell:hover .fig-back,
+.fig-shell:focus-within .fig-back {
+  visibility: visible;
 }
 
 .fig-back::before {
@@ -262,12 +268,14 @@
   background: rgba(2, 3, 6, 0.82);
   backdrop-filter: blur(22px);
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
   transition: opacity var(--motion-base) ease;
 }
 
 .fig-modal.is-open {
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
 }
 

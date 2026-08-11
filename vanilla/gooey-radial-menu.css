@@ -39,6 +39,7 @@
   border: 0;
   background: transparent;
   opacity: 0;
+  visibility: hidden;
   transform: translate(0, 0) scale(0.7);
   transition:
     transform var(--motion-base) var(--ease-out-expressive),
@@ -60,6 +61,7 @@
 }
 .grm-menu.is-open .grm-item {
   opacity: 1;
+  visibility: visible;
   transform: translate(var(--grm-x), var(--grm-y)) scale(1);
 }
 .grm-menu:not(.is-open) .grm-items {

@@ -4,6 +4,7 @@
    Under prefers-reduced-motion, every item is visible immediately with no transition. */
 
 .ssr-item {
+  visibility: hidden;
   opacity: 0;
   transform: translateY(22px);
   transition:
@@ -12,11 +13,13 @@
   transition-delay: var(--ssr-delay, 0);
 }
 .ssr-item.is-visible {
+  visibility: visible;
   opacity: 1;
   transform: none;
 }
 @media (prefers-reduced-motion: reduce) {
   .ssr-item {
+    visibility: visible;
     opacity: 1;
     transform: none;
     transition: none;

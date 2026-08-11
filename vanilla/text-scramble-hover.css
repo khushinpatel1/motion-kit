@@ -5,7 +5,7 @@
 
 .tsh-root {
   position: relative;
-  color: var(--tsh-color, #fff);
+  color: var(--tsh-color, var(--ink, #fff));
   cursor: default;
 }
 .tsh-label {

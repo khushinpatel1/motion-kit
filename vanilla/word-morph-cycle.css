@@ -21,6 +21,7 @@
 }
 .wmc-word {
   position: absolute;
+  visibility: hidden;
   inset: 0 auto auto 0;
   white-space: nowrap;
   opacity: 0;
@@ -32,11 +33,13 @@
     transform var(--motion-base) var(--ease-out-expressive);
 }
 .wmc-word.is-active {
+  visibility: visible;
   opacity: 1;
   filter: blur(0);
   transform: translateY(0);
 }
 .wmc-word.is-outgoing {
+  visibility: visible;
   opacity: 0;
   filter: blur(4px);
   transform: translateY(-0.35em);

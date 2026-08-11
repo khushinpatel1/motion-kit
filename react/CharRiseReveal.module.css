@@ -7,6 +7,7 @@
 }
 .char {
   display: inline-block;
+  visibility: hidden;
   opacity: 0;
   transform: translateY(0.7em);
   transition:
@@ -15,12 +16,14 @@
   transition-delay: calc(var(--motion-instant) * var(--crr-index));
 }
 .visible {
+  visibility: visible;
   opacity: 1;
   transform: translateY(0);
 }
 @media (prefers-reduced-motion: reduce) {
   .char,
   .visible {
+    visibility: visible;
     opacity: 1;
     transform: none;
     transition: none;

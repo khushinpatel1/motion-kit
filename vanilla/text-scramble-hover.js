@@ -22,6 +22,7 @@ export function mountTextScrambleHover(
   // The label is intentionally present for assistive technology. uilint's
   // geometry scan cannot infer that this 1px clipped copy is non-visual.
   label.setAttribute("data-uilint-ignore-overlap", "");
+  label.setAttribute("data-uilint-ignore-contrast", "");
   label.textContent = text;
   visual.className = "tsh-visual";
   visual.setAttribute("aria-hidden", "true");

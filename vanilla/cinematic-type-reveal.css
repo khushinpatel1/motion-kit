@@ -9,6 +9,7 @@
 }
 .ctr-line > span {
   display: inline-block;
+  visibility: hidden;
   transform: translateY(110%);
   opacity: 0;
   transition:
@@ -17,6 +18,7 @@
   transition-delay: var(--ctr-delay, 0);
 }
 .ctr-line.is-visible > span {
+  visibility: visible;
   transform: translateY(0);
   opacity: 1;
 }

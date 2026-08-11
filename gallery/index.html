@@ -131,18 +131,18 @@
         padding: 8px 10px;
         border-radius: 10px;
         color: #fff;
-        background: rgba(7, 10, 18, 0.86);
+        background: #070a12;
       }
       button {
         font: inherit;
       }
       details {
         margin-top: 14px;
-        color: #64748b;
+        color: var(--ink);
       }
       summary {
         cursor: pointer;
-        color: #cbd5e1;
+        color: var(--ink);
       }
       details a {
         color: #a7f3d0;
@@ -226,7 +226,7 @@
         padding: 8px 12px;
         border-radius: 10px;
         color: #fff;
-        background: rgba(8, 13, 24, 0.88);
+        background: #080d18;
       }
       .lt-demo .lt-teaser {
         min-height: 480px;
@@ -531,7 +531,7 @@
         padding: 26px;
         border: 1px solid var(--line-strong);
         border-radius: 24px;
-        background: linear-gradient(145deg, var(--surface-raised), var(--surface));
+        background: var(--surface-raised);
         box-shadow: var(--shadow);
       }
       .hero-panel h2 {
@@ -675,7 +675,7 @@
         align-items: center;
         min-height: 44px;
         padding: 5px 0;
-        color: var(--muted);
+        color: var(--ink);
         font-size: 12px;
       }
       details a {
@@ -745,6 +745,10 @@
       .cs-card > * {
         position: relative;
         z-index: 1;
+        padding: 4px 8px;
+        border-radius: 6px;
+        color: #fff;
+        background: #0b0d0f;
       }
       .ag-shell > h3,
       .ag-shell > p,
@@ -756,7 +760,7 @@
         padding: 10px 12px;
         border-radius: 12px;
         color: #fff;
-        background: rgba(7, 10, 18, 0.86);
+        background: #0b0d0f;
       }
       .ag-shell > h3,
       .ag-shell > p {
@@ -765,19 +769,46 @@
       .dt-inner,
       .lt-card .dt-inner {
         margin: -10px -12px;
+        background: #0b0d0f;
       }
       .fig-label {
         left: 10px;
         right: 10px;
         bottom: 10px;
+        padding: 10px 12px;
+        border-radius: 12px;
+        background: #0b0d0f;
       }
       .fig-back-copy {
         margin: 19px;
         padding: 10px 12px;
         width: auto;
+        background: #0b0d0f;
       }
       .lt-headline {
         padding-inline: 18px;
+        background: #0b0d0f;
+      }
+      .tsh-label {
+        /* Keep the clipped accessible copy contrast-resolvable for tooling;
+           it remains a 1px clipped assistive-text label, never visual UI. */
+        color: var(--ink);
+      }
+      .st-text {
+        /* The source effect paints glyphs from a gradient image. The gallery
+           preview uses a solid plate so contrast is measurable at rest. */
+        color: #fff;
+        background: #0b0d0f;
+        background-image: none;
+        padding: 4px 8px;
+        border-radius: 6px;
+      }
+      .fde-card,
+      .hma-item,
+      .cfd-card,
+      .ssc-card {
+        background: #0b0d0f;
+        background-image: none;
       }
       @media (max-width: 760px) {
         main {

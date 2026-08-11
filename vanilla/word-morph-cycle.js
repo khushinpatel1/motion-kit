@@ -20,6 +20,9 @@ export function mountWordMorphCycle(
   const second = document.createElement("span");
   first.className = "wmc-word is-active";
   second.className = "wmc-word";
+  // The two word layers intentionally share one box while they morph.
+  first.setAttribute("data-uilint-ignore-overlap", "");
+  second.setAttribute("data-uilint-ignore-overlap", "");
   shell.append(measure, first, second);
   let index = 0;
   let timer = 0;

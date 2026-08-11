@@ -6,6 +6,7 @@
 }
 .line > span {
   display: inline-block;
+  visibility: hidden;
   transform: translateY(110%);
   opacity: 0;
   transition:
@@ -14,11 +15,13 @@
   transition-delay: var(--delay);
 }
 .visible > span {
+  visibility: visible;
   transform: none;
   opacity: 1;
 }
 @media (prefers-reduced-motion: reduce) {
   .line > span {
+    visibility: visible;
     transform: none;
     opacity: 1;
     transition: none;
