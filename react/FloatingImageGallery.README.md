@@ -1,8 +1,9 @@
 # FloatingImageGallery (React)
 
-Same behavior as the vanilla version: cards float at rest, grow 25% and take
-center stage on hover, flip to reveal a caption, and open full screen on click.
-This is a straight React port of `vanilla/floating-image-gallery.css` and
+Same behavior as the vanilla version: uniform grid cells use generous gutters,
+one hovered cell grows 25% and rises above its neighbours, and click or Enter
+opens the image full screen. Arrow keys navigate with roving tabindex. This is
+a straight React port of `vanilla/floating-image-gallery.css` and
 `vanilla/floating-image-gallery.js`; its CSS Modules names are scoped versions
 of the same structure.
 
@@ -25,14 +26,13 @@ Props are `items` (required, non-empty), each with `title`, `src`, optional
 `--fig-columns` (set by `columns`), `--fig-gap` (default `64px`),
 `--fig-hover-scale` (default `1.25`, sensible range `1–1.4`), and
 `--fig-hover-lift` (default `-56px`, roughly `-24px` to `-80px`). Timing comes
-from `--motion-ambient`, `--motion-slow`, `--motion-base`, and shared easing
-tokens. The `--fig-idle-*` values are generated internally per item.
+from `--motion-base` and shared easing tokens. Reduced motion removes the
+scale/lift transition while preserving keyboard navigation and focus return.
 
 ## Notes
 
-This is a high-cost, layered effect: 3D transforms, blur/glow, lazy images,
-`:has()` sibling dimming, and a fullscreen modal. It is the wrong choice for a
-dense thumbnail list or a page that needs instant scanning. The cards and modal
-use real buttons and image alts, but you still need meaningful `alt` text and
-descriptions; focus trapping is not implemented. Reduced motion stops the idle
-animation and collapses tokenized transitions.
+This is a layered effect with 3D transforms, lazy images, and a fullscreen
+modal. It is the wrong choice for a dense thumbnail list or a page that needs
+instant scanning. The cards and modal use real buttons, image alts, focus
+trapping, and focus return; meaningful `alt` text and descriptions are still
+recommended.

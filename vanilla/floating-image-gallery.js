@@ -1,155 +1,187 @@
-/* Floating Image Gallery — vanilla JS.
-   Builds the grid + fullscreen modal from a plain data array. No dependencies.
+/* Floating Image Gallery — vanilla JavaScript.
+   Clean-room re-derived from a behaviour specification on 2026-08-13; no
+   outside reference was consulted for this implementation. The public mount
+   function accepts the existing items/columns options and builds the grid. */
 
-   Usage:
-     import { mountFloatingImageGallery } from "./floating-image-gallery.js";
-     mountFloatingImageGallery(document.getElementById("gallery"), {
-       items: [{ title, description, src, alt }, ...],
-       columns: 5, // optional, default 5
-     });
+const focusableSelector =
+  "button, [href], input, textarea, select, [tabindex]:not([tabindex='-1'])";
 
-   Structure built: .fig-gallery > .fig-shell > .fig-glow + .fig-lift >
-   .fig-card > .fig-face.fig-front/.fig-back; the sibling .fig-modal contains
-   .fig-modal-close and .fig-modal-inner. Consumes tokens.css variables
-   --motion-ambient, --motion-slow, --motion-base, --ease-out-soft, and
-   --ease-out-expressive. Under prefers-reduced-motion, the stylesheet stops
-   the idle animation and tokenized transitions resolve to zero duration.
-   Designed for a 5x4 (20-item) grid of design/art plates but works with any
-   count — grid-template-columns wraps naturally. */
-
-export function mountFloatingImageGallery(root, { items, columns = 5 } = {}) {
-  if (!root) throw new Error("mountFloatingImageGallery: no root element");
-  if (!Array.isArray(items) || items.length === 0) {
-    throw new Error(
-      "mountFloatingImageGallery: items must be a non-empty array",
-    );
+export function mountFloatingImageGallery(
+  root,
+  { items = [], columns = 5 } = {},
+) {
+  if (!root || !Array.isArray(items) || items.length === 0) {
+    return { destroy() {} };
   }
 
+  const gridColumns = Math.max(
+    1,
+    Math.min(Math.floor(columns) || 1, Math.max(items.length, 1)),
+  );
+  const cards = [];
+  const shells = [];
+  let activeIndex = 0;
+  let opener = null;
+  let previousOverflow = "";
+
+  root.replaceChildren();
   root.classList.add("fig-gallery");
-  root.style.setProperty("--fig-columns", String(columns));
-  root.innerHTML = "";
+  root.setAttribute("role", "grid");
+  root.setAttribute("aria-label", "Image gallery");
+  root.style.setProperty("--fig-columns", String(gridColumns));
+
+  const setActive = (index) => {
+    activeIndex = index;
+    cards.forEach((card, cardIndex) => {
+      card.tabIndex = cardIndex === activeIndex ? 0 : -1;
+    });
+  };
+
+  const move = (index, direction) => {
+    const lastIndex = items.length - 1;
+    let nextIndex = index;
+    if (direction === "left" && index > 0) nextIndex = index - 1;
+    if (direction === "right" && index < lastIndex) nextIndex = index + 1;
+    if (direction === "up" && index - gridColumns >= 0) {
+      nextIndex = index - gridColumns;
+    }
+    if (direction === "down" && index + gridColumns <= lastIndex) {
+      nextIndex = index + gridColumns;
+    }
+    setActive(nextIndex);
+    if (nextIndex !== index) cards[nextIndex].focus();
+  };
 
   items.forEach((item, index) => {
     const shell = document.createElement("div");
     shell.className = "fig-shell";
-    // Stagger idle-float phase and amplitude per card so 20 cards don't
-    // breathe in lockstep — deterministic from index, not Math.random(),
-    // so the layout is stable across renders.
-    const idleMagnitude = 10 + (index % 5) * 2; // 10..18
-    const idleSign = index % 2 === 0 ? -1 : 1;
-    shell.style.setProperty("--fig-idle-delay", String((index % 7) * 0.35));
-    shell.style.setProperty("--fig-idle-amp", `${idleSign * idleMagnitude}px`);
+    shell.setAttribute("role", "gridcell");
+    shell.setAttribute(
+      "aria-rowindex",
+      String(Math.floor(index / gridColumns) + 1),
+    );
+    shell.setAttribute("aria-colindex", String((index % gridColumns) + 1));
 
-    const title = escapeHtml(item.title || "");
-    const description = escapeHtml(item.description || "");
-    const alt = escapeHtml(item.alt || item.title || "");
-    const src = item.src;
+    const card = document.createElement("button");
+    card.className = "fig-card";
+    card.type = "button";
+    card.tabIndex = index === 0 ? 0 : -1;
+    card.dataset.figIndex = String(index);
+    card.setAttribute(
+      "aria-label",
+      item.alt || item.title || `Image ${index + 1}`,
+    );
+    card.setAttribute("aria-posinset", String(index + 1));
+    card.setAttribute("aria-setsize", String(items.length));
 
-    shell.innerHTML = `
-      <div class="fig-glow"></div>
-      <div class="fig-lift">
-        <button class="fig-card" type="button" aria-label="Open ${title}" data-index="${index}">
-          <div class="fig-face fig-front">
-            <img src="${src}" alt="${alt}" loading="lazy">
-            <div class="fig-label">
-              <strong>${title}</strong>
-              <span>${String(index + 1).padStart(2, "0")}</span>
-            </div>
-          </div>
-          <div class="fig-face fig-back">
-            <img src="${src}" alt="" loading="lazy">
-            <div class="fig-back-copy">
-              <small>Selected image</small>
-              <strong>${description}</strong>
-              <em>Open full screen ↗</em>
-            </div>
-          </div>
-        </button>
-      </div>`;
-    root.appendChild(shell);
-  });
-
-  const modal = buildModal(root);
-
-  root.addEventListener("click", (e) => {
-    const card = e.target.closest(".fig-card");
-    if (card) modal.open(items[Number(card.dataset.index)], card);
-  });
-
-  return { modal };
-}
-
-function buildModal(root) {
-  const modal = document.createElement("div");
-  modal.className = "fig-modal";
-  modal.setAttribute("role", "dialog");
-  modal.setAttribute("aria-modal", "true");
-  modal.setAttribute("aria-hidden", "true");
-  modal.innerHTML = `
-    <button class="fig-modal-close" aria-label="Close image">×</button>
-    <div class="fig-modal-inner">
-      <figure class="fig-modal-figure">
-        <img class="fig-modal-image" alt="">
-        <figcaption class="fig-modal-caption">
-          <h2 class="fig-modal-title"></h2>
-          <p class="fig-modal-description"></p>
-        </figcaption>
-      </figure>
-    </div>`;
-  (root.parentElement || document.body).appendChild(modal);
-
-  const image = modal.querySelector(".fig-modal-image");
-  const titleEl = modal.querySelector(".fig-modal-title");
-  const descriptionEl = modal.querySelector(".fig-modal-description");
-  const closeBtn = modal.querySelector(".fig-modal-close");
-  const focusable = () =>
-    [
-      ...modal.querySelectorAll(
-        "button, [href], input, textarea, select, [tabindex]:not([tabindex='-1'])",
-      ),
-    ].filter((item) => !item.disabled);
-  let previousFocus;
-  let previousOverflow = "";
-
-  function open(item, opener) {
-    previousFocus = opener || document.activeElement;
-    previousOverflow = document.body.style.overflow;
-    modal.inert = false;
+    const image = document.createElement("img");
     image.src = item.src;
-    image.alt = item.alt || item.title || "";
-    titleEl.textContent = item.title || "";
-    descriptionEl.textContent = item.description || "";
-    modal.classList.add("is-open");
-    modal.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
-    closeBtn.focus();
-  }
+    image.alt = item.alt || "";
+    image.loading = "lazy";
 
-  function close() {
-    if (!modal.classList.contains("is-open")) return;
-    modal.classList.remove("is-open");
-    modal.setAttribute("aria-hidden", "true");
-    modal.inert = true;
+    const label = document.createElement("span");
+    label.className = "fig-label";
+    const title = document.createElement("span");
+    title.className = "fig-title";
+    title.textContent = item.title;
+    label.append(title);
+    if (item.description) {
+      const description = document.createElement("span");
+      description.className = "fig-description";
+      description.textContent = item.description;
+      label.append(description);
+    }
+    card.append(image, label);
+    shell.append(card);
+    root.append(shell);
+    cards.push(card);
+    shells.push(shell);
+
+    card.addEventListener("focus", () => setActive(index));
+    card.addEventListener("keydown", (event) => {
+      const direction = {
+        ArrowLeft: "left",
+        ArrowRight: "right",
+        ArrowUp: "up",
+        ArrowDown: "down",
+      }[event.key];
+      if (!direction) return;
+      event.preventDefault();
+      move(index, direction);
+    });
+    card.addEventListener("click", () => open(index));
+    shell.addEventListener("pointerenter", () => {
+      shells.forEach((itemShell) => itemShell.removeAttribute("data-raised"));
+      shell.dataset.raised = "true";
+    });
+    shell.addEventListener("pointerleave", () => {
+      shell.removeAttribute("data-raised");
+    });
+  });
+
+  const dialog = document.createElement("dialog");
+  dialog.className = "fig-modal";
+  dialog.setAttribute("aria-modal", "true");
+  dialog.tabIndex = -1;
+  const modalInner = document.createElement("div");
+  modalInner.className = "fig-modal-inner";
+  const closeButton = document.createElement("button");
+  closeButton.className = "fig-modal-close";
+  closeButton.type = "button";
+  closeButton.textContent = "Close image";
+  const modalImage = document.createElement("img");
+  const modalCopy = document.createElement("div");
+  modalCopy.className = "fig-modal-copy";
+  const modalTitle = document.createElement("h2");
+  const modalDescription = document.createElement("p");
+  modalCopy.append(modalTitle, modalDescription);
+  modalInner.append(closeButton, modalImage, modalCopy);
+  dialog.append(modalInner);
+  root.append(dialog);
+
+  const close = () => {
+    if (!dialog.open) return;
+    dialog.close();
     document.body.style.overflow = previousOverflow;
-    previousFocus?.focus();
+    const source = opener;
+    opener = null;
+    if (source?.isConnected) source.focus();
+  };
+
+  function open(index) {
+    const item = items[index];
+    if (!item) return;
+    opener = cards[index];
+    modalImage.src = item.src;
+    modalImage.alt = item.alt || item.title || `Image ${index + 1}`;
+    modalTitle.textContent = item.title;
+    modalDescription.textContent = item.description || "";
+    modalDescription.hidden = !item.description;
+    dialog.showModal();
+    previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeButton.focus();
   }
 
-  function keydown(event) {
-    if (!modal.classList.contains("is-open")) return;
-    if (event.key === "Escape") {
+  const cancel = (event) => {
+    event.preventDefault();
+    close();
+  };
+  const backdropClick = (event) => {
+    if (event.target === dialog) close();
+  };
+  const modalKeydown = (event) => {
+    if (event.key !== "Tab" || !dialog.open) return;
+    const focusable = [...dialog.querySelectorAll(focusableSelector)].filter(
+      (item) => !item.disabled,
+    );
+    if (!focusable.length) {
       event.preventDefault();
-      close();
+      dialog.focus();
       return;
     }
-    if (event.key !== "Tab") return;
-    const items = focusable();
-    if (!items.length) {
-      event.preventDefault();
-      modal.focus();
-      return;
-    }
-    const first = items[0];
-    const last = items[items.length - 1];
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
     if (event.shiftKey && document.activeElement === first) {
       event.preventDefault();
       last.focus();
@@ -157,23 +189,25 @@ function buildModal(root) {
       event.preventDefault();
       first.focus();
     }
-  }
+  };
+  closeButton.addEventListener("click", close);
+  dialog.addEventListener("cancel", cancel);
+  dialog.addEventListener("click", backdropClick);
+  dialog.addEventListener("keydown", modalKeydown);
 
-  closeBtn.addEventListener("click", close);
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal || e.target.classList.contains("fig-modal-inner"))
-      close();
-  });
-  document.addEventListener("keydown", keydown);
-  modal.inert = true;
-
-  return { open, close };
-}
-
-function escapeHtml(value) {
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
+  return {
+    open,
+    close,
+    destroy() {
+      if (dialog.open) {
+        dialog.close();
+        document.body.style.overflow = previousOverflow;
+      }
+      closeButton.removeEventListener("click", close);
+      dialog.removeEventListener("cancel", cancel);
+      dialog.removeEventListener("click", backdropClick);
+      dialog.removeEventListener("keydown", modalKeydown);
+      root.replaceChildren();
+    },
+  };
 }

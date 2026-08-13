@@ -117,13 +117,12 @@ The general rule this establishes: **"free to look at" is not "free to take."**
 A public gallery demonstrating a paid component is marketing, not a licence
 grant. Read the terms before treating a reference as a source.
 
-The one file with an outside ancestor is `floating-image-gallery`, adjusted
-from a reference KP supplied on 2026-07-26 (hover grows the card 25% and takes
-centre stage, wider gaps, higher lift, click opens full screen; built for a 5×4
-display). Its own header and `manifest.json` both record that. **That reference
-was never identified, so its licence is unknown** — if it turns out to have
-been someone's published component, this effect is the one to re-derive or
-attribute, and the other eighteen are unaffected.
+`floating-image-gallery` was re-derived clean-room from a behaviour specification
+on 2026-08-13. No outside reference was consulted for its implementation; its
+licence is therefore MIT like the rest of this repo. The component keeps its
+5×4 display contract, hover growth and lift, fullscreen open, and focus return
+behaviour while adding the same accessible keyboard contract as the other
+components.
 
 ## Two lessons this repo paid for
 

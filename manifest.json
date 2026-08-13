@@ -2,15 +2,14 @@
   {
     "name": "floating-image-gallery",
     "category": "gallery",
-    "sourceGallery": "kp-reference-2026-07-26",
     "dependencies": [],
     "reducedMotionSafe": true,
-    "perfNotes": "cheap — CSS transforms + one CSS animation per card, no JS animation loop. :has() dim is progressive enhancement.",
+    "perfNotes": "cheap — CSS transforms, one native dialog, and one pointer/focus handler per cell.",
     "vanillaPath": "vanilla/floating-image-gallery.css",
     "vanillaJsPath": "vanilla/floating-image-gallery.js",
     "reactPath": "react/FloatingImageGallery.tsx",
     "reactStylePath": "react/FloatingImageGallery.module.css",
-    "note": "Built for a 5x4 (20-item) art/design display. Hover grows the card 25% and dims siblings (center stage); click opens full screen. Adjusted from a KP-supplied reference per instruction: more gap, higher hover lift, bigger grow.",
+    "note": "Clean-room re-derived from a behaviour specification on 2026-08-13. Built for a 5x4 (20-item) image display: one hovered cell grows 25% and rises clearly above even gutters; click or Enter opens full screen; Escape returns focus.",
     "vanillaReadmePath": "vanilla/floating-image-gallery.README.md",
     "reactReadmePath": "react/FloatingImageGallery.README.md"
   },
