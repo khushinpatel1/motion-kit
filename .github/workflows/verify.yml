@@ -1,9 +1,13 @@
 name: Verify
 
+# The one pipeline: CI runs on the commit that changed something, not on a
+# nightly timer. This repo is frozen in place (public, no further work),
+# so in practice this now costs nothing until someone pushes.
+
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
-  schedule:
-    - cron: "17 3 * * *"
 
 permissions:
   contents: read
