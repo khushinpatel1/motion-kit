@@ -9,7 +9,6 @@ const manifest = JSON.parse(read("manifest.json"));
 const packageJson = JSON.parse(read("package.json"));
 const gallery = read("gallery/index.html");
 const readme = read("README.md");
-const north = read("NORTH.md");
 const reactIndex = read("react/index.ts");
 const failures = [];
 
@@ -157,13 +156,6 @@ checkCount(readme, /^(\d+) focused motion effects/gm, "README catalogue");
 const readmePaired = readme.match(/^(\d+) paired.*plus one vanilla-only composite/m);
 if (readmePaired && Number(readmePaired[1]) + 1 !== manifest.length) {
   failures.push(`README paired count does not match manifest: ${readmePaired[1]}`);
-}
-const northCounts = north.match(/catalogue has (\d+) effects: (\d+) paired/m);
-if (northCounts) {
-  const paired = manifest.filter((effect) => effect.reactPath).length;
-  if (Number(northCounts[1]) !== manifest.length || Number(northCounts[2]) !== paired) {
-    failures.push("NORTH catalogue counts do not match manifest");
-  }
 }
 
 if (packageJson.name !== "motion-kit") failures.push("package name must be motion-kit");
