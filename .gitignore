@@ -10,3 +10,7 @@
 node_modules/
 dist/
 motion-kit-*.tgz
+
+# Generated host-verification screenshots — 24 MB of regenerable proof output.
+# The run that produces them is the artifact; the PNGs are its console.
+launch/host-proof/
