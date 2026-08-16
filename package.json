@@ -61,7 +61,6 @@
     "check:syntax": "node scripts/check-syntax.mjs",
     "check:package": "node scripts/check-package.mjs",
     "check:consumer": "node scripts/check-consumer.mjs",
-    "docs:check": "node scripts/doc-gc.mjs --check",
     "verify": "npm run build && npm run typecheck && npm run check:library && npm run check:runtime && npm run check:syntax && npm run check:package && npm run check:consumer",
     "prepare": "npm run build",
     "prepack": "npm run build"
