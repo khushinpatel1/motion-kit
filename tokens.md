@@ -36,4 +36,4 @@ collapse to their end state instantly. It is **not** sufficient for anything
 structural (a particle system, a canvas loop, a JS `requestAnimationFrame`
 tick) — those must check the media query directly in JS and skip spawning
 work, not just rely on a zeroed CSS variable. Each effect's README says which
-case it is.
+case it is. This rule is enforced by `npm run check:reduced-motion`.
